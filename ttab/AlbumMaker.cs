@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Serialization;
@@ -14,8 +16,10 @@ namespace ttab
     /// <summary>
     /// Creates audio album collections for the TipToi pen
     /// </summary>
-    class AlbumMaker
+    public class AlbumMaker
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         long maxGmeSize = 800 * 1024 * 1024;
 
         static AlbumMaker()
@@ -26,8 +30,23 @@ namespace ttab
                 @"tools\mpg123-1.22.0-x86-64"
                 })
             {
-                PathUtil.AddToPath(Path.Combine(PathUtil.GetDirectory(), p));
+                var d = Path.Combine(PathUtil.GetDirectory(), p);
+                if (!Directory.Exists(d))
+                {
+                    throw new System.IO.FileNotFoundException(d);
+                }
+                PathUtil.AddToPath(d);
             }
+        }
+
+        public static string GetDefaultDataDirectory()
+        {
+            var a = Assembly.GetExecutingAssembly();
+
+            return Path.Combine(
+                System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                a.GetCustomAttribute<AssemblyCompanyAttribute>().Company,
+                a.GetCustomAttribute<AssemblyProductAttribute>().Product);
         }
 
         public AlbumMaker(string directory)
@@ -35,6 +54,7 @@ namespace ttab
             this.RootDirectory = directory;
             PathUtil.EnsureDirectoryExists(MediaDir);
             this.OutputDir = RootDirectory;
+            PathUtil.EnsureDirectoryExists(TempDir);
 
             var binDir = PathUtil.GetDirectory();
             PathUtil.CopyIfNewer(Path.Combine(binDir, "media"), MediaDir);
@@ -72,18 +92,20 @@ namespace ttab
 
         public static void Mp3ToOgg(string mp3SourceFile, string oggDestinationFile)
         {
-            Trace.TraceInformation("Convert {0} to {1}", mp3SourceFile, oggDestinationFile);
-            var ext = Path.GetExtension(mp3SourceFile);
-            if (ext.Equals(mp3Extension, StringComparison.InvariantCultureIgnoreCase))
+            using (new LogScope(log, "Convert {0} to {1}", mp3SourceFile, oggDestinationFile))
             {
-                SubProcess.Cmd(String.Format("mpg123 -w - {0} | oggenc - -o{1} --resample 22500 -downmix", mp3SourceFile.Quote(), oggDestinationFile.Quote()));
-            }
-            else if (ext.Equals(oggExtension, StringComparison.InvariantCultureIgnoreCase))
-            {
-                SubProcess.Cmd(String.Format("oggdec -o{1} {0} & oggenc {1} -o{2} --resample 22500 -downmix & del {1}", 
-                    CygPath(mp3SourceFile).Quote(), 
-                    (oggDestinationFile + ".wav").Quote(),
-                    oggDestinationFile.Quote()));
+                var ext = Path.GetExtension(mp3SourceFile);
+                if (ext.Equals(mp3Extension, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    SubProcess.Cmd(String.Format("mpg123 -w - {0} | oggenc2 - -o{1} --resample 22500 -downmix", mp3SourceFile.Quote(), oggDestinationFile.Quote()));
+                }
+                else if (ext.Equals(oggExtension, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    SubProcess.Cmd(String.Format("oggdec -o{1} {0} & oggenc2 {1} -o{2} --resample 22500 -downmix & del {1}",
+                        CygPath(mp3SourceFile).Quote(),
+                        (oggDestinationFile + ".wav").Quote(),
+                        oggDestinationFile.Quote()));
+                }
             }
         }
 
@@ -120,12 +142,12 @@ namespace ttab
             return String.Join(String.Empty, hash.Select(_ => _.ToString("X2")));
         }
 
-        public void Create(AlbumCollection collection)
+        public void Create(CancellationToken cancel, AlbumCollection collection)
         {
             var meta = new AlbumCollectionMeta
             {
                 AlbumCollection = collection,
-                Name = collection.Title,
+                Name = PathUtil.GetValidFileName(collection.Title),
                 ProductId = GetNextProductId(),
             };
 
@@ -137,53 +159,75 @@ namespace ttab
                 meta.ProductId = oldMeta.ProductId;
             }
 
-            // assign oids
-            meta.StopOid = meta.StartOid++;
-            foreach (var i in collection.Album.SelectMany(_ => _.Tracks))
+            using (new LogScope(log, "Convert {0} (ProductId={1})", meta.Name, meta.ProductId))
             {
-                var oggFile = ProvideOggFile(i);
-                meta.TrackInfo[i] = new TrackInfo
-                {
-                    Oid = meta.StartOid++,
-                    Id = Path.GetFileNameWithoutExtension(oggFile),
-                    Length = new FileInfo(oggFile).Length
-                };
-            }
 
-            // check if size > 800 MB and split into parts if required
-            var parts = collection.Album.Partition(_ => _.Tracks.Sum(track => meta.TrackInfo[track].Length), maxGmeSize).ToList();
-            if (parts.Count > 1)
-            {
-                int partIndex = 1;
-                foreach (var part in parts)
-                {
-                    var partcollection = new AlbumCollection
+                // convert audio files to ogg
+                var tracks = collection.Album.SelectMany(_ => _.Tracks).ToList();
+                Parallel.ForEach(
+                    tracks,
+                    new ParallelOptions { CancellationToken = cancel, MaxDegreeOfParallelism = System.Environment.ProcessorCount },
+                    i =>
                     {
-                        Album = part.ToArray(),
-                        Title = String.Format("{0} - Part {1} of {2}", collection.Title, partIndex, parts.Count)
+                        var oggFile = ProvideOggFile(i.Path);
+                    });
+
+                cancel.ThrowIfCancellationRequested();
+
+                // assign oids
+                meta.StopOid = meta.StartOid++;
+                foreach (var i in tracks)
+                {
+                    var oggFile = ProvideOggFile(i.Path);
+                    meta.TrackInfo[i.Path] = new TrackInfo
+                    {
+                        Oid = meta.StartOid++,
+                        Id = Path.GetFileNameWithoutExtension(oggFile),
+                        Length = new FileInfo(oggFile).Length
                     };
-                    Create(partcollection);
-                    ++partIndex;
                 }
-                return;
+
+                cancel.ThrowIfCancellationRequested();
+
+                // check if size > 800 MB and split into parts if required
+                var parts = collection.Album.Partition(_ => _.Tracks.Sum(track => meta.TrackInfo[track.Path].Length), maxGmeSize).ToList();
+                if (parts.Count > 1)
+                {
+                    int partIndex = 1;
+                    foreach (var part in parts)
+                    {
+                        var partcollection = new AlbumCollection
+                        {
+                            Album = part.ToArray(),
+                            Title = String.Format("{0} - Part {1} of {2}", collection.Title, partIndex, parts.Count)
+                        };
+                        Create(cancel, partcollection);
+                        ++partIndex;
+                    }
+                    return;
+                }
+
+                cancel.ThrowIfCancellationRequested();
+
+                PathUtil.WriteXml(metaXml, meta);
+
+                // write yaml
+                WriteYaml(meta);
+
+                // write html
+                WriteHtml(meta);
+
+                // open html
+                Process.Start(meta.HtmlFile);
+
+                cancel.ThrowIfCancellationRequested();
+
+                // create gme
+                Assemble(meta);
+
+                // copy gme file to stick
+                CopyToStick(cancel, meta);
             }
-
-            PathUtil.WriteXml(metaXml, meta);
-            
-            // write yaml
-            WriteYaml(meta);
-
-            // write html
-            WriteHtml(meta);
-
-            // open html
-            Process.Start(meta.HtmlFile);
-
-            // create gme
-            Assemble(meta);
-
-            // copy gme file to stick
-            CopyToStick(meta);
         }
 
         private void Assemble(AlbumCollectionMeta meta)
@@ -197,6 +241,8 @@ namespace ttab
         {
             // create html page
             meta.HtmlFile = Path.Combine(OutputDir, meta.Name + ".html");
+            log.InfoFormat("Write {0}", meta.HtmlFile);
+
             var ow = new OidSvgWriter(new TiptoiOidCode());
             using (var w = new StreamWriter(meta.HtmlFile))
             {
@@ -234,7 +280,7 @@ namespace ttab
                     w.WriteLine("<h2>{0}</h2>", album.Title);
                     foreach (var i in album.Tracks)
                     {
-                        var trackInfo = meta.TrackInfo[i];
+                        var trackInfo = meta.TrackInfo[i.Path];
                         w.WriteLine("<a href={0}>", ("media/" + trackInfo.Id + oggExtension).Quote());
                         ow.OidArea(w, trackInfo.Oid);
                         w.WriteLine("</a>");
@@ -253,6 +299,8 @@ namespace ttab
         {
             // write tttool yaml file
             meta.YamlFile = Path.Combine(TempDir, meta.Name + ".yaml");
+            log.InfoFormat("Write {0}", meta.YamlFile);
+
             using (var w = new StreamWriter(meta.YamlFile))
             {
                 w.WriteLine(@"
@@ -270,7 +318,7 @@ scripts:
                 {
                     foreach (var track in album.Tracks)
                     {
-                        var trackInfo = meta.TrackInfo[track];
+                        var trackInfo = meta.TrackInfo[track.Path];
                         w.WriteLine("  {0}:", trackInfo.Oid);
                         w.WriteLine("  - P({0})", trackInfo.Id);
                     }
@@ -278,16 +326,24 @@ scripts:
             }
         }
 
-        private void CopyToStick(AlbumCollectionMeta meta)
+        private void CopyToStick(CancellationToken cancel, AlbumCollectionMeta meta)
         {
             var stick = TipToiStick.GetAll().FirstOrDefault();
 
-            if (stick != null)
+            if (stick == null)
             {
+                log.InfoFormat("Audio stick not plugged in. You must copy {0} to the stick manually.", meta.GmeFile);
+            }
+            else
+            {
+                log.InfoFormat("Audio stick found at {0}. {1} will be copied to the stick now.", stick.RootDirectory, meta.GmeFile);
+
                 var source = meta.GmeFile;
                 var dest = Path.Combine(stick.RootDirectory, Path.GetFileName(meta.GmeFile));
-                Trace.TraceInformation("Copy {0} to {1}", source, dest);
-                File.Copy(source, dest, true);
+                using (new LogScope(log, "Copy {0} to {1}", source, dest))
+                {
+                    File.Copy(source, dest, true);
+                }
             }
         }
     }

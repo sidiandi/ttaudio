@@ -5,29 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ttab
 {
     class Program
     {
-
-        static string Id(string fileName)
-        {
-            return Regex.Replace(fileName, @"[^\w]", "_");
-        }
-
-        class Track
-        {
-            public int Oid;
-            public string SourceFile;
-            public string OggFile;
-            public string Id;
-        }
-
         static void Main(string[] args)
         {
-            Trace.Listeners.Add(new ConsoleTraceListener(false));
+            log4net.Config.BasicConfigurator.Configure();
 
             var albumMaker = new AlbumMaker(Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ttab"));
 
@@ -35,8 +22,8 @@ namespace ttab
 
             var albumCollection = new AlbumReader().ReadCollection(inputDir);
 
-            albumMaker.Create(albumCollection);
+            var cts = new CancellationTokenSource();
+            albumMaker.Create(cts.Token, albumCollection);
         }
-
     }
 }

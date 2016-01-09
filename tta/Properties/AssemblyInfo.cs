@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ttabTests")]
+[assembly: AssemblyTitle("tta")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 
@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("096e46f8-4490-4b52-80eb-14c22e436d36")]
+[assembly: Guid("661c5c6f-01c3-4df2-bd77-1ce590d01b25")]
 
 // Version information for an assembly consists of the following four values:
 //

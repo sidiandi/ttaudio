@@ -97,7 +97,6 @@ namespace ttab
                 for (int x = 0; x < 3; ++x)
                 {
                     var digit = digits[x + y * 3];
-                    // System.Diagnostics.Trace.TraceInformation("x={0} y={1} d={2}", x, y, digit);
                     var offset = GetOffset(digit);
                     Dot(w, 15 + x * grid + offset.x * bitOffset, 15 + y * grid + offset.y * bitOffset);
                 }

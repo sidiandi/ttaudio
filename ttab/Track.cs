@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ttab
 {
-    public class Album
+    public class Track
     {
+        public string Album;
         public string Title;
-        public string Picture;
-        public Track[] Tracks;
+        public string Path;
+        public uint TrackNumber;
     }
 }

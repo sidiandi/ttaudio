@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace ttab
 {
-    class AlbumReader
+    public class AlbumReader
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public AlbumCollection ReadCollection(DirectoryInfo inputDir)
         {
             var albumDirs = inputDir.GetDirectories();
@@ -28,11 +30,16 @@ namespace ttab
             };
         }
 
-        static bool IsAudioFile(FileInfo file)
+        public static bool IsAudioFile(FileInfo file)
         {
-            return
-                file.Extension.Equals(".mp3", StringComparison.CurrentCultureIgnoreCase) ||
-                file.Extension.Equals(".ogg", StringComparison.CurrentCultureIgnoreCase);
+            switch (file.Extension.ToLowerInvariant())
+            {
+                case ".mp3":
+                case ".ogg":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         static bool IsImageFile(FileInfo file)
@@ -52,11 +59,104 @@ namespace ttab
                 Title = directory.Name,
                 Tracks = files
                     .Where(x => IsAudioFile(x))
-                    .Select(_ => _.FullName).ToArray(),
+                    .Select(_ => new Track { Path = _.FullName }).ToArray(),
                 Picture = files.Where(_ => IsImageFile(_))
                     .OrderByDescending(_ => Regex.IsMatch(_.Name, "front", RegexOptions.IgnoreCase))
                     .ThenBy(_ => _.Length)
                     .FirstOrDefault().OrNull(_ => _.FullName)
+            };
+        }
+
+        /// <summary>
+        /// Recursively finds all valid audio files in a list of files or directories
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetAudioFiles(IEnumerable<string> paths)
+        {
+            return paths.SelectMany(file =>
+            {
+                if (System.IO.Directory.Exists(file))
+                {
+                    return GetAudioFiles(new System.IO.DirectoryInfo(file).GetFileSystemInfos().Select(_ => _.FullName));
+                }
+
+                var info = new FileInfo(file);
+                if (info.Exists && IsAudioFile(info))
+                {
+                    return new[] { file };
+                }
+
+                return Enumerable.Empty<string>();
+            });
+        }
+
+        Track GetTrack(string path)
+        {
+            var track = new Track { Path = path };
+            try
+            {
+                using (var f = TagLib.File.Create(path))
+                {
+                    if (!f.Tag.IsEmpty)
+                    {
+                        track.Title = f.Tag.Title;
+                        track.TrackNumber = f.Tag.Track;
+                        track.Album = f.Tag.Album;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Warn(String.Format("Exception ignored while reading {0}", path), ex);
+            }
+
+            if (String.IsNullOrEmpty(track.Title))
+            {
+                track.Title = System.IO.Path.GetFileNameWithoutExtension(track.Path);
+            }
+
+            if (String.IsNullOrEmpty(track.Album))
+            {
+                track.Album = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(track.Path));
+            }
+
+            if (track.TrackNumber == 0)
+            {
+                track.TrackNumber = GetDirectoryIndex(track.Path);
+            }
+
+            return track;
+        }
+
+        static uint GetDirectoryIndex(string path)
+        {
+            var name = Path.GetFileName(path);
+            var dir = Path.GetDirectoryName(path);
+            return (uint)new DirectoryInfo(dir).GetFileSystemInfos()
+                .OrderBy(_ => _.Name)
+                .Select((info, index) => new { Info = info, Index = index })
+                .Single(_ => object.Equals(_.Info.Name, name)).Index;
+        }
+
+        public AlbumCollection FromTags(IEnumerable<string> audioFiles)
+        {
+            var tracks = audioFiles.Select(_ => GetTrack(_)).ToList();
+
+            var albums = tracks
+                .GroupBy(_ => _.Album)
+                .Select(_ => new Album
+                {
+                    Title = _.Key,
+                    Tracks = _.OrderBy(t => t.TrackNumber).ToArray()
+                })
+                .OrderBy(_ => _.Title)
+                .ToArray();
+
+            return new AlbumCollection
+            {
+                Album = albums,
+                Title = albums.First().Title
             };
         }
     }

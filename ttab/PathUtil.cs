@@ -4,16 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ttab
 {
-    class PathUtil
+    public class PathUtil
     {
         public static void AddToPath(string newDirectory)
         {
-            System.Environment.SetEnvironmentVariable("PATH", String.Join(";", newDirectory, Environment.GetEnvironmentVariable("PATH")));
+            var PATH = "PATH";
+            System.Environment.SetEnvironmentVariable(PATH, String.Join(";", newDirectory, Environment.GetEnvironmentVariable(PATH)));
         }
         public static void EnsureDirectoryExists(string d)
         {
@@ -52,10 +54,10 @@ namespace ttab
         {
             if (Directory.Exists(sourceFile))
             {
-                var children = Directory.GetFileSystemEntries(sourceFile);
+                var children = new DirectoryInfo(sourceFile).GetFileSystemInfos();
                 foreach (var c in children)
                 {
-                    CopyIfNewer(Path.Combine(sourceFile, c), Path.Combine(destinationFile, c));
+                    CopyIfNewer(c.FullName, Path.Combine(destinationFile, c.Name));
                 }
                 return;
             }
@@ -90,6 +92,11 @@ namespace ttab
             {
                 return default(T);
             }
+        }
+
+        internal static string GetValidFileName(string title)
+        {
+            return Regex.Replace(title, @"[^\w]", "_");
         }
     }
 }

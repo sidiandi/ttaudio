@@ -15,39 +15,6 @@ namespace ttab.Tests
     [TestFixture()]
     public class OidSvgWriterTests
     {
-        [Test()]
-        public void OidPatternTest()
-        {
-            var ow = new OidSvgWriter(new TiptoiOidCode());
-
-            var expected = @"
-  <pattern id=""Code19"" patternUnits=""userSpaceOnUse"" x=""0"" y=""0"" width=""40"" height=""40"" viewBox=""0 0 40 40"" >
-<circle cx=""5"" cy=""5"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""15"" cy=""5"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""25"" cy=""5"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""35"" cy=""5"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""5"" cy=""15"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""7"" cy=""25"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""5"" cy=""35"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""13"" cy=""17"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""27"" cy=""17"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""37"" cy=""17"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""17"" cy=""27"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""27"" cy=""27"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""33"" cy=""27"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""13"" cy=""37"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""23"" cy=""37"" r=""2"" style=""stroke: none; fill: #000000;""/>
-<circle cx=""33"" cy=""37"" r=""2"" style=""stroke: none; fill: #000000;""/>
-  </pattern>
-
-";
-            using (var w = new StringWriter())
-            {
-                ow.OidPattern(w, 19);
-                Console.WriteLine(w.ToString());
-            }
-        }
-
         class Code
         {
             public int Oid;
@@ -106,7 +73,7 @@ namespace ttab.Tests
             IOidCode oidCode = new TiptoiOidCode();
 
             var codes =
-                new DirectoryInfo(@"C:\work\tip-toi-reveng\docs").GetFiles("*.svg")
+                new DirectoryInfo(Path.Combine(PathUtil.GetDirectory(), "test-data")).GetFiles("*.svg")
                 .SelectMany(svg =>
                 {
                     Console.WriteLine(svg);
