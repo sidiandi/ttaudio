@@ -60,7 +60,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ttab\ttaenc.csproj">
+    <ProjectReference Include="..\ttaenc\ttaenc.csproj">
       <Project>{b1021896-02ad-4539-96ae-8cc43bd2599c}</Project>
       <Name>ttaenc</Name>
     </ProjectReference>

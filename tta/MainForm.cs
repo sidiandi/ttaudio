@@ -111,9 +111,15 @@ namespace tta
 
         void StartConversion()
         {
+            var files = listViewInputFiles.Items.Cast<ListViewItem>().Select(_ => (string)_.Tag).ToList();
+            if (!files.Any())
+            {
+                MessageBox.Show("Drop some audio files into the list first.");
+                return;
+            }
+
             textBoxLog.Clear();
             tabControl.SelectedTab = tabPageConversion;
-            var files = listViewInputFiles.Items.Cast<ListViewItem>().Select(_ => (string)_.Tag).ToList();
             cancelConversion = new System.Threading.CancellationTokenSource();
             conversion = Convert(cancelConversion.Token, files, textBoxTitle.Text);
         }

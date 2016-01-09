@@ -93,6 +93,7 @@ namespace ttab
 
         Track GetTrack(string path)
         {
+            log.InfoFormat("Read meta information from {0}", path);
             var track = new Track { Path = path };
             try
             {

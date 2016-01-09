@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.listViewInputFiles = new System.Windows.Forms.ListView();
             this.columnHeaderPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonConvert = new System.Windows.Forms.Button();
@@ -59,7 +60,7 @@
             this.listViewInputFiles.HideSelection = false;
             this.listViewInputFiles.Location = new System.Drawing.Point(6, 55);
             this.listViewInputFiles.Name = "listViewInputFiles";
-            this.listViewInputFiles.Size = new System.Drawing.Size(626, 447);
+            this.listViewInputFiles.Size = new System.Drawing.Size(621, 423);
             this.listViewInputFiles.TabIndex = 0;
             this.listViewInputFiles.UseCompatibleStateImageBehavior = false;
             this.listViewInputFiles.View = System.Windows.Forms.View.Details;
@@ -74,11 +75,14 @@
             // buttonConvert
             // 
             this.buttonConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonConvert.Location = new System.Drawing.Point(499, 508);
+            this.buttonConvert.Image = ((System.Drawing.Image)(resources.GetObject("buttonConvert.Image")));
+            this.buttonConvert.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonConvert.Location = new System.Drawing.Point(6, 482);
             this.buttonConvert.Name = "buttonConvert";
-            this.buttonConvert.Size = new System.Drawing.Size(130, 48);
+            this.buttonConvert.Size = new System.Drawing.Size(208, 72);
             this.buttonConvert.TabIndex = 1;
-            this.buttonConvert.Text = "&Convert and copy to Pen";
+            this.buttonConvert.Text = "&Convert and \r\nCopy to Pen";
+            this.buttonConvert.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonConvert.UseVisualStyleBackColor = true;
             this.buttonConvert.Click += new System.EventHandler(this.buttonConvert_Click);
             // 
@@ -151,8 +155,8 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(9, 506);
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.Location = new System.Drawing.Point(145, 506);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(130, 48);
             this.buttonCancel.TabIndex = 2;
@@ -162,7 +166,7 @@
             // buttonStartNewConversion
             // 
             this.buttonStartNewConversion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStartNewConversion.Location = new System.Drawing.Point(497, 506);
+            this.buttonStartNewConversion.Location = new System.Drawing.Point(9, 506);
             this.buttonStartNewConversion.Name = "buttonStartNewConversion";
             this.buttonStartNewConversion.Size = new System.Drawing.Size(130, 48);
             this.buttonStartNewConversion.TabIndex = 2;
@@ -199,6 +203,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 588);
             this.Controls.Add(this.tabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainForm";
             this.Text = "tta";

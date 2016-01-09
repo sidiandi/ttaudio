@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ttaenc", "ttab\ttaenc.csproj", "{B1021896-02AD-4539-96AE-8CC43BD2599C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ttaenc", "ttaenc\ttaenc.csproj", "{B1021896-02AD-4539-96AE-8CC43BD2599C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ttaencTests", "ttabTests\ttaencTests.csproj", "{096E46F8-4490-4B52-80EB-14C22E436D36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ttaencTests", "ttaencTests\ttaencTests.csproj", "{096E46F8-4490-4B52-80EB-14C22E436D36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tta", "tta\tta.csproj", "{661C5C6F-01C3-4DF2-BD77-1CE590D01B25}"
 EndProject
