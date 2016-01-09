@@ -2,8 +2,10 @@
 <!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
 <Project DefaultTargets="Release" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<CompanyName>Andreas Grimme</CompanyName>
+		<CompanyName>sidiandi</CompanyName>
         <ProductName>tta</ProductName>
+		<UpgradeCode>729eb7d7-fbfc-4261-bf6f-bb4fa59c4d6f</UpgradeCode>
+
 		<Configuration>Release</Configuration>
 		<Platform>AnyCPU</Platform>
 	</PropertyGroup>

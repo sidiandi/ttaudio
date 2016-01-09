@@ -67,13 +67,13 @@ namespace ttab.Tests
             }
         }
 
-        [Test()]
+        [Test, Ignore("takes too long")]
         public void ReadPatterns()
         {
             IOidCode oidCode = new TiptoiOidCode();
 
             var codes =
-                new DirectoryInfo(Path.Combine(PathUtil.GetDirectory(), "test-data")).GetFiles("*.svg")
+                new DirectoryInfo(Path.Combine(PathUtil.GetDirectory(), @"..\test-data")).GetFiles("*.svg")
                 .SelectMany(svg =>
                 {
                     Console.WriteLine(svg);

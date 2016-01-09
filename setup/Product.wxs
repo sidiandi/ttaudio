@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+		<MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="Product" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="ManufacturerFolder" Name="!(bind.property.Manufacturer)">
+			<Directory Id="INSTALLFOLDER" Name="!(bind.property.ProductName)">
+			</Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+	</Fragment>
+</Wix>

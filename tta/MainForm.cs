@@ -25,11 +25,9 @@ namespace tta
         {
             InitializeComponent();
 
-            /*
             tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.ItemSize = new Size(0, 1);
             tabControl.SizeMode = TabSizeMode.Fixed;
-            */
 
             ConfigureLogging();
 

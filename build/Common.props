@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <CodeAnalysisRuleSet>$(SolutionDir)sidi-util.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>$(SolutionDir)codeanalysis.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>

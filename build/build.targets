@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/)
+
+This file is part of sidi-util.
+
+sidi-util is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+sidi-util is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
+		<NugetPackagesDir>$(SourceDir)\packages</NugetPackagesDir>
+		<NUnitConsole>$(NugetPackagesDir)\NUnit.Console.3.0.1\tools\nunit3-console.exe</NUnitConsole>
+		<Git>git</Git>
+  </PropertyGroup>
+
+	<PropertyGroup>
+	<MSBuildCommunityTasksPath>$(SourceDir)\build</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  
+  <Import Project="$(NugetPackagesDir)\GitVersionTask.3.3.0\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
+  <Import Project="C:\work\nugetPackSymbols\CreateNugetSymbolsPackage\bin\Debug\Build\CreateNugetSymbolsPackage.targets" />
+
+  <Target Name="GetVersion">
+		<GetVersion SolutionDirectory="$(SolutionDir)">
+		  <Output TaskParameter="Major" PropertyName="GfvMajor" />
+		  <Output TaskParameter="Minor" PropertyName="GfvMinor" />
+		  <Output TaskParameter="Patch" PropertyName="GfvPatch" />
+		  <Output TaskParameter="BuildMetaData" PropertyName="GfvBuildMetaData" />
+		  <Output TaskParameter="FullBuildMetaData" PropertyName="GfvFullBuildMetaData" />
+		  <Output TaskParameter="BranchName" PropertyName="GfvBranchName" />
+		  <Output TaskParameter="Sha" PropertyName="GfvSha" />
+		  <Output TaskParameter="MajorMinorPatch" PropertyName="GfvMajorMinorPatch" />
+		  <Output TaskParameter="SemVer" PropertyName="GfvSemVer" />
+		  <Output TaskParameter="LegacySemVer" PropertyName="GfvLegacySemVer" />
+		  <Output TaskParameter="LegacySemVerPadded" PropertyName="GfvLegacySemVerPadded" />
+		  <Output TaskParameter="FullSemVer" PropertyName="GfvFullSemVer" />
+		  <Output TaskParameter="AssemblySemVer" PropertyName="GfvAssemblySemVer" />
+		  <Output TaskParameter="NuGetVersion" PropertyName="GfvNuGetVersion" />
+		  <Output TaskParameter="PreReleaseTag" PropertyName="GfvPreReleaseTag" />
+		  <Output TaskParameter="PreReleaseTagWithDash" PropertyName="GfvPreReleaseTagWithDash" />
+		  <Output TaskParameter="InformationalVersion" PropertyName="GfvInformationalVersion" />
+		</GetVersion>
+		<Message Text="$(GfvSemVer)" />
+		<Message Text="$(GfvNuGetVersion)" />
+	</Target>
+
+	<Target Name="Build" DependsOnTargets="GetVersion" >
+    <MSBuild Projects="$(SourceDir)\$(ProductName).sln" Properties="Configuration=$(Configuration);Platform=Any CPU;BuildDir=$(BuildDir)">
+		<Output ItemName="Targets" TaskParameter="TargetOutputs"/>
+    </MSBuild>
+  </Target>
+
+  <Target Name="Tag" DependsOnTargets="GetVersion">
+	<Exec WorkingDirectory="$(SourceDir)" Command="$(Git) tag --force v$(GfvSemVer)" />
+  </Target>
+
+  <Target Name="Test" DependsOnTargets="Build">
+	<ItemGroup>
+		<TestTargets Include="@(Targets)" Condition=" $([System.Text.RegularExpressions.Regex]::IsMatch('%(FullPath)', 'Tests.dll$')) " />
+	</ItemGroup>
+    <Exec Command="$(NUnitConsole) @(TestTargets, ' ')" />
+  </Target>
+
+  <Target Name="BuildSetup" DependsOnTargets="GetVersion;Tag">
+	<MSBuild
+        Projects="$(SourceDir)\setup\setup.wixproj" Properties="
+			CompanyName=$(CompanyName);
+			ProductName=$(ProductName);
+			Version=$(GfvSemVer);
+			Configuration=Release;
+			Platform=Any CPU;
+			OutputPath=$(BuildDir)\setup;
+			BinDir=$(OutDir);
+			UpgradeCode=$(UpgradeCode);
+			IntermediateOutputPath=$(BaseIntermediateOutputPath)\setup\
+			">
+      <Output ItemName="SetupFile" TaskParameter="TargetOutputs"/>
+    </MSBuild>
+  </Target>
+  
+  <Target Name="Install" DependsOnTargets="BuildSetup">
+    <Message Text="@(SetupFile, ' ')" />
+	<Exec Command="@(SetupFile, ' ')" />
+  </Target>
+  
+  <Target Name="Publish" DependsOnTargets="Build;Test;BuildSetup" >
+	<Copy SourceFiles="$(SetupFile)"  DestinationFolder="C:\Users\Andreas\Dropbox\bin\hagen" />
+  </Target>
+
+  <Target Name="Release" DependsOnTargets="Publish" />
+
+  <!-- This target puts the build.log file into the build directory -->
+  <Target Name="StartWrapper" >
+	<MakeDir Directories="$(BuildDir)"/>
+    <Exec
+		Command="&quot;$(MSBuildBinPath)\msbuild.exe&quot; &quot;$(MSBuildProjectFullPath)&quot; /t:$(BuildTarget) &quot;/fileLoggerParameters:LogFile=$(BuildDir)\build.log;Verbosity=diagnostic;Encoding=UTF-8&quot;"
+		/>
+  </Target>
+
+</Project>

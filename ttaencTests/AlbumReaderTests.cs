@@ -12,14 +12,11 @@ namespace ttab.Tests
     public class AlbumReaderTests
     {
         [Test()]
-        public void FromTagsTest()
+        public void IsAudioFile()
         {
-            // var dir = @"\\calag.de\music\kids\Der kleine Drache Kokosnuss";
-            var dir = @"C:\Users\andreas\AppData\Local\ttab\media";
-
-            var c = new AlbumReader().FromTags(AlbumReader.GetAudioFiles(new[] { dir }));
-
-            Console.WriteLine(String.Join("\n", c.Album.Select(_ => _.Title)));
+            Assert.IsTrue(AlbumReader.IsAudioFile(new System.IO.FileInfo("test.mp3")));
+            Assert.IsTrue(AlbumReader.IsAudioFile(new System.IO.FileInfo("test.ogg")));
+            Assert.IsFalse(AlbumReader.IsAudioFile(new System.IO.FileInfo("test.txt")));
         }
     }
 }

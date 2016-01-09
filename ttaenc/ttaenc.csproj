@@ -4,6 +4,8 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <ProjectGuid>{B1021896-02AD-4539-96AE-8CC43BD2599C}</ProjectGuid>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
@@ -66,5 +68,12 @@
       <MediaFiles Include="media\**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(MediaFiles)" DestinationFiles="@(MediaFiles->'$(OutDir)\media\%(RecursiveDir)%(FileName)%(Extension)')" UseHardlinksIfPossible="true" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+  </Target>
+  <Import Project="..\packages\GitVersionTask.3.3.0\build\dotnet\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.3.0\build\dotnet\GitVersionTask.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\GitVersionTask.3.3.0\build\dotnet\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.3.0\build\dotnet\GitVersionTask.targets'))" />
   </Target>
 </Project>
