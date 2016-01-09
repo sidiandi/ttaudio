@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/)
+<!--
+Copyright (c) https://github.com/sidiandi 2016
 
-This file is part of sidi-util.
+This file is part of tta.
 
-sidi-util is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
+tta is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-sidi-util is distributed in the hope that it will be useful,
+tta is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License
-along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
+You should have received a copy of the GNU General Public License
+along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
@@ -28,7 +30,6 @@ along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
   </PropertyGroup>
   
   <Import Project="$(NugetPackagesDir)\GitVersionTask.3.3.0\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
-  <Import Project="C:\work\nugetPackSymbols\CreateNugetSymbolsPackage\bin\Debug\Build\CreateNugetSymbolsPackage.targets" />
 
   <Target Name="GetVersion">
 		<GetVersion SolutionDirectory="$(SolutionDir)">
@@ -93,11 +94,7 @@ along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
 	<Exec Command="@(SetupFile, ' ')" />
   </Target>
   
-  <Target Name="Publish" DependsOnTargets="Build;Test;BuildSetup" >
-	<Copy SourceFiles="$(SetupFile)"  DestinationFolder="C:\Users\Andreas\Dropbox\bin\hagen" />
-  </Target>
-
-  <Target Name="Release" DependsOnTargets="Publish" />
+  <Target Name="Release" DependsOnTargets="Build;Test;BuildSetup" />
 
   <!-- This target puts the build.log file into the build directory -->
   <Target Name="StartWrapper" >

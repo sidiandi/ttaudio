@@ -1,2 +1,0 @@
-Opened audio at 22050 Hz 16 bit stereo (LE), 4096 bytes audio buffer
-Playing C:\Users\andreas\AppData\Local\Temp\tttool-audio13708.tmp
