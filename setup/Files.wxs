@@ -29,6 +29,9 @@
             <Component Id="cmp599EDC0521739D45EEE2AEC60A0935DC" Guid="*">
                 <File Id="fil865958BA87D8F61BCB31476D1CF56A8B" KeyPath="yes" Source="$(var.BinDir)\tta.exe.config" />
             </Component>
+            <Component Id="cmpA4E68135E45606F6B5EC8CCF87BD4B95" Guid="*">
+                <File Id="fil72F2A52C68532F0E27CAC8C2642DBB8F" KeyPath="yes" Source="$(var.BinDir)\tta.pdb" />
+            </Component>
             <Component Id="cmp4768DB9178A957B92CE5CD25BDD6B52B" Guid="*">
                 <File Id="fil3D0D32316D4BA5DECE1147D5DA3DFD86" KeyPath="yes" Source="$(var.BinDir)\tta.xml" />
             </Component>
@@ -38,11 +41,17 @@
             <Component Id="cmpF465CD5B7371CFD177DC738F0B5723DE" Guid="*">
                 <File Id="filEEC4730848511A0841C03619B66B110B" KeyPath="yes" Source="$(var.BinDir)\ttaenc.dll.config" />
             </Component>
+            <Component Id="cmpB489D348242CFCA4DED808289F27532F" Guid="*">
+                <File Id="fil6CD43ACFF25C3C90538C9A0637AFC357" KeyPath="yes" Source="$(var.BinDir)\ttaenc.pdb" />
+            </Component>
             <Component Id="cmp77915993D94F6342C00682261561A5F5" Guid="*">
                 <File Id="filA62FFE46B6EA1AFA40A940A694612F17" KeyPath="yes" Source="$(var.BinDir)\ttaenc.xml" />
             </Component>
             <Component Id="cmp0F909904036FEA6A84104FE0BB892BD9" Guid="*">
                 <File Id="fil569E8C26610A679C51F9F1885C2DE522" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.dll" />
+            </Component>
+            <Component Id="cmp55BAD5109824940A4ACE0999C3474692" Guid="*">
+                <File Id="filA84A87CA8CA6000AE11985492A2ED59B" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.pdb" />
             </Component>
             <Component Id="cmp5504445BD4D6D9BBC2E6D076A5C1753C" Guid="*">
                 <File Id="filF847F0BFA8B06A3C3BE52120244824BA" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.xml" />

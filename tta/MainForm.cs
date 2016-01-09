@@ -167,7 +167,7 @@ namespace tta
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(AlbumMaker.GetDefaultDataDirectory());
+            Process.Start("explorer.exe", AlbumMaker.GetDefaultDataDirectory().Quote());
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

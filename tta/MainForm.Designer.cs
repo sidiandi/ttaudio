@@ -44,10 +44,10 @@
             this.textBoxLog = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exploreDataDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabPageInput.SuspendLayout();
             this.tabPageConversion.SuspendLayout();
@@ -155,7 +155,7 @@
             this.tabPageConversion.Location = new System.Drawing.Point(4, 22);
             this.tabPageConversion.Name = "tabPageConversion";
             this.tabPageConversion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConversion.Size = new System.Drawing.Size(635, 562);
+            this.tabPageConversion.Size = new System.Drawing.Size(635, 538);
             this.tabPageConversion.TabIndex = 1;
             this.tabPageConversion.Text = "Conversion";
             this.tabPageConversion.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancel.Location = new System.Drawing.Point(145, 506);
+            this.buttonCancel.Location = new System.Drawing.Point(145, 484);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(130, 48);
             this.buttonCancel.TabIndex = 2;
@@ -173,7 +173,7 @@
             // buttonStartNewConversion
             // 
             this.buttonStartNewConversion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonStartNewConversion.Location = new System.Drawing.Point(9, 506);
+            this.buttonStartNewConversion.Location = new System.Drawing.Point(9, 484);
             this.buttonStartNewConversion.Name = "buttonStartNewConversion";
             this.buttonStartNewConversion.Size = new System.Drawing.Size(130, 48);
             this.buttonStartNewConversion.TabIndex = 2;
@@ -200,7 +200,7 @@
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ReadOnly = true;
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxLog.Size = new System.Drawing.Size(618, 481);
+            this.textBoxLog.Size = new System.Drawing.Size(618, 459);
             this.textBoxLog.TabIndex = 0;
             this.textBoxLog.WordWrap = false;
             // 
@@ -224,8 +224,24 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
+            // exploreDataDirectoryToolStripMenuItem
+            // 
+            this.exploreDataDirectoryToolStripMenuItem.Name = "exploreDataDirectoryToolStripMenuItem";
+            this.exploreDataDirectoryToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.exploreDataDirectoryToolStripMenuItem.Text = "Explore Data Directory...";
+            this.exploreDataDirectoryToolStripMenuItem.Click += new System.EventHandler(this.exploreDataDirectoryToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -239,20 +255,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // exploreDataDirectoryToolStripMenuItem
-            // 
-            this.exploreDataDirectoryToolStripMenuItem.Name = "exploreDataDirectoryToolStripMenuItem";
-            this.exploreDataDirectoryToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.exploreDataDirectoryToolStripMenuItem.Text = "Explore Data Directory...";
-            this.exploreDataDirectoryToolStripMenuItem.Click += new System.EventHandler(this.exploreDataDirectoryToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // MainForm
             // 

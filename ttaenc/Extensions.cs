@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace ttab
 {
-    static class Extensions
+    public static class Extensions
     {
         public static string Quote(this object x)
         {
