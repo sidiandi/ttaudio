@@ -8,8 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Reflection.AssemblyCopyright("Copyright (c) Andreas Grimme 2016")]
-[assembly: System.Reflection.AssemblyCompany("Andreas Grimme")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright (c) https://github.com/sidiandi 2016")]
+[assembly: System.Reflection.AssemblyCompany("sidiandi")]
 [assembly: System.Reflection.AssemblyProduct("tta")]
 
 

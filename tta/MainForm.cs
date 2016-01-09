@@ -142,5 +142,20 @@ namespace tta
                 cancelConversion = null;
             }
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(About.GitUri.ToString());
+        }
+
+        private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(AlbumMaker.GetDefaultDataDirectory());
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

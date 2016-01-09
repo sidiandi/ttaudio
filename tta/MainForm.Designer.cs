@@ -42,9 +42,16 @@
             this.buttonStartNewConversion = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exploreDataDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabPageInput.SuspendLayout();
             this.tabPageConversion.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listViewInputFiles
@@ -60,7 +67,7 @@
             this.listViewInputFiles.HideSelection = false;
             this.listViewInputFiles.Location = new System.Drawing.Point(6, 55);
             this.listViewInputFiles.Name = "listViewInputFiles";
-            this.listViewInputFiles.Size = new System.Drawing.Size(621, 423);
+            this.listViewInputFiles.Size = new System.Drawing.Size(621, 399);
             this.listViewInputFiles.TabIndex = 0;
             this.listViewInputFiles.UseCompatibleStateImageBehavior = false;
             this.listViewInputFiles.View = System.Windows.Forms.View.Details;
@@ -77,7 +84,7 @@
             this.buttonConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConvert.Image = ((System.Drawing.Image)(resources.GetObject("buttonConvert.Image")));
             this.buttonConvert.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonConvert.Location = new System.Drawing.Point(6, 482);
+            this.buttonConvert.Location = new System.Drawing.Point(6, 458);
             this.buttonConvert.Name = "buttonConvert";
             this.buttonConvert.Size = new System.Drawing.Size(208, 72);
             this.buttonConvert.TabIndex = 1;
@@ -100,10 +107,10 @@
             this.tabControl.Controls.Add(this.tabPageInput);
             this.tabControl.Controls.Add(this.tabPageConversion);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(0, 24);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(643, 588);
+            this.tabControl.Size = new System.Drawing.Size(643, 564);
             this.tabControl.TabIndex = 3;
             // 
             // tabPageInput
@@ -116,7 +123,7 @@
             this.tabPageInput.Location = new System.Drawing.Point(4, 22);
             this.tabPageInput.Name = "tabPageInput";
             this.tabPageInput.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInput.Size = new System.Drawing.Size(635, 562);
+            this.tabPageInput.Size = new System.Drawing.Size(635, 538);
             this.tabPageInput.TabIndex = 0;
             this.tabPageInput.Text = "Input";
             this.tabPageInput.UseVisualStyleBackColor = true;
@@ -197,13 +204,65 @@
             this.textBoxLog.TabIndex = 0;
             this.textBoxLog.WordWrap = false;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(643, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exploreDataDirectoryToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // exploreDataDirectoryToolStripMenuItem
+            // 
+            this.exploreDataDirectoryToolStripMenuItem.Name = "exploreDataDirectoryToolStripMenuItem";
+            this.exploreDataDirectoryToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.exploreDataDirectoryToolStripMenuItem.Text = "Explore Data Directory...";
+            this.exploreDataDirectoryToolStripMenuItem.Click += new System.EventHandler(this.exploreDataDirectoryToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 588);
             this.Controls.Add(this.tabControl);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "MainForm";
             this.Text = "tta";
@@ -212,7 +271,10 @@
             this.tabPageInput.PerformLayout();
             this.tabPageConversion.ResumeLayout(false);
             this.tabPageConversion.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -231,6 +293,12 @@
         private System.Windows.Forms.Button buttonStartNewConversion;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exploreDataDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

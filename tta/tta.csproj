@@ -25,6 +25,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
