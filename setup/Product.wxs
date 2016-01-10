@@ -10,12 +10,16 @@
 
 		<Feature Id="ProductFeature" Title="Product" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentRef Id="ApplicationShortcut"/>
 		</Feature>
 
   </Product>
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
+		<Directory Id="ProgramMenuFolder">
+			<Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)"/>
+		</Directory>
       <Directory Id="ProgramFilesFolder">
         <Directory Id="ManufacturerFolder" Name="!(bind.property.Manufacturer)">
 			<Directory Id="INSTALLFOLDER" Name="!(bind.property.ProductName)">
@@ -23,5 +27,18 @@
         </Directory>
       </Directory>
     </Directory>
+
+	<DirectoryRef Id="ApplicationProgramsFolder">
+		<Component Id="ApplicationShortcut" Guid="edb02483-facc-4a17-b10b-580ec5580599">
+			<Shortcut Id="ApplicationStartMenuShortcut" 
+					  Name="tta"
+					  Description="Uploads audio files to an audio pen"
+					  Target="[#filC9B37937F7768B44C7A6D40B7AD9C80C]"
+					  WorkingDirectory="APPLICATIONROOTDIRECTORY"/>
+			<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+			<RegistryValue Root="HKCU" Key="Software\Microsoft\MyApplicationName" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+		</Component>
+	</DirectoryRef>
+
 	</Fragment>
 </Wix>

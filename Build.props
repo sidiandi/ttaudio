@@ -21,7 +21,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 <Project DefaultTargets="Release" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<CompanyName>sidiandi</CompanyName>
-        <ProductName>tta</ProductName>
+        <ProductName>ttaudio</ProductName>
 		<UpgradeCode>729eb7d7-fbfc-4261-bf6f-bb4fa59c4d6f</UpgradeCode>
 
 		<Configuration>Release</Configuration>

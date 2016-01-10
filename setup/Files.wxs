@@ -5,8 +5,14 @@
             <Component Id="cmp13D58469BCB864EB53214ED46E622188" Guid="*">
                 <File Id="fil28F7A9478894C77C5F6C2A95DAA4B459" KeyPath="yes" Source="$(var.BinDir)\log4net.dll" />
             </Component>
+            <Component Id="cmp742785C9A7B88BE6B2E81C2322E3D2EE" Guid="*">
+                <File Id="filA307C00D897BECB908C510DE71A3AD29" KeyPath="yes" Source="$(var.BinDir)\log4net.xml" />
+            </Component>
             <Component Id="cmp7FBBFC727329AAA372231FA34295C0C6" Guid="*">
                 <File Id="fil4700965FE3AC93623CB2D45CAFDE9A63" KeyPath="yes" Source="$(var.BinDir)\nunit.framework.dll" />
+            </Component>
+            <Component Id="cmpB92DF3B9C359B83A9BA4E27C5DBD40E1" Guid="*">
+                <File Id="filCCD055F61AE65252A5472B26C3AD9DB0" KeyPath="yes" Source="$(var.BinDir)\nunit.framework.xml" />
             </Component>
             <Component Id="cmp0C02B03F271D69FF87C615C00C09CED8" Guid="*">
                 <File Id="fil55BCBAE6A6F48C0B864E3241DC559371" KeyPath="yes" Source="$(var.BinDir)\policy.2.0.taglib-sharp.config" />
@@ -26,6 +32,9 @@
             <Component Id="cmpA4E68135E45606F6B5EC8CCF87BD4B95" Guid="*">
                 <File Id="fil72F2A52C68532F0E27CAC8C2642DBB8F" KeyPath="yes" Source="$(var.BinDir)\tta.pdb" />
             </Component>
+            <Component Id="cmp4768DB9178A957B92CE5CD25BDD6B52B" Guid="*">
+                <File Id="fil3D0D32316D4BA5DECE1147D5DA3DFD86" KeyPath="yes" Source="$(var.BinDir)\tta.xml" />
+            </Component>
             <Component Id="cmp740089BEBED0097C1242B5C0DE20315F" Guid="*">
                 <File Id="fil3AE215B2FB3885A999EE6B9D7354E454" KeyPath="yes" Source="$(var.BinDir)\ttaenc.dll" />
             </Component>
@@ -35,15 +44,27 @@
             <Component Id="cmpB489D348242CFCA4DED808289F27532F" Guid="*">
                 <File Id="fil6CD43ACFF25C3C90538C9A0637AFC357" KeyPath="yes" Source="$(var.BinDir)\ttaenc.pdb" />
             </Component>
+            <Component Id="cmp77915993D94F6342C00682261561A5F5" Guid="*">
+                <File Id="filA62FFE46B6EA1AFA40A940A694612F17" KeyPath="yes" Source="$(var.BinDir)\ttaenc.xml" />
+            </Component>
             <Component Id="cmp0F909904036FEA6A84104FE0BB892BD9" Guid="*">
                 <File Id="fil569E8C26610A679C51F9F1885C2DE522" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.dll" />
             </Component>
             <Component Id="cmp55BAD5109824940A4ACE0999C3474692" Guid="*">
                 <File Id="filA84A87CA8CA6000AE11985492A2ED59B" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.pdb" />
             </Component>
+            <Component Id="cmp5504445BD4D6D9BBC2E6D076A5C1753C" Guid="*">
+                <File Id="filF847F0BFA8B06A3C3BE52120244824BA" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.xml" />
+            </Component>
             <Directory Id="dirC7DE656D38A188464F92B57F9464B4CA" Name="media">
+                <Component Id="cmp58FB8CDBCAD1C9829CA7FA88F6189096" Guid="*">
+                    <File Id="fil5229B149BF253024F4C38EC5A4A5E1C8" KeyPath="yes" Source="$(var.BinDir)\media\default-album-art.png" />
+                </Component>
                 <Component Id="cmpA182E74189D38175A5177C0C89A4B8A3" Guid="*">
                     <File Id="fil69C636BFC8A25A6F7FF8E3D0A1E05C4B" KeyPath="yes" Source="$(var.BinDir)\media\ding.ogg" />
+                </Component>
+                <Component Id="cmpD37F97F8EA2E04C35857046D5E38E47C" Guid="*">
+                    <File Id="fil03C6B063EBAD41C4DCDD72E3F8FD2C70" KeyPath="yes" Source="$(var.BinDir)\media\note_to_pen.png" />
                 </Component>
                 <Component Id="cmp006A4CBA6AD37D30E2A636588C5C0F82" Guid="*">
                     <File Id="fil917FA4AAD13AEEE141E6A5E08AD9500B" KeyPath="yes" Source="$(var.BinDir)\media\power-symbol.svg" />
@@ -1114,19 +1135,26 @@
     <Fragment>
         <ComponentGroup Id="ProductComponents">
             <ComponentRef Id="cmp13D58469BCB864EB53214ED46E622188" />
+            <ComponentRef Id="cmp742785C9A7B88BE6B2E81C2322E3D2EE" />
             <ComponentRef Id="cmp7FBBFC727329AAA372231FA34295C0C6" />
+            <ComponentRef Id="cmpB92DF3B9C359B83A9BA4E27C5DBD40E1" />
             <ComponentRef Id="cmp0C02B03F271D69FF87C615C00C09CED8" />
             <ComponentRef Id="cmp8DB197CC057AC7C94619B4892024F92C" />
             <ComponentRef Id="cmp8841C0AC2F5771377A6D40464B9E9CA3" />
             <ComponentRef Id="cmpBF726E8AECBB99C1F6C4C49B6307B418" />
             <ComponentRef Id="cmp599EDC0521739D45EEE2AEC60A0935DC" />
             <ComponentRef Id="cmpA4E68135E45606F6B5EC8CCF87BD4B95" />
+            <ComponentRef Id="cmp4768DB9178A957B92CE5CD25BDD6B52B" />
             <ComponentRef Id="cmp740089BEBED0097C1242B5C0DE20315F" />
             <ComponentRef Id="cmpF465CD5B7371CFD177DC738F0B5723DE" />
             <ComponentRef Id="cmpB489D348242CFCA4DED808289F27532F" />
+            <ComponentRef Id="cmp77915993D94F6342C00682261561A5F5" />
             <ComponentRef Id="cmp0F909904036FEA6A84104FE0BB892BD9" />
             <ComponentRef Id="cmp55BAD5109824940A4ACE0999C3474692" />
+            <ComponentRef Id="cmp5504445BD4D6D9BBC2E6D076A5C1753C" />
+            <ComponentRef Id="cmp58FB8CDBCAD1C9829CA7FA88F6189096" />
             <ComponentRef Id="cmpA182E74189D38175A5177C0C89A4B8A3" />
+            <ComponentRef Id="cmpD37F97F8EA2E04C35857046D5E38E47C" />
             <ComponentRef Id="cmp006A4CBA6AD37D30E2A636588C5C0F82" />
             <ComponentRef Id="cmp352D5BBE0DE1F53049334803CAB38CE1" />
             <ComponentRef Id="cmp08DBFED1E3DA8D0C61213A04B5337E3F" />
