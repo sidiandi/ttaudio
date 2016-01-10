@@ -27,7 +27,7 @@ namespace tta
     public class AlbumCollection
     {
         public string Title;
-        public string ProductId;
+        public int ProductId;
         public Album[] Album;
     }
 }

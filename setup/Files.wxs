@@ -23,18 +23,6 @@
             <Component Id="cmp8841C0AC2F5771377A6D40464B9E9CA3" Guid="*">
                 <File Id="fil4265412E257F04FE87688FAC0C4C5E7D" KeyPath="yes" Source="$(var.BinDir)\taglib-sharp.dll" />
             </Component>
-            <Component Id="cmpBF726E8AECBB99C1F6C4C49B6307B418" Guid="*">
-                <File Id="filC9B37937F7768B44C7A6D40B7AD9C80C" KeyPath="yes" Source="$(var.BinDir)\tta.exe" />
-            </Component>
-            <Component Id="cmp599EDC0521739D45EEE2AEC60A0935DC" Guid="*">
-                <File Id="fil865958BA87D8F61BCB31476D1CF56A8B" KeyPath="yes" Source="$(var.BinDir)\tta.exe.config" />
-            </Component>
-            <Component Id="cmpA4E68135E45606F6B5EC8CCF87BD4B95" Guid="*">
-                <File Id="fil72F2A52C68532F0E27CAC8C2642DBB8F" KeyPath="yes" Source="$(var.BinDir)\tta.pdb" />
-            </Component>
-            <Component Id="cmp4768DB9178A957B92CE5CD25BDD6B52B" Guid="*">
-                <File Id="fil3D0D32316D4BA5DECE1147D5DA3DFD86" KeyPath="yes" Source="$(var.BinDir)\tta.xml" />
-            </Component>
             <Component Id="cmp740089BEBED0097C1242B5C0DE20315F" Guid="*">
                 <File Id="fil3AE215B2FB3885A999EE6B9D7354E454" KeyPath="yes" Source="$(var.BinDir)\ttaenc.dll" />
             </Component>
@@ -55,6 +43,21 @@
             </Component>
             <Component Id="cmp5504445BD4D6D9BBC2E6D076A5C1753C" Guid="*">
                 <File Id="filF847F0BFA8B06A3C3BE52120244824BA" KeyPath="yes" Source="$(var.BinDir)\ttaencTests.xml" />
+            </Component>
+            <Component Id="cmp40A4433BF9C4BB08D35E81BB6A78489B" Guid="*">
+                <File Id="filA9D9C96D11DB45D0701461807F22829C" KeyPath="yes" Source="$(var.BinDir)\ttaudio.exe" />
+            </Component>
+            <Component Id="cmp0D0FCDBFEEE4BD0CBC9B77D17024A379" Guid="*">
+                <File Id="filF44CD336137787B897332AE1144B8850" KeyPath="yes" Source="$(var.BinDir)\ttaudio.exe.config" />
+            </Component>
+            <Component Id="cmpD48423926F4089FE7A83D0B7FB2B5A3D" Guid="*">
+                <File Id="fil5F3C8EA2B83768C6DEA7ED3E1477B83F" KeyPath="yes" Source="$(var.BinDir)\ttaudio.ico" />
+            </Component>
+            <Component Id="cmp6379A1AB146081CD805945DEEAD891A2" Guid="*">
+                <File Id="filCD7A5227D7ACF08E1B4778E5D3EB722E" KeyPath="yes" Source="$(var.BinDir)\ttaudio.pdb" />
+            </Component>
+            <Component Id="cmpE3D7235DBF4E65F33806D4E820706729" Guid="*">
+                <File Id="fil931F2C9E210897024D37E719FFAD301D" KeyPath="yes" Source="$(var.BinDir)\ttaudio.xml" />
             </Component>
             <Directory Id="dirC7DE656D38A188464F92B57F9464B4CA" Name="media">
                 <Component Id="cmp58FB8CDBCAD1C9829CA7FA88F6189096" Guid="*">
@@ -230,9 +233,6 @@
                         </Component>
                         <Component Id="cmp4F5B9AF063ACE5B306EF8AB4B02311F8" Guid="*">
                             <File Id="fil3D6EBECE8D4D879A955BC55E31812099" KeyPath="yes" Source="$(var.BinDir)\tools\tttool-win32-1.5.1\contrib\smpeg.dll" />
-                        </Component>
-                        <Component Id="cmp409C21CD4CD7CFC276492CC06F0688C1" Guid="*">
-                            <File Id="fil0059E4CEABA63390C3E48E065BCD076B" KeyPath="yes" Source="$(var.BinDir)\tools\tttool-win32-1.5.1\contrib\stdout.txt" />
                         </Component>
                         <Directory Id="dir66506DAE341221DF6386AFBF0549B75F" Name="espeak-data">
                             <Component Id="cmpFFDEB6C92D5A7F7C7D10AC6C7AE7EFDD" Guid="*">
@@ -1141,10 +1141,6 @@
             <ComponentRef Id="cmp0C02B03F271D69FF87C615C00C09CED8" />
             <ComponentRef Id="cmp8DB197CC057AC7C94619B4892024F92C" />
             <ComponentRef Id="cmp8841C0AC2F5771377A6D40464B9E9CA3" />
-            <ComponentRef Id="cmpBF726E8AECBB99C1F6C4C49B6307B418" />
-            <ComponentRef Id="cmp599EDC0521739D45EEE2AEC60A0935DC" />
-            <ComponentRef Id="cmpA4E68135E45606F6B5EC8CCF87BD4B95" />
-            <ComponentRef Id="cmp4768DB9178A957B92CE5CD25BDD6B52B" />
             <ComponentRef Id="cmp740089BEBED0097C1242B5C0DE20315F" />
             <ComponentRef Id="cmpF465CD5B7371CFD177DC738F0B5723DE" />
             <ComponentRef Id="cmpB489D348242CFCA4DED808289F27532F" />
@@ -1152,6 +1148,11 @@
             <ComponentRef Id="cmp0F909904036FEA6A84104FE0BB892BD9" />
             <ComponentRef Id="cmp55BAD5109824940A4ACE0999C3474692" />
             <ComponentRef Id="cmp5504445BD4D6D9BBC2E6D076A5C1753C" />
+            <ComponentRef Id="cmp40A4433BF9C4BB08D35E81BB6A78489B" />
+            <ComponentRef Id="cmp0D0FCDBFEEE4BD0CBC9B77D17024A379" />
+            <ComponentRef Id="cmpD48423926F4089FE7A83D0B7FB2B5A3D" />
+            <ComponentRef Id="cmp6379A1AB146081CD805945DEEAD891A2" />
+            <ComponentRef Id="cmpE3D7235DBF4E65F33806D4E820706729" />
             <ComponentRef Id="cmp58FB8CDBCAD1C9829CA7FA88F6189096" />
             <ComponentRef Id="cmpA182E74189D38175A5177C0C89A4B8A3" />
             <ComponentRef Id="cmpD37F97F8EA2E04C35857046D5E38E47C" />
@@ -1206,7 +1207,6 @@
             <ComponentRef Id="cmp055AA7F00902F5C1DA7FBB4B34A7714C" />
             <ComponentRef Id="cmp5FA13BD6CED7176587D0613E0856E2F5" />
             <ComponentRef Id="cmp4F5B9AF063ACE5B306EF8AB4B02311F8" />
-            <ComponentRef Id="cmp409C21CD4CD7CFC276492CC06F0688C1" />
             <ComponentRef Id="cmpFFDEB6C92D5A7F7C7D10AC6C7AE7EFDD" />
             <ComponentRef Id="cmp419B637AAE900A843062247C2FE622B4" />
             <ComponentRef Id="cmp93845AE284AA87D16745CD386BEC75DF" />

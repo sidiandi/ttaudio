@@ -117,7 +117,11 @@ namespace tta
                     {
                         collection.Title = title;
                     }
-                    collection.ProductId = productId;
+                    if (!String.IsNullOrEmpty(productId))
+                    {
+                        collection.ProductId = UInt16.Parse(productId);
+                    }
+
                     albumMaker.Create(cancel, collection).Wait();
                 }
                 catch (Exception ex)

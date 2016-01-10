@@ -168,16 +168,28 @@ namespace tta
             {
                 AlbumCollection = collection,
                 Name = PathUtil.GetValidFileName(collection.Title),
-                ProductId = GetNextProductId(),
+                ProductId = collection.ProductId
             };
             meta.GmeFile = Path.Combine(OutputDir, meta.Name + ".gme");
 
             var metaXml = Path.Combine(TempDir, meta.Name + ".xml");
 
             var oldMeta = PathUtil.ReadXml<AlbumCollectionMeta>(metaXml);
-            if (oldMeta != null)
+
+            if (collection.ProductId != 0)
             {
-                meta.ProductId = oldMeta.ProductId;
+                meta.ProductId = collection.ProductId;
+            }
+            else
+            {
+                if (oldMeta == null)
+                {
+                    meta.ProductId = GetNextProductId();
+                }
+                else
+                {
+                    meta.ProductId = oldMeta.ProductId;
+                }
             }
 
             using (new LogScope(log, "Convert {0} (ProductId={1})", meta.Name, meta.ProductId))
