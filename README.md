@@ -4,13 +4,13 @@ tta converts a collection of *.mp3 or *.ogg audio files into a single *.gme file
 
 ## Workflow
 * Attach the TipToi stick to the USB port of your computer
-* Start tta.exe
+* Start ttaudio
 * Drop audio files into the file list
-* Click "Convert"
-* Wait until tta has transcoded the audio files
-* A web page showing the contained albums pops up
+* Click "Convert and Copy to Pen"
+* The conversion of audio files starts
+* A web page with optical IDs to play the audio files opens
 * Print the web page
-* Wait until ttab has copied the *.gme file to the stick
+* Wait until ttaudio has copied the *.gme file to the stick
 
 ## Dependencies
 
