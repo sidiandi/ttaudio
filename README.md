@@ -1,6 +1,6 @@
-# tta - TipToi Audio
+# ttaudio - TipToi Audio
 
-tta converts a collection of *.mp3 or *.ogg audio files into a single *.gme file to play  on the [Ravensburger TipToi](https://www.ravensburger.de/shop/tiptoi/index.html) pen.
+ttaudio converts a collection of *.mp3 or *.ogg audio files into a single *.gme file to play on the [Ravensburger TipToi](https://www.ravensburger.de/shop/tiptoi/index.html) pen.
 
 ## Workflow
 * Attach the TipToi stick to the USB port of your computer
@@ -14,7 +14,7 @@ tta converts a collection of *.mp3 or *.ogg audio files into a single *.gme file
 
 ## Dependencies
 
-Internally, tta uses following tools
+Internally, ttaudio uses following tools
 * [mpg123-1.22.0-x86-64](http://www.mpg123.de/download.shtml) to decode mp3 files
 * [oggenc2.exe](http://www.rarewares.org/ogg-oggenc.php) to encode the ogg files for the TipToi stick
 * [oggdec.exe](http://www.rarewares.org/ogg-oggdec.php) to decode input *.ogg files
