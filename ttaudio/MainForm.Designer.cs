@@ -49,6 +49,9 @@
             // listViewInputFiles
             // 
             this.listViewInputFiles.AllowDrop = true;
+            this.listViewInputFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewInputFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderPath});
             this.listViewInputFiles.FullRowSelect = true;
@@ -56,7 +59,7 @@
             this.listViewInputFiles.HideSelection = false;
             this.listViewInputFiles.Location = new System.Drawing.Point(15, 108);
             this.listViewInputFiles.Name = "listViewInputFiles";
-            this.listViewInputFiles.Size = new System.Drawing.Size(639, 392);
+            this.listViewInputFiles.Size = new System.Drawing.Size(617, 399);
             this.listViewInputFiles.TabIndex = 0;
             this.listViewInputFiles.UseCompatibleStateImageBehavior = false;
             this.listViewInputFiles.View = System.Windows.Forms.View.Details;
@@ -71,10 +74,10 @@
             // 
             // buttonConvert
             // 
-            this.buttonConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonConvert.Image = ((System.Drawing.Image)(resources.GetObject("buttonConvert.Image")));
             this.buttonConvert.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonConvert.Location = new System.Drawing.Point(15, 506);
+            this.buttonConvert.Location = new System.Drawing.Point(15, 513);
             this.buttonConvert.Name = "buttonConvert";
             this.buttonConvert.Size = new System.Drawing.Size(208, 72);
             this.buttonConvert.TabIndex = 1;
@@ -94,9 +97,11 @@
             // 
             // textBoxTitle
             // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.Location = new System.Drawing.Point(83, 31);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(571, 20);
+            this.textBoxTitle.Size = new System.Drawing.Size(549, 20);
             this.textBoxTitle.TabIndex = 4;
             // 
             // label3
@@ -115,7 +120,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(666, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(644, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -181,7 +186,7 @@
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(666, 590);
+            this.ClientSize = new System.Drawing.Size(644, 597);
             this.Controls.Add(this.buttonConvert);
             this.Controls.Add(this.textBoxProductId);
             this.Controls.Add(this.textBoxTitle);
@@ -192,7 +197,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "MainForm";
             this.Text = "ttaudio";
             this.menuStrip1.ResumeLayout(false);

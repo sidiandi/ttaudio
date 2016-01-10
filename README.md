@@ -1,5 +1,7 @@
 # ttaudio - TipToi Audio
 
+![Screenshot of MainForm](/doc/screenshot_mainform.png)
+
 ttaudio converts a collection of *.mp3 or *.ogg audio files into a single *.gme file to play on the [Ravensburger TipToi](https://www.ravensburger.de/shop/tiptoi/index.html) pen.
 
 ## Workflow
