@@ -60,7 +60,7 @@
             this.listViewInputFiles.Location = new System.Drawing.Point(15, 108);
             this.listViewInputFiles.Name = "listViewInputFiles";
             this.listViewInputFiles.Size = new System.Drawing.Size(617, 399);
-            this.listViewInputFiles.TabIndex = 0;
+            this.listViewInputFiles.TabIndex = 6;
             this.listViewInputFiles.UseCompatibleStateImageBehavior = false;
             this.listViewInputFiles.View = System.Windows.Forms.View.Details;
             this.listViewInputFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewInputFiles_DragDrop);
@@ -80,7 +80,7 @@
             this.buttonConvert.Location = new System.Drawing.Point(15, 513);
             this.buttonConvert.Name = "buttonConvert";
             this.buttonConvert.Size = new System.Drawing.Size(208, 72);
-            this.buttonConvert.TabIndex = 1;
+            this.buttonConvert.TabIndex = 7;
             this.buttonConvert.Text = "&Convert and \r\nCopy to Pen";
             this.buttonConvert.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonConvert.UseVisualStyleBackColor = true;
@@ -92,7 +92,7 @@
             this.label1.Location = new System.Drawing.Point(12, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(151, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 5;
             this.label1.Text = "Drop the input audio files here.";
             // 
             // textBoxTitle
@@ -102,7 +102,7 @@
             this.textBoxTitle.Location = new System.Drawing.Point(83, 31);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(549, 20);
-            this.textBoxTitle.TabIndex = 4;
+            this.textBoxTitle.TabIndex = 2;
             // 
             // label3
             // 
@@ -110,7 +110,7 @@
             this.label3.Location = new System.Drawing.Point(12, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(27, 13);
-            this.label3.TabIndex = 3;
+            this.label3.TabIndex = 1;
             this.label3.Text = "Title";
             // 
             // menuStrip1
@@ -121,7 +121,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(644, 24);
-            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
