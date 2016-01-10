@@ -22,7 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ttab
+namespace tta
 {
     public class TrackInfo
     {
@@ -48,6 +48,7 @@ namespace ttab
 
         public string YamlFile;
         public string HtmlFile;
+        public List<string> HtmlMediaFiles = new List<string>();
         public string GmeFile;
 
         public int StopOid;

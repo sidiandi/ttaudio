@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ttab
+namespace tta
 {
     /// <summary>
     /// Translates between the 9-digit representation of an OID code to its integer representation

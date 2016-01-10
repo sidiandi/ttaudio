@@ -20,15 +20,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace ttab
+namespace tta
 {
     class SubProcess
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static void Cmd(string command)
+        public async static Task Cmd(CancellationToken cancellationToken, string command)
         {
             var p = new Process
             {
@@ -47,7 +48,7 @@ namespace ttab
 
             p.Start();
 
-            p.WaitForExit();
+            await p.WaitForExitAsync(cancellationToken);
 
             if (p.ExitCode != 0)
             {
@@ -58,6 +59,32 @@ namespace ttab
         public static string Details(Process p)
         {
             return String.Format("{0} {1}", p.StartInfo.FileName, p.StartInfo.Arguments);
+        }
+    }
+
+    public static class ProcessExtensions
+    {
+        /// <summary>
+        /// Waits asynchronously for the process to exit.
+        /// </summary>
+        /// <param name="process">The process to wait for cancellation.</param>
+        /// <param name="cancellationToken">A cancellation token. If invoked, the task will return 
+        /// immediately as canceled and the process will be killed.</param>
+        /// <returns>A Task representing waiting for the process to end.</returns>
+        public static Task WaitForExitAsync(this Process process,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var tcs = new TaskCompletionSource<object>();
+            process.EnableRaisingEvents = true;
+            process.Exited += (sender, args) => tcs.TrySetResult(null);
+            if (cancellationToken != default(CancellationToken))
+                cancellationToken.Register(() =>
+            {
+                process.Kill();
+                tcs.SetCanceled();
+            });
+
+            return tcs.Task;
         }
     }
 }

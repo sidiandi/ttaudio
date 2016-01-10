@@ -24,17 +24,26 @@ using System.Threading.Tasks;
 
 namespace tta
 {
-    class About
+    public class About
     {
         public static Uri GitUri
         {
             get
             {
-                var a = Assembly.GetExecutingAssembly();
+                var a = Assembly.GetCallingAssembly();
                 return new Uri(String.Format("https://github.com/{0}/{1}",
                     a.GetCustomAttribute<AssemblyCompanyAttribute>().Company,
                     a.GetCustomAttribute<AssemblyProductAttribute>().Product
                     ));
+            }
+        }
+
+        public static string Product
+        {
+            get
+            {
+                var a = Assembly.GetCallingAssembly();
+                return a.GetCustomAttribute<AssemblyProductAttribute>().Product;
             }
         }
     }

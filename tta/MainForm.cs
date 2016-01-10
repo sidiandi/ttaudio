@@ -24,13 +24,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ttab;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 using System.Threading;
 using log4net.Layout;
 using log4net.Core;
+using RavSoft;
 
 namespace tta
 {
@@ -42,9 +42,8 @@ namespace tta
         {
             InitializeComponent();
 
-            tabControl.Appearance = TabAppearance.FlatButtons;
-            tabControl.ItemSize = new Size(0, 1);
-            tabControl.SizeMode = TabSizeMode.Fixed;
+            CueProvider.SetCue(textBoxTitle, "automatic");
+            CueProvider.SetCue(textBoxProductId, "automatic");
 
             ConfigureLogging();
 
@@ -53,6 +52,9 @@ namespace tta
 
         void ConfigureLogging()
         {
+            log4net.Config.BasicConfigurator.Configure();
+
+            /*
             var a = new TextboxAppender(textBoxLog)
             {
                 Layout = new PatternLayout("%utcdate{ISO8601} %level %message%newline"),
@@ -61,6 +63,7 @@ namespace tta
             };
             a.ActivateOptions();
             log4net.Config.BasicConfigurator.Configure(a);
+            */
         }
 
         private void listViewInputFiles_DragDrop(object sender, DragEventArgs e)
@@ -68,8 +71,7 @@ namespace tta
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                Add(AlbumReader.GetAudioFiles(files));
+                Add(files);
             }
         }
 
@@ -77,11 +79,14 @@ namespace tta
         /// Add input files to the list view
         /// </summary>
         /// <param name="inputFiles"></param>
-        void Add(IEnumerable<string> inputFiles)
+        public void Add(IEnumerable<string> inputFiles)
         {
-            foreach (var inputFile in inputFiles)
+            foreach (var audioFile in AlbumReader.GetAudioFiles(inputFiles))
             {
-                this.listViewInputFiles.Items.Add(new ListViewItem(inputFile) { Tag = inputFile });
+                this.listViewInputFiles.Items.Add(new ListViewItem(audioFile)
+                {
+                    Tag = audioFile
+                });
             }
             this.listViewInputFiles.Columns[this.listViewInputFiles.Columns.Count - 1].Width = -1;
         }
@@ -99,9 +104,7 @@ namespace tta
             StartConversion();
         }
 
-        System.Threading.CancellationTokenSource cancelConversion;
-
-        Task Convert(CancellationToken cancel, IList<string> files, string title)
+        Task Convert(CancellationToken cancel, IList<string> files, string title, string productId)
         {
             return Task.Factory.StartNew(() =>
             {
@@ -114,7 +117,8 @@ namespace tta
                     {
                         collection.Title = title;
                     }
-                    albumMaker.Create(cancelConversion.Token, collection);
+                    collection.ProductId = productId;
+                    albumMaker.Create(cancel, collection).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -132,14 +136,17 @@ namespace tta
                 return;
             }
 
-            textBoxLog.Clear();
-            tabControl.SelectedTab = tabPageConversion;
-            if (cancelConversion == null)
-            {
-                cancelConversion = new System.Threading.CancellationTokenSource();
-            }
+            var cancellationTokenSource = new System.Threading.CancellationTokenSource();
+            var task = Convert(cancellationTokenSource.Token, files, textBoxTitle.Text, textBoxProductId.Text);
 
-            Convert(cancelConversion.Token, files, textBoxTitle.Text);
+            var taskForm = new TaskForm(task, cancellationTokenSource)
+            {
+                Text = "Convert and Copy to Pen"
+            };
+                
+            taskForm.Show();
+
+            New();
         }
 
         private void buttonStartNewConversion_Click(object sender, EventArgs e)
@@ -149,18 +156,9 @@ namespace tta
 
         void New()
         {
-            this.tabControl.SelectedTab = this.tabPageInput;
             textBoxTitle.Text = String.Empty;
+            textBoxProductId.Text = String.Empty;
             this.listViewInputFiles.Items.Clear();
-        }
-
-        void CancelConversion()
-        {
-            if (cancelConversion != null)
-            {
-                cancelConversion.Cancel();
-                cancelConversion = null;
-            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

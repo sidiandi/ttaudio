@@ -22,11 +22,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ttab
+namespace tta
 {
     public class AlbumCollection
     {
         public string Title;
+        public string ProductId;
         public Album[] Album;
     }
 }

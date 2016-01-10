@@ -32,12 +32,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="About.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="AlbumCollection.cs" />
     <Compile Include="AlbumCollectionMeta.cs" />
     <Compile Include="AlbumMaker.cs" />
     <Compile Include="AlbumReader.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="FileTransaction.cs" />
     <Compile Include="IOidCode.cs" />
     <Compile Include="LogScope.cs" />
     <Compile Include="Oid.cs" />

@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using log4net.Core;
 using System.Windows.Forms;
 
-namespace ttab
+namespace tta
 {
     class TextboxAppender : log4net.Appender.AppenderSkeleton
     {
@@ -32,15 +32,32 @@ namespace ttab
             this.textBox = textBox;
         }
 
-        readonly TextBox textBox;
+        TextBox textBox;
 
         protected override void Append(LoggingEvent loggingEvent)
         {
-            var msg = this.RenderLoggingEvent(loggingEvent);
-            if (textBox.IsHandleCreated)
+            lock (this)
             {
-                textBox.Invoke(new MethodInvoker(() => textBox.AppendText(msg)));
+                if (textBox == null)
+                {
+                    return;
+                }
+
+                var msg = this.RenderLoggingEvent(loggingEvent);
+                if (textBox.InvokeRequired)
+                {
+                    textBox.BeginInvoke(new MethodInvoker(() => textBox.AppendText(msg)));
+                }
             }
+        }
+
+        protected override void OnClose()
+        {
+            lock (this)
+            {
+                textBox = null;
+            }
+            base.OnClose();
         }
     }
 }

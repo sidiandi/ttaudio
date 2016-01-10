@@ -22,13 +22,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ttab
+namespace tta
 {
     public class PathUtil
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public static void AddToPath(string newDirectory)
         {
             var PATH = "PATH";
@@ -39,6 +42,14 @@ namespace ttab
             if (!Directory.Exists(d))
             {
                 Directory.CreateDirectory(d);
+            }
+        }
+
+        public static void EnsureFileNotExists(string tempPath)
+        {
+            if (File.Exists(tempPath))
+            {
+                File.Delete(tempPath);
             }
         }
 
@@ -114,6 +125,50 @@ namespace ttab
         internal static string GetValidFileName(string title)
         {
             return Regex.Replace(title, @"[^\w]", "_");
+        }
+
+        internal async static Task Copy(CancellationToken cancel, string source, string dest)
+        {
+            if (cancel.IsCancellationRequested)
+            {
+                return;
+            }
+
+            using (new LogScope(log, "Copy {0} to {1}", source, dest))
+            {
+                if (Directory.Exists(source))
+                {
+                    var d = new DirectoryInfo(source);
+                    EnsureDirectoryExists(dest);
+                    foreach (var c in d.GetFileSystemInfos())
+                    {
+                        await Copy(cancel, c.FullName, Path.Combine(dest, c.Name));
+                    }
+                }
+                else
+                {
+                    var si = new FileInfo(source);
+                    var di = new FileInfo(dest);
+                    var needCopy = !di.Exists || (si.LastWriteTimeUtc != di.LastWriteTimeUtc) || (si.Length != di.Length);
+                    if (needCopy)
+                    {
+                        using (var t = new FileTransaction(dest))
+                        {
+                            using (var r = File.OpenRead(source))
+                            using (var w = File.OpenWrite(t.TempPath))
+                            {
+                                await r.CopyToAsync(w, 0x10000, cancel);
+                            }
+                            t.Commit();
+                        }
+                    }
+                }
+            }
+        }
+
+        public static Task CopyToDir(CancellationToken cancellationToken, string source, string destinationParentDirectory)
+        {
+            return Copy(cancellationToken, source, Path.Combine(destinationParentDirectory, Path.GetFileName(source)));
         }
     }
 }

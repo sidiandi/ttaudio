@@ -16,7 +16,6 @@
 // along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 using NUnit.Framework;
-using ttab;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +26,7 @@ using System.Xml.XPath;
 using System.Xml;
 using System.Drawing;
 
-namespace ttab.Tests
+namespace tta.Tests
 {
     [TestFixture()]
     public class OidSvgWriterTests

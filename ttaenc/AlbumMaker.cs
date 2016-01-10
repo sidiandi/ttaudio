@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Serialization;
 
-namespace ttab
+namespace tta
 {
     /// <summary>
     /// Creates audio album collections for the TipToi pen
@@ -107,21 +107,24 @@ namespace ttab
 
         string MediaDir { get { return Path.Combine(RootDirectory, "media"); } }
 
-        public static void Mp3ToOgg(string mp3SourceFile, string oggDestinationFile)
+        public async static Task Mp3ToOgg(CancellationToken cancellationToken, string mp3SourceFile, string oggDestinationFile)
         {
             using (new LogScope(log, "Convert {0} to {1}", mp3SourceFile, oggDestinationFile))
             {
-                var ext = Path.GetExtension(mp3SourceFile);
-                if (ext.Equals(mp3Extension, StringComparison.InvariantCultureIgnoreCase))
+                using (var t = new FileTransaction(oggDestinationFile))
                 {
-                    SubProcess.Cmd(String.Format("mpg123 -w - {0} | oggenc2 - -o{1} --resample 22500 -downmix", mp3SourceFile.Quote(), oggDestinationFile.Quote()));
-                }
-                else if (ext.Equals(oggExtension, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    SubProcess.Cmd(String.Format("oggdec -o{1} {0} & oggenc2 {1} -o{2} --resample 22500 -downmix & del {1}",
-                        CygPath(mp3SourceFile).Quote(),
-                        (oggDestinationFile + ".wav").Quote(),
-                        oggDestinationFile.Quote()));
+                    var ext = Path.GetExtension(mp3SourceFile);
+                    if (ext.Equals(mp3Extension, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        await SubProcess.Cmd(cancellationToken, String.Format("mpg123 -w - {0} | oggenc2 - -o{1} --resample 22500 -downmix", mp3SourceFile.Quote(), oggDestinationFile.Quote()));
+                    }
+                    else if (ext.Equals(oggExtension, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        await SubProcess.Cmd(cancellationToken, String.Format("oggdec -o{1} {0} & oggenc2 {1} -o{2} --resample 22500 -downmix & del {1}",
+                            CygPath(mp3SourceFile).Quote(),
+                            (oggDestinationFile + ".wav").Quote(),
+                            t.TempPath.Quote()));
+                    }
                 }
             }
         }
@@ -142,12 +145,12 @@ namespace ttab
         const string mp3Extension = ".mp3";
         bool alwaysConvert = false;
 
-        public string ProvideOggFile(string mp3SourceFile)
+        public async Task<string> ProvideOggFile(CancellationToken cancellationToken, string mp3SourceFile)
         {
             var oggFile = Path.Combine(MediaDir, Digest(mp3SourceFile.ToLowerInvariant()) + oggExtension);
             if (!File.Exists(oggFile) || alwaysConvert)
             {
-                Mp3ToOgg(mp3SourceFile, oggFile);
+                await Mp3ToOgg(cancellationToken, mp3SourceFile, oggFile);
             }
             return oggFile;
         }
@@ -159,7 +162,7 @@ namespace ttab
             return String.Join(String.Empty, hash.Select(_ => _.ToString("X2")));
         }
 
-        public void Create(CancellationToken cancel, AlbumCollection collection)
+        public async Task Create(CancellationToken cancellationToken, AlbumCollection collection)
         {
             var meta = new AlbumCollectionMeta
             {
@@ -167,6 +170,7 @@ namespace ttab
                 Name = PathUtil.GetValidFileName(collection.Title),
                 ProductId = GetNextProductId(),
             };
+            meta.GmeFile = Path.Combine(OutputDir, meta.Name + ".gme");
 
             var metaXml = Path.Combine(TempDir, meta.Name + ".xml");
 
@@ -183,19 +187,19 @@ namespace ttab
                 var tracks = collection.Album.SelectMany(_ => _.Tracks).ToList();
                 Parallel.ForEach(
                     tracks,
-                    new ParallelOptions { CancellationToken = cancel, MaxDegreeOfParallelism = System.Environment.ProcessorCount },
+                    new ParallelOptions { CancellationToken = cancellationToken, MaxDegreeOfParallelism = System.Environment.ProcessorCount },
                     i =>
                     {
-                        var oggFile = ProvideOggFile(i.Path);
+                        var oggFile = ProvideOggFile(cancellationToken, i.Path).Result;
                     });
 
-                cancel.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 // assign oids
                 meta.StopOid = meta.StartOid++;
                 foreach (var i in tracks)
                 {
-                    var oggFile = ProvideOggFile(i.Path);
+                    var oggFile = await ProvideOggFile(cancellationToken, i.Path);
                     meta.TrackInfo[i.Path] = new TrackInfo
                     {
                         Oid = meta.StartOid++,
@@ -204,7 +208,7 @@ namespace ttab
                     };
                 }
 
-                cancel.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 // check if size > 800 MB and split into parts if required
                 var parts = collection.Album.Partition(_ => _.Tracks.Sum(track => meta.TrackInfo[track.Path].Length), maxGmeSize).ToList();
@@ -218,13 +222,13 @@ namespace ttab
                             Album = part.ToArray(),
                             Title = String.Format("{0} - Part {1} of {2}", collection.Title, partIndex, parts.Count)
                         };
-                        Create(cancel, partcollection);
+                        await Create(cancellationToken, partcollection);
                         ++partIndex;
                     }
                     return;
                 }
 
-                cancel.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 PathUtil.WriteXml(metaXml, meta);
 
@@ -232,32 +236,35 @@ namespace ttab
                 WriteYaml(meta);
 
                 // write html
-                WriteHtml(meta);
+                WriteHtml(cancellationToken, meta);
 
                 // open html
                 Process.Start(meta.HtmlFile);
 
-                cancel.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 // create gme
-                Assemble(meta);
+                await Assemble(cancellationToken, meta);
+
+                cancellationToken.ThrowIfCancellationRequested();
 
                 // copy gme file to stick
-                CopyToStick(cancel, meta);
+                await CopyToStick(cancellationToken, meta);
             }
         }
 
-        private void Assemble(AlbumCollectionMeta meta)
+        private async Task Assemble(CancellationToken cancellationToken, AlbumCollectionMeta meta)
         {
-            // assemble
-            meta.GmeFile = Path.Combine(OutputDir, meta.Name + ".gme");
-            SubProcess.Cmd(String.Format("tttool assemble {0} {1}", meta.YamlFile.Quote(), meta.GmeFile.Quote()));
+            await SubProcess.Cmd(cancellationToken, String.Format("tttool assemble {0} {1}", meta.YamlFile.Quote(), meta.GmeFile.Quote()));
         }
 
-        private void WriteHtml(AlbumCollectionMeta meta)
+        private void WriteHtml(CancellationToken cancellationToken, AlbumCollectionMeta meta)
         {
             // create html page
             meta.HtmlFile = Path.Combine(OutputDir, meta.Name + ".html");
+            meta.HtmlMediaFiles.Add("style.css");
+            meta.HtmlMediaFiles.Add("note_to_pen.png");
+
             log.InfoFormat("Write {0}", meta.HtmlFile);
 
             var ow = new OidSvgWriter(new TiptoiOidCode());
@@ -273,6 +280,12 @@ namespace ttab
     <title>" + HttpUtility.HtmlEncode(meta.AlbumCollection.Title) + @"</title>
   </head>
   <body>
+    <div class=""printInstructions"">
+        <img src=""media/note_to_pen.png"" />
+        <p><a href=""javascript:window.print();"">Click here to print the page with optical codes to play your audio files.</a> Use a printer with at least 600 dpi.</p>
+        <p>This page was generated by <a href=""https://github.com/sidiandi/tta"">tta</a> on " + HttpUtility.HtmlEncode(DateTime.Now.ToString()) + 
+        @". Product ID = " + HttpUtility.HtmlEncode(meta.ProductId.ToString()) + @", GME file = " + HttpUtility.HtmlEncode(meta.GmeFile) + @"</p>
+    </div>
 ");
                 w.WriteLine("<h1>");
                 ow.OidButton(w, meta.ProductId, "Start"); ow.OidButton(w, meta.StopOid, "Stop");
@@ -285,7 +298,8 @@ namespace ttab
                     if (album.Picture != null)
                     {
                         var pic = Path.Combine(MediaDir, Digest(album.Picture) + Path.GetExtension(album.Picture));
-                        PathUtil.CopyIfNewer(album.Picture, pic);
+                        meta.HtmlMediaFiles.Add(Path.GetFileName(pic));
+                        PathUtil.Copy(cancellationToken, album.Picture, pic);
                         w.WriteLine(@"<img src={0} class=""album-art"" />", ("media/" + Path.GetFileName(pic)).Quote());
                     }
                     else
@@ -343,7 +357,7 @@ scripts:
             }
         }
 
-        private void CopyToStick(CancellationToken cancel, AlbumCollectionMeta meta)
+        private async Task CopyToStick(CancellationToken cancel, AlbumCollectionMeta meta)
         {
             var stick = TipToiStick.GetAll().FirstOrDefault();
 
@@ -355,11 +369,12 @@ scripts:
             {
                 log.InfoFormat("Audio stick found at {0}. {1} will be copied to the stick now.", stick.RootDirectory, meta.GmeFile);
 
-                var source = meta.GmeFile;
-                var dest = Path.Combine(stick.RootDirectory, Path.GetFileName(meta.GmeFile));
-                using (new LogScope(log, "Copy {0} to {1}", source, dest))
+                await PathUtil.CopyToDir(cancel, meta.GmeFile, stick.RootDirectory);
+                var htmlDest = Path.Combine(stick.RootDirectory, About.Product, meta.Name);
+                await PathUtil.CopyToDir(cancel, meta.HtmlFile, htmlDest);
+                foreach (var mf in meta.HtmlMediaFiles)
                 {
-                    File.Copy(source, dest, true);
+                    await PathUtil.CopyToDir(cancel, Path.Combine(MediaDir, mf), Path.Combine(htmlDest, Path.GetFileName(MediaDir)));
                 }
             }
         }
