@@ -24,9 +24,9 @@ using System.Threading.Tasks;
 
 namespace tta
 {
-    class TipToiStick
+    public class TipToiPen
     {
-        TipToiStick(string root)
+        TipToiPen(string root)
         {
             RootDirectory = root;
         }
@@ -36,14 +36,14 @@ namespace tta
             get; private set;
         }
 
-        public static IEnumerable<TipToiStick> GetAll()
+        public static IEnumerable<TipToiPen> GetAll()
         {
             // copy to stick, if possible
             var stickFile = @".tiptoi.log";
             return DriveInfo.GetDrives()
                 .Select(d => d.RootDirectory.FullName)
                 .Where(_ => File.Exists(Path.Combine(_, stickFile)))
-                .Select(_ => new TipToiStick(_));
+                .Select(_ => new TipToiPen(_));
         }
     }
 }

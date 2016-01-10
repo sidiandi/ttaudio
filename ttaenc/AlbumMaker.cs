@@ -81,7 +81,7 @@ namespace tta
         {
             var nextProductIdFile = Path.Combine(TempDir, "next-product-id");
 
-            var productId = 131;
+            var productId = 800;
             if (File.Exists(nextProductIdFile))
             {
                 productId = Int32.Parse(File.ReadAllText(nextProductIdFile));
@@ -264,6 +264,7 @@ namespace tta
             meta.HtmlFile = Path.Combine(OutputDir, meta.Name + ".html");
             meta.HtmlMediaFiles.Add("style.css");
             meta.HtmlMediaFiles.Add("note_to_pen.png");
+            meta.HtmlMediaFiles.Add("default-album-art.png");
 
             log.InfoFormat("Write {0}", meta.HtmlFile);
 
@@ -295,19 +296,18 @@ namespace tta
                 foreach (var album in meta.AlbumCollection.Album)
                 {
                     w.WriteLine(@"<div class=""album"">");
+                    string pic;
                     if (album.Picture != null)
                     {
-                        var pic = Path.Combine(MediaDir, Digest(album.Picture) + Path.GetExtension(album.Picture));
+                        pic = Path.Combine(MediaDir, Digest(album.Picture) + Path.GetExtension(album.Picture));
                         meta.HtmlMediaFiles.Add(Path.GetFileName(pic));
                         PathUtil.Copy(cancellationToken, album.Picture, pic);
-                        w.WriteLine(@"<img src={0} class=""album-art"" />", ("media/" + Path.GetFileName(pic)).Quote());
                     }
                     else
                     {
-                        w.Write(@"<div class=""album-art"" >");
-                        w.Write(HttpUtility.HtmlEncode(album.Title));
-                        w.Write(@"</div>");
+                        pic = Path.Combine(MediaDir, "default-album-art.png");
                     }
+                    w.WriteLine(@"<img src={0} class=""album-art"" />", ("media/" + Path.GetFileName(pic)).Quote());
                     w.WriteLine("<h2>{0}</h2>", album.Title);
                     foreach (var i in album.Tracks)
                     {
@@ -359,7 +359,7 @@ scripts:
 
         private async Task CopyToStick(CancellationToken cancel, AlbumCollectionMeta meta)
         {
-            var stick = TipToiStick.GetAll().FirstOrDefault();
+            var stick = TipToiPen.GetAll().FirstOrDefault();
 
             if (stick == null)
             {

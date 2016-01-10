@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,19 @@ namespace tta
 
         public TaskForm(Task task, CancellationTokenSource cancellationTokenSource)
         {
-            this.task = task;
-            // task.ContinueWith((t, o) => Close(), null, TaskScheduler.FromCurrentSynchronizationContext());
-            this.cancellationTokenSource = cancellationTokenSource;
             InitializeComponent();
+
+            this.task = task;
+            stopwatch = Stopwatch.StartNew();
+            timer.Start();
+            task.ContinueWith((t, o) => OnComplete(), null, TaskScheduler.FromCurrentSynchronizationContext());
+            this.cancellationTokenSource = cancellationTokenSource;
             this.FormClosing += TaskForm_FormClosing;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            labelResult.Text = String.Format("Running for {0:F0} seconds", stopwatch.Elapsed.TotalSeconds);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -42,6 +51,22 @@ namespace tta
             appender = a;
 
             ((Hierarchy)log4net.LogManager.GetRepository()).Root.AddAppender(appender);
+        }
+
+        Stopwatch stopwatch;
+
+        void OnComplete()
+        {
+            timer.Stop();
+            if (task.IsFaulted)
+            {
+                labelResult.Text = String.Format("Task failed. See log for details.");
+            }
+            else
+            {
+                labelResult.Text = String.Format("Task completed sucessfully.");
+                buttonCancel.Text = "&Close";
+            }
         }
 
         log4net.Appender.IAppender appender;

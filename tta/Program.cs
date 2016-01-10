@@ -33,12 +33,12 @@ namespace tta
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var mainForm = new MainForm();
+            var mainWindow = new MainForm();
             if (args.Any())
             {
-                mainForm.Add(args);
+                mainWindow.Add(args);
             }
-            Application.Run(mainForm);
+            Application.Run(mainWindow);
         }
     }
 }

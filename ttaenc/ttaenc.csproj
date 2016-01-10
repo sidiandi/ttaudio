@@ -48,7 +48,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubProcess.cs" />
-    <Compile Include="TipToiStick.cs" />
+    <Compile Include="TipToiPen.cs" />
     <Compile Include="Track.cs" />
   </ItemGroup>
   <ItemGroup>
