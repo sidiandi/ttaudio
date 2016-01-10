@@ -99,7 +99,6 @@ namespace tta
             StartConversion();
         }
 
-        Task conversion;
         System.Threading.CancellationTokenSource cancelConversion;
 
         Task Convert(CancellationToken cancel, IList<string> files, string title)
@@ -135,8 +134,12 @@ namespace tta
 
             textBoxLog.Clear();
             tabControl.SelectedTab = tabPageConversion;
-            cancelConversion = new System.Threading.CancellationTokenSource();
-            conversion = Convert(cancelConversion.Token, files, textBoxTitle.Text);
+            if (cancelConversion == null)
+            {
+                cancelConversion = new System.Threading.CancellationTokenSource();
+            }
+
+            Convert(cancelConversion.Token, files, textBoxTitle.Text);
         }
 
         private void buttonStartNewConversion_Click(object sender, EventArgs e)
@@ -173,6 +176,43 @@ namespace tta
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        void DeleteSelected()
+        {
+            var remainingItems = listViewInputFiles.Items.Cast<ListViewItem>().Where(_ => !_.Selected).ToArray();
+            listViewInputFiles.Items.Clear();
+            listViewInputFiles.Items.AddRange(remainingItems);
+        }
+
+        void SelectAll()
+        {
+            foreach (ListViewItem i in listViewInputFiles.Items)
+            {
+                i.Selected = true;
+            }
+        }
+
+        private void listViewInputFiles_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        SelectAll();
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        DeleteSelected();
+                        break;
+                }
+            }
         }
     }
 }
