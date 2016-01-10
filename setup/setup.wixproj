@@ -56,7 +56,19 @@
 			$(DefineConstants)
 		</DefineConstants>
     </PropertyGroup>
-    <HeatDirectory Directory="@(HeatDirectories)" VerboseOutput="true" OutputFile="Files.wxs" ComponentGroupName="ProductComponents" AutogenerateGuids="true" SuppressFragments="true" PreprocessorVariable="var.BinDir" ToolPath="$(WixToolPath)" SuppressCom="true" SuppressRegistry="true" DirectoryRefId="INSTALLFOLDER" SuppressRootDirectory="true" />
+    <HeatDirectory 
+		Directory="@(HeatDirectories)" 
+		VerboseOutput="true" 
+		OutputFile="Files.wxs" 
+		ComponentGroupName="ProductComponents" 
+		AutogenerateGuids="true" 
+		SuppressFragments="true" 
+		PreprocessorVariable="var.BinDir" 
+		ToolPath="$(WixToolPath)" 
+		SuppressCom="true" 
+		SuppressRegistry="true" 
+		DirectoryRefId="INSTALLFOLDER" 
+		SuppressRootDirectory="true" />
   </Target>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
