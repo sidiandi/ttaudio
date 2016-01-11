@@ -2,6 +2,9 @@
 
 ttaudio converts a collection of *.mp3 or *.ogg audio files into a single *.gme file to play on the [Ravensburger TipToi](https://www.ravensburger.de/shop/tiptoi/index.html) pen.
 
+**IMPORTANT:**  
+ttaudio is neither offered nor supported by Ravensburger. All information shown here was consolidated by independent hobbyists and only for educational purposes. The authors do not take any liability for possible damages.
+
 ## Main Window
 
 ![Screenshot of MainForm](/doc/screenshot_mainform.png)
