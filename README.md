@@ -3,9 +3,11 @@
 ttaudio converts a collection of *.mp3 or *.ogg audio files into a single *.gme file to play on the [Ravensburger TipToi](https://www.ravensburger.de/shop/tiptoi/index.html) pen.
 
 ![Screenshot of MainForm](/doc/screenshot_mainform.png)
+
 The main window
 
 ![Screenshot of HTML output](/doc/screenshot_html_output.png)
+
 HTML output
 
 [Here is an example of the HTML page.](/doc/example.pdf)
