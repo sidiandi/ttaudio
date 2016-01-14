@@ -28,8 +28,21 @@ using tta;
 namespace ttaencTests
 {
     [TestFixture()]
-    public class AlbumReaderTests 
+    public class AlbumReaderTests
     {
+        [Test()]
+        public void FromTagsTest()
+        {
+            var audioFiles = new[] { TestHelper.TestFile(@"audio\187950__soundmatch24__rnb-beat.mp3") };
+            var ar = new AlbumReader();
+            var c = ar.FromTags(audioFiles);
+            var track = c.Album.Single().Tracks.Single();
+            Assert.AreEqual("Beat", track.Title);
+            Assert.AreEqual("Beats", track.Album);
+            Assert.AreEqual(42, track.TrackNumber);
+            Assert.AreEqual(TimeSpan.Parse("00:00:08.5910000"), track.Duration);
+        }
+
         [Test()]
         public void IsAudioFile()
         {

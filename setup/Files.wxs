@@ -60,8 +60,17 @@
                 <File Id="fil931F2C9E210897024D37E719FFAD301D" KeyPath="yes" Source="$(var.BinDir)\ttaudio.xml" />
             </Component>
             <Directory Id="dirC7DE656D38A188464F92B57F9464B4CA" Name="media">
+                <Component Id="cmp226118D2048E73303ED5EF234B53E928" Guid="*">
+                    <File Id="filF9CCCE2D40A7F740508ACCBD760CA380" KeyPath="yes" Source="$(var.BinDir)\media\2-columns.css" />
+                </Component>
+                <Component Id="cmp17B21158CCB00BC2211F81CEF31FE158" Guid="*">
+                    <File Id="fil2B7C3A844233B6A2050BCA9962F1AAF6" KeyPath="yes" Source="$(var.BinDir)\media\compact.css" />
+                </Component>
                 <Component Id="cmp58FB8CDBCAD1C9829CA7FA88F6189096" Guid="*">
                     <File Id="fil5229B149BF253024F4C38EC5A4A5E1C8" KeyPath="yes" Source="$(var.BinDir)\media\default-album-art.png" />
+                </Component>
+                <Component Id="cmpCF3AA6EFEAFB02BEF49E7FAF53500E84" Guid="*">
+                    <File Id="fil16C0C351AC07A00B31AB39173BAC9533" KeyPath="yes" Source="$(var.BinDir)\media\default.css" />
                 </Component>
                 <Component Id="cmpA182E74189D38175A5177C0C89A4B8A3" Guid="*">
                     <File Id="fil69C636BFC8A25A6F7FF8E3D0A1E05C4B" KeyPath="yes" Source="$(var.BinDir)\media\ding.ogg" />
@@ -71,6 +80,9 @@
                 </Component>
                 <Component Id="cmp006A4CBA6AD37D30E2A636588C5C0F82" Guid="*">
                     <File Id="fil917FA4AAD13AEEE141E6A5E08AD9500B" KeyPath="yes" Source="$(var.BinDir)\media\power-symbol.svg" />
+                </Component>
+                <Component Id="cmpCB60E15E3E4569AC83776BEC9A5C9E40" Guid="*">
+                    <File Id="filFA966FE5EBC028A68D36B171530C95A7" KeyPath="yes" Source="$(var.BinDir)\media\rows.css" />
                 </Component>
                 <Component Id="cmp352D5BBE0DE1F53049334803CAB38CE1" Guid="*">
                     <File Id="fil6AE47CDCB0034705F5819399EE672B19" KeyPath="yes" Source="$(var.BinDir)\media\style.css" />
@@ -1153,10 +1165,14 @@
             <ComponentRef Id="cmpD48423926F4089FE7A83D0B7FB2B5A3D" />
             <ComponentRef Id="cmp6379A1AB146081CD805945DEEAD891A2" />
             <ComponentRef Id="cmpE3D7235DBF4E65F33806D4E820706729" />
+            <ComponentRef Id="cmp226118D2048E73303ED5EF234B53E928" />
+            <ComponentRef Id="cmp17B21158CCB00BC2211F81CEF31FE158" />
             <ComponentRef Id="cmp58FB8CDBCAD1C9829CA7FA88F6189096" />
+            <ComponentRef Id="cmpCF3AA6EFEAFB02BEF49E7FAF53500E84" />
             <ComponentRef Id="cmpA182E74189D38175A5177C0C89A4B8A3" />
             <ComponentRef Id="cmpD37F97F8EA2E04C35857046D5E38E47C" />
             <ComponentRef Id="cmp006A4CBA6AD37D30E2A636588C5C0F82" />
+            <ComponentRef Id="cmpCB60E15E3E4569AC83776BEC9A5C9E40" />
             <ComponentRef Id="cmp352D5BBE0DE1F53049334803CAB38CE1" />
             <ComponentRef Id="cmp08DBFED1E3DA8D0C61213A04B5337E3F" />
             <ComponentRef Id="cmp9191BAB569AB7162B7D9A1EF09FAF6CC" />

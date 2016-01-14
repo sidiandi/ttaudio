@@ -72,11 +72,11 @@ namespace tta
             var outputs = new[] {
                 Task.Factory.StartNew(() =>
                 {
-                    CopyTo(p.StandardOutput, log.Info);
+                    CopyTo(p.StandardOutput, log.Debug);
                 }),
                 Task.Factory.StartNew(() =>
                 {
-                    CopyTo(p.StandardError, log.Error);
+                    CopyTo(p.StandardError, log.Debug);
                 })
             };
 
