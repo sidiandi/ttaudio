@@ -2,19 +2,19 @@
 	width: 5cm;
 }
 
-.TrackNumber {
+.track-number {
 	display: none;
 }
 
-.TrackTitle {
+.track-title {
 	display: none;
 }
 
-.TrackDuration {
+.track-duration {
 	display: none;
 }
 
-li {
+.track-list li {
 	style: none;
 	display: inline;
 }

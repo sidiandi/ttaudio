@@ -25,9 +25,11 @@ namespace tta
 {
     public class Track
     {
+        public string[] Artists;
         public string Album;
         public string Title;
         public string Path;
         public uint TrackNumber;
+        public TimeSpan Duration;
     }
 }

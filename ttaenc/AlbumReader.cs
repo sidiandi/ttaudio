@@ -116,11 +116,13 @@ namespace tta
             {
                 using (var f = TagLib.File.Create(path))
                 {
+                    track.Duration = f.Properties.Duration;
                     if (!f.Tag.IsEmpty)
                     {
                         track.Title = f.Tag.Title;
                         track.TrackNumber = f.Tag.Track;
                         track.Album = f.Tag.Album;
+                        track.Artists = f.Tag.Artists;
                     }
                 }
             }

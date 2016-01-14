@@ -25,6 +25,14 @@ namespace tta
 {
     public class Album
     {
+        public string Artist
+        {
+            get
+            {
+                return String.Join(", ", Tracks.SelectMany(_ => _.Artists).Distinct());
+            }
+        }
+
         public string Title;
         public string Picture;
         public Track[] Tracks;
