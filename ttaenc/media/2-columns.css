@@ -1,0 +1,21 @@
+.album {
+	width: 8cm;
+	border: solid;
+	border-width: 1px;
+
+	padding: 4px;
+	margin: 4px;
+
+	page-break-inside: avoid;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.album-art {
+	float: none;
+}
+
+ul {
+    list-style:none;
+    padding-left:0;
+}​

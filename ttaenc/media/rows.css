@@ -1,0 +1,22 @@
+.album {
+	clear:left;
+	
+	border: solid;
+	border-width: 1px;
+
+	padding: 4px;
+	margin: 4px;
+
+	page-break-inside: avoid;
+	display: block;
+	vertical-align: top;
+}
+
+.album-art {
+	float: left;
+}
+
+li 
+{
+	display: inline;
+}

@@ -1,0 +1,20 @@
+.album {
+	width: 5cm;
+}
+
+.TrackNumber {
+	display: none;
+}
+
+.TrackTitle {
+	display: none;
+}
+
+.TrackDuration {
+	display: none;
+}
+
+li {
+	style: none;
+	display: inline;
+}
