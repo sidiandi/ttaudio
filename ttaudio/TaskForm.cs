@@ -44,7 +44,7 @@ namespace tta
             var a = new TextboxAppender(this.textBoxProgress)
             {
                 Layout = new PatternLayout("%utcdate{ISO8601} %level %message%newline"),
-                Threshold = Level.Info,
+                Threshold = Level.Debug,
                 Name = textBoxProgress.Name,
             };
             a.ActivateOptions();

@@ -18,14 +18,17 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using tta;
 
-namespace tta.Tests
+namespace ttaencTests
 {
     [TestFixture()]
-    public class AlbumReaderTests
+    public class AlbumReaderTests 
     {
         [Test()]
         public void IsAudioFile()

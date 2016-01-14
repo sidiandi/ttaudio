@@ -10,7 +10,7 @@
 	</ItemGroup>
 	<Copy
 		SourceFiles="@(TestFiles)"
-		DestinationFolder="$(TestDir)\%(RecursiveDir)"
+		DestinationFiles="@(TestFiles->'$(TestDir)\%(RecursiveDir)%(Filename)%(Extension)')"
 		Retries="0"
 		OverwriteReadOnlyFiles="true"
 		SkipUnchangedFiles="true"

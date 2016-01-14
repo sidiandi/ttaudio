@@ -63,10 +63,11 @@
             // 
             // labelResult
             // 
-            this.labelResult.AutoSize = true;
+            this.labelResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelResult.Location = new System.Drawing.Point(12, 334);
             this.labelResult.Name = "labelResult";
-            this.labelResult.Size = new System.Drawing.Size(56, 13);
+            this.labelResult.Size = new System.Drawing.Size(696, 21);
             this.labelResult.TabIndex = 2;
             this.labelResult.Text = "Running...";
             // 

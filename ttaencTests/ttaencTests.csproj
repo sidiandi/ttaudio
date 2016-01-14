@@ -28,9 +28,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AlbumMakerTests.cs" />
     <Compile Include="AlbumReaderTests.cs" />
     <Compile Include="OidSvgWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -107,24 +107,73 @@ namespace tta
 
         string MediaDir { get { return Path.Combine(RootDirectory, "media"); } }
 
-        public async static Task Mp3ToOgg(CancellationToken cancellationToken, string mp3SourceFile, string oggDestinationFile)
+        public async static Task AudioFileToTipToiAudioFile(CancellationToken cancellationToken, string sourceFile, string oggDestinationFile)
         {
-            using (new LogScope(log, "Convert {0} to {1}", mp3SourceFile, oggDestinationFile))
+            using (new LogScope(log, "Convert {0} to {1}", sourceFile, oggDestinationFile))
             {
                 using (var t = new FileTransaction(oggDestinationFile))
                 {
-                    var ext = Path.GetExtension(mp3SourceFile);
-                    if (ext.Equals(mp3Extension, StringComparison.InvariantCultureIgnoreCase))
+                    var ext = Path.GetExtension(sourceFile).ToLowerInvariant();
+                    var wavFile = oggDestinationFile + ".wav";
+                    try
                     {
-                        await SubProcess.Cmd(cancellationToken, String.Format("mpg123 -w - {0} | oggenc2 - -o{1} --resample 22500 -downmix", mp3SourceFile.Quote(), oggDestinationFile.Quote()));
+                        switch (ext)
+                        {
+                            case mp3Extension:
+                                {
+                                    await SubProcess.CheckedCall(cancellationToken
+                                        , "mpg123.exe",
+                                        "-w", wavFile.Quote(),
+                                        sourceFile.Quote());
+
+                                    await SubProcess.CheckedCall(cancellationToken,
+                                        "oggenc2.exe",
+                                        wavFile.Quote(),
+                                        ("--output=" + t.TempPath).Quote(),
+                                        "--quiet",
+                                        "--resample", "22500",
+                                        "--downmix");
+                                }
+                                break;
+                            case oggExtension:
+                                {
+                                    await SubProcess.CheckedCall(cancellationToken
+                                        , "oggdec.exe",
+                                        "--wavout", wavFile.Quote(),
+                                        "-q",
+                                        sourceFile.Quote());
+
+                                    await SubProcess.CheckedCall(cancellationToken,
+                                        "oggenc2.exe",
+                                        "-o", t.TempPath.Quote(),
+                                        "--quiet",
+                                        "--resample", "22500",
+                                        "--downmix",
+                                        wavFile.Quote()
+                                        );
+                                }
+                                break;
+                            case wavExtension:
+                                {
+                                    await SubProcess.CheckedCall(cancellationToken,
+                                        "oggenc2.exe",
+                                        sourceFile.Quote(),
+                                        "-o", t.TempPath.Quote(),
+                                        "--quiet",
+                                        "--resample", "22500",
+                                        "--downmix");
+                                }
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException("sourceFile", sourceFile, "File type is not supported.");
+                        }
                     }
-                    else if (ext.Equals(oggExtension, StringComparison.InvariantCultureIgnoreCase))
+                    finally
                     {
-                        await SubProcess.Cmd(cancellationToken, String.Format("oggdec -o{1} {0} & oggenc2 {1} -o{2} --resample 22500 -downmix & del {1}",
-                            CygPath(mp3SourceFile).Quote(),
-                            (oggDestinationFile + ".wav").Quote(),
-                            t.TempPath.Quote()));
+                        PathUtil.EnsureFileNotExists(wavFile);
                     }
+
+                    t.Commit();
                 }
             }
         }
@@ -143,6 +192,7 @@ namespace tta
 
         const string oggExtension = ".ogg";
         const string mp3Extension = ".mp3";
+        const string wavExtension = ".wav";
         bool alwaysConvert = false;
 
         public async Task<string> ProvideOggFile(CancellationToken cancellationToken, string mp3SourceFile)
@@ -150,7 +200,7 @@ namespace tta
             var oggFile = Path.Combine(MediaDir, Digest(mp3SourceFile.ToLowerInvariant()) + oggExtension);
             if (!File.Exists(oggFile) || alwaysConvert)
             {
-                await Mp3ToOgg(cancellationToken, mp3SourceFile, oggFile);
+                await AudioFileToTipToiAudioFile(cancellationToken, mp3SourceFile, oggFile);
             }
             return oggFile;
         }
@@ -265,6 +315,11 @@ namespace tta
             }
         }
 
+        static string T(string rawText)
+        {
+            return HttpUtility.HtmlEncode(rawText);
+        }
+
         private async Task Assemble(CancellationToken cancellationToken, AlbumCollectionMeta meta)
         {
             await SubProcess.Cmd(cancellationToken, String.Format("tttool assemble {0} {1}", meta.YamlFile.Quote(), meta.GmeFile.Quote()));
@@ -290,19 +345,19 @@ namespace tta
     <meta charset=""utf-8"">
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
 	<link rel=""stylesheet"" href=""media/style.css"" />
-    <title>" + HttpUtility.HtmlEncode(meta.AlbumCollection.Title) + @"</title>
+    <title>" + T(meta.AlbumCollection.Title) + @"</title>
   </head>
   <body>
     <div class=""printInstructions"">
         <img src=""media/note_to_pen.png"" />
         <p><a href=""javascript:window.print();"">Click here to print the page with optical codes to play your audio files.</a> Use a printer with at least 600 dpi.</p>
-        <p>This page was generated by <a href=""https://github.com/sidiandi/tta"">tta</a> on " + HttpUtility.HtmlEncode(DateTime.Now.ToString()) + 
-        @". Product ID = " + HttpUtility.HtmlEncode(meta.ProductId.ToString()) + @", GME file = " + HttpUtility.HtmlEncode(Path.GetFileName(meta.GmeFile)) + @"</p>
+        <p>This page was generated by <a href=""" + About.GitUri.ToString() + @""">" + T(About.Product) + @"</a> on " + T(DateTime.Now.ToString()) + 
+        @". Product ID = " + T(meta.ProductId.ToString()) + @", GME file = " + T(Path.GetFileName(meta.GmeFile)) + @"</p>
     </div>
 ");
                 w.WriteLine("<h1>");
                 ow.OidButton(w, meta.ProductId, "Start"); ow.OidButton(w, meta.StopOid, "Stop");
-                w.WriteLine(HttpUtility.HtmlEncode(meta.AlbumCollection.Title));
+                w.WriteLine(T(meta.AlbumCollection.Title));
                 w.WriteLine("</h1>");
 
                 foreach (var album in meta.AlbumCollection.Album)

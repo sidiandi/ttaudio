@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,7 +30,28 @@ namespace tta
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public async static Task Cmd(CancellationToken cancellationToken, string command)
+        public static Task Cmd(CancellationToken cancellationToken, params string[] command)
+        {
+            return CheckedCall(cancellationToken,
+                System.Environment.GetEnvironmentVariable("COMSPEC"), new[] { "/c" }.Concat(command).ToArray());
+        }
+
+        static void CopyTo(TextReader r, Action<string> w)
+        {
+            for (;;)
+            {
+                var line = r.ReadLine();
+                if (line == null)
+                {
+                    break;
+                }
+                w(line);
+            }
+        }
+
+        public async static Task CheckedCall(CancellationToken cancellationToken, 
+            string fileName, 
+            params string[] commands)
         {
             var p = new Process
             {
@@ -37,25 +59,35 @@ namespace tta
                 {
                     UseShellExecute = false,
                     CreateNoWindow = true,
-                    FileName = System.Environment.GetEnvironmentVariable("COMSPEC"),
-                    Arguments = "/c " + command,
-                    RedirectStandardError = false,
-                    RedirectStandardOutput = false
+                    FileName = fileName,
+                    Arguments = String.Join(" ", commands),
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
                 }
             };
 
             log.Debug(Details(p));
-
             p.Start();
 
+            var outputs = new[] {
+                Task.Factory.StartNew(() =>
+                {
+                    CopyTo(p.StandardOutput, log.Info);
+                }),
+                Task.Factory.StartNew(() =>
+                {
+                    CopyTo(p.StandardError, log.Error);
+                })
+            };
+
             await p.WaitForExitAsync(cancellationToken);
+            Task.WaitAll(outputs);
 
             if (p.ExitCode != 0)
             {
                 throw new Exception(String.Format("Exit code {0}: {1}", p.ExitCode, Details(p)));
             }
         }
-
         public static string Details(Process p)
         {
             return String.Format("{0} {1}", p.StartInfo.FileName, p.StartInfo.Arguments);
