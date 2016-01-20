@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using log4net.Core;
 using System.Windows.Forms;
 
-namespace tta
+namespace ttaudio
 {
     class TextboxAppender : log4net.Appender.AppenderSkeleton
     {

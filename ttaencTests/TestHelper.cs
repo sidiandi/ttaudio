@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ttaenc;
 
 namespace ttaencTests
 {
@@ -12,7 +13,7 @@ namespace ttaencTests
         public static string TestFile(string relativePath)
         {
             return System.IO.Path.Combine(
-                new DirectoryInfo(tta.PathUtil.GetDirectory()).Parent.FullName,
+                new DirectoryInfo(PathUtil.GetDirectory()).Parent.FullName,
                 "test-data",
                 relativePath);
         }

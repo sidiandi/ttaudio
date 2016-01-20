@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using tta;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
+using ttaenc;
 
 namespace ttaencTests
 {
@@ -33,6 +33,18 @@ namespace ttaencTests
                     outFile).Wait();
                 Assert.IsTrue(File.Exists(outFile));
             }
+        }
+
+        [Test]
+        public void CreateGme()
+        {
+            log4net.Config.BasicConfigurator.Configure();
+            var audioFiles = AlbumReader.GetAudioFiles(new[] { TestHelper.TestFile("audio") });
+            var albumMakerDirectory = TestHelper.TestFile("album-maker");
+            PathUtil.EnsureFileNotExists(albumMakerDirectory);
+            var albumMaker = new AlbumMaker(albumMakerDirectory);
+            var collection = new AlbumReader().FromTags(audioFiles);
+            albumMaker.Create(CancellationToken.None, collection).Wait();
         }
     }
 }

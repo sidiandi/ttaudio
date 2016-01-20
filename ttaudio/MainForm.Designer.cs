@@ -1,4 +1,4 @@
-﻿namespace tta
+﻿namespace ttaudio
 {
     partial class MainForm
     {

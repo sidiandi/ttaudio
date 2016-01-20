@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tta
+namespace ttaenc
 {
     public static class Extensions
     {

@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tta
+namespace ttaenc
 {
     public class About
     {

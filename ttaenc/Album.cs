@@ -20,8 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TagLib;
 
-namespace tta
+namespace ttaenc
 {
     public class Album
     {
@@ -34,7 +35,54 @@ namespace tta
         }
 
         public string Title;
-        public string Picture;
+
+        public IPicture GetPicture()
+        {
+            return Tracks.SelectMany(t => t.GetPictures())
+                .Concat(GetAlbumPictures())
+                .FirstOrDefault();
+        }
+
+        IEnumerable<IPicture> GetAlbumPictures()
+        {
+            return Tracks.Select(t => System.IO.Path.GetDirectoryName(t.Path)).Distinct()
+                .SelectMany(d => new System.IO.DirectoryInfo(d).GetFiles())
+                .Where(f => AlbumReader.IsImageFile(f))
+                .OrderByDescending(f => AlbumReader.IsFrontCover(f))
+                .Select(f => new Picture(f));
+        }
+
+        class Picture : IPicture
+        {
+            public Picture(System.IO.FileInfo file)
+            {
+                using (var r = System.IO.File.OpenRead(file.FullName))
+                {
+                    Data = new ByteVector(PathUtil.ReadAll(r));
+                }
+                MimeType = "image/" + file.Extension.Substring(1);
+            }
+            public ByteVector Data { get; set; }
+
+            public string Description {
+                get; set; }
+
+            public string MimeType { get; set; }
+
+            public PictureType Type
+            {
+                get
+                {
+                    return PictureType.FrontCover;
+                }
+
+                set
+                {
+                    throw new NotImplementedException();
+                }
+            }
+        }
+
         public Track[] Tracks;
     }
 }

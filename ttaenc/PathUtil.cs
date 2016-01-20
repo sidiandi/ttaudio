@@ -26,9 +26,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace tta
+namespace ttaenc
 {
-    public class PathUtil
+    public static class PathUtil
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -50,6 +50,18 @@ namespace tta
             if (File.Exists(tempPath))
             {
                 File.Delete(tempPath);
+            }
+        }
+
+        public static void EnsureNotExists(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
+            else
+            {
+                EnsureFileNotExists(path);
             }
         }
 
@@ -169,6 +181,13 @@ namespace tta
         public static Task CopyToDir(CancellationToken cancellationToken, string source, string destinationParentDirectory)
         {
             return Copy(cancellationToken, source, Path.Combine(destinationParentDirectory, Path.GetFileName(source)));
+        }
+
+        public static byte[] ReadAll(this Stream s)
+        {
+            var m = new MemoryStream();
+            s.CopyTo(m);
+            return m.ToArray();
         }
     }
 }

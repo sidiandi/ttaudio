@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace tta
+namespace ttaudio
 {
     public partial class TaskForm : Form
     {

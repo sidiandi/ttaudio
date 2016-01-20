@@ -31,8 +31,9 @@ using System.Threading;
 using log4net.Layout;
 using log4net.Core;
 using RavSoft;
+using ttaenc;
 
-namespace tta
+namespace ttaudio
 {
     public partial class MainForm : Form
     {

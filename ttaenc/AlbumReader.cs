@@ -23,8 +23,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TagLib;
 
-namespace tta
+namespace ttaenc
 {
     public class AlbumReader
     {
@@ -59,12 +60,17 @@ namespace tta
             }
         }
 
-        static bool IsImageFile(FileInfo file)
+        public static bool IsImageFile(FileInfo file)
         {
             return
                 file.Extension.Equals(".jpg", StringComparison.CurrentCultureIgnoreCase) ||
                 file.Extension.Equals(".jpeg", StringComparison.CurrentCultureIgnoreCase) ||
                 file.Extension.Equals(".png", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        public static bool IsFrontCover(FileInfo file)
+        {
+            return Regex.IsMatch(file.Name, "(front|cover)", RegexOptions.IgnoreCase);
         }
 
         public Album ReadAlbum(DirectoryInfo directory)
@@ -76,12 +82,13 @@ namespace tta
                 Title = directory.Name,
                 Tracks = files
                     .Where(x => IsAudioFile(x))
-                    .Select(_ => new Track { Path = _.FullName }).ToArray(),
-                Picture = files.Where(_ => IsImageFile(_))
-                    .OrderByDescending(_ => Regex.IsMatch(_.Name, "front", RegexOptions.IgnoreCase))
-                    .ThenBy(_ => _.Length)
-                    .FirstOrDefault().OrNull(_ => _.FullName)
+                    .Select(_ => new Track { Path = _.FullName }).ToArray()
             };
+        }
+
+        TagLib.IPicture CreateFilePicture(string picturePath)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -108,13 +115,13 @@ namespace tta
             });
         }
 
-        Track GetTrack(string path)
+        Track GetTrack(FileInfo audioFile)
         {
-            log.InfoFormat("Read meta information from {0}", path);
-            var track = new Track { Path = path };
+            log.InfoFormat("Read meta information from {0}", audioFile);
+            var track = new Track { Path = audioFile.FullName };
             try
             {
-                using (var f = TagLib.File.Create(path))
+                using (var f = TagLib.File.Create(audioFile.FullName))
                 {
                     track.Duration = f.Properties.Duration;
                     if (!f.Tag.IsEmpty)
@@ -122,15 +129,19 @@ namespace tta
                         track.Title = f.Tag.Title;
                         track.TrackNumber = f.Tag.Track;
                         track.Album = f.Tag.Album;
-                        track.Artists = f.Tag.Artists;
+                        track.Artists = f.Tag.AlbumArtists;
                     }
                 }
             }
             catch (Exception ex)
             {
-                log.Warn(String.Format("Exception ignored while reading {0}", path), ex);
+                log.Warn(String.Format("Exception ignored while reading {0}", audioFile), ex);
             }
 
+            if (track.Artists == null)
+            {
+                track.Artists = new string[] { };
+            }
             if (String.IsNullOrEmpty(track.Title))
             {
                 track.Title = System.IO.Path.GetFileNameWithoutExtension(track.Path);
@@ -161,7 +172,10 @@ namespace tta
 
         public AlbumCollection FromTags(IEnumerable<string> audioFiles)
         {
-            var tracks = audioFiles.Select(_ => GetTrack(_)).ToList();
+            var tracks = audioFiles
+                .Select(_ => new FileInfo(_))
+                .Select(GetTrack)
+                .ToList();
 
             var albums = tracks
                 .GroupBy(_ => _.Album)
@@ -178,6 +192,23 @@ namespace tta
                 Album = albums,
                 Title = albums.First().Title
             };
+        }
+
+        public static string ExportPicture(IPicture picture, string exportDirectory)
+        {
+            if (picture == null)
+            {
+                picture = new Picture(Path.Combine(PathUtil.GetDirectory(), "media", "default-album-art.png"));
+            }
+
+            var extension = "." + Regex.Split(picture.MimeType, "/").Last();
+            var digest = Digest.Get(picture.Data.Data);
+            var picturePath = Path.Combine(exportDirectory, digest + extension);
+            using (var w = System.IO.File.OpenWrite(picturePath))
+            {
+                w.Write(picture.Data.Data, 0, picture.Data.Data.Length);
+            }
+            return picturePath;
         }
     }
 }

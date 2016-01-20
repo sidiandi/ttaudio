@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Serialization;
 
-namespace tta
+namespace ttaenc
 {
     /// <summary>
     /// Creates audio album collections for the TipToi pen
@@ -197,19 +197,12 @@ namespace tta
 
         public async Task<string> ProvideOggFile(CancellationToken cancellationToken, string mp3SourceFile)
         {
-            var oggFile = Path.Combine(MediaDir, Digest(mp3SourceFile.ToLowerInvariant()) + oggExtension);
+            var oggFile = Path.Combine(MediaDir, Digest.Get(mp3SourceFile.ToLowerInvariant()) + oggExtension);
             if (!File.Exists(oggFile) || alwaysConvert)
             {
                 await AudioFileToTipToiAudioFile(cancellationToken, mp3SourceFile, oggFile);
             }
             return oggFile;
-        }
-
-        static string Digest(string text)
-        {
-            var md5 = new MD5CryptoServiceProvider();
-            var hash = md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
-            return String.Join(String.Empty, hash.Select(_ => _.ToString("X2")));
         }
 
         public async Task Create(CancellationToken cancellationToken, AlbumCollection collection)
@@ -325,6 +318,16 @@ namespace tta
             await SubProcess.Cmd(cancellationToken, String.Format("tttool assemble {0} {1}", meta.YamlFile.Quote(), meta.GmeFile.Quote()));
         }
 
+        /// <summary>
+        /// Extract an 
+        /// </summary>
+        /// <param name="picture"></param>
+        /// <returns></returns>
+        string Extract(TagLib.IPicture picture)
+        {
+            return AlbumReader.ExportPicture(picture, this.MediaDir);
+        }
+
         private void WriteHtml(CancellationToken cancellationToken, AlbumCollectionMeta meta)
         {
             // create html page
@@ -387,17 +390,8 @@ Style: ");
                 foreach (var album in meta.AlbumCollection.Album)
                 {
                     w.WriteLine(@"<div class=""album"">");
-                    string pic;
-                    if (album.Picture != null)
-                    {
-                        pic = Path.Combine(MediaDir, Digest(album.Picture) + Path.GetExtension(album.Picture));
-                        meta.HtmlMediaFiles.Add(Path.GetFileName(pic));
-                        PathUtil.Copy(cancellationToken, album.Picture, pic);
-                    }
-                    else
-                    {
-                        pic = Path.Combine(MediaDir, "default-album-art.png");
-                    }
+                    var pic = Extract(album.GetPicture());
+                    meta.HtmlMediaFiles.Add(Path.GetFileName(pic));
                     w.WriteLine(@"<img src={0} class=""album-art"" />", ("media/" + Path.GetFileName(pic)).Quote());
                     w.WriteLine("<h2>{0} - {1}</h2>", T(album.Artist), T(album.Title));
                     w.WriteLine(@"<ul class={0}>", "track-list");

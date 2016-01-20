@@ -18,12 +18,13 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using tta;
+using ttaenc;
 
 namespace ttaencTests
 {
@@ -41,14 +42,11 @@ namespace ttaencTests
             Assert.AreEqual("Beats", track.Album);
             Assert.AreEqual(42, track.TrackNumber);
             Assert.AreEqual(TimeSpan.Parse("00:00:08.5910000"), track.Duration);
-        }
 
-        [Test()]
-        public void IsAudioFile()
-        {
-            Assert.IsTrue(AlbumReader.IsAudioFile(new System.IO.FileInfo("test.mp3")));
-            Assert.IsTrue(AlbumReader.IsAudioFile(new System.IO.FileInfo("test.ogg")));
-            Assert.IsFalse(AlbumReader.IsAudioFile(new System.IO.FileInfo("test.txt")));
+            var pictureExportDir = TestHelper.TestFile("picture");
+            PathUtil.EnsureDirectoryExists(pictureExportDir);
+            var p = AlbumReader.ExportPicture(track.GetPictures()[0], pictureExportDir);
+            Assert.IsTrue(File.Exists(p));
         }
     }
 }

@@ -23,7 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace tta
+namespace ttaenc
 {
     public class OidSvgWriter
     {

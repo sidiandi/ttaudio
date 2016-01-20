@@ -38,6 +38,7 @@
     <Compile Include="AlbumCollectionMeta.cs" />
     <Compile Include="AlbumMaker.cs" />
     <Compile Include="AlbumReader.cs" />
+    <Compile Include="Digest.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileTransaction.cs" />
     <Compile Include="IOidCode.cs" />

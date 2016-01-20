@@ -25,8 +25,9 @@ using System.IO;
 using System.Xml.XPath;
 using System.Xml;
 using System.Drawing;
+using ttaenc;
 
-namespace tta.Tests
+namespace ttaencTests
 {
     [TestFixture()]
     public class OidSvgWriterTests

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace tta.Properties
+namespace ttaudio.Properties
 {
 
 

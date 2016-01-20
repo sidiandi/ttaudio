@@ -20,8 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TagLib;
 
-namespace tta
+namespace ttaenc
 {
     public class Track
     {
@@ -31,5 +32,24 @@ namespace tta
         public string Path;
         public uint TrackNumber;
         public TimeSpan Duration;
+
+        public TagLib.IPicture[] GetPictures()
+        {
+            try
+            {
+                using (var f = TagLib.File.Create(this.Path))
+                {
+                    if (!f.Tag.IsEmpty)
+                    {
+                        return f.Tag.Pictures;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return new IPicture[] { };
+        }
     }
 }

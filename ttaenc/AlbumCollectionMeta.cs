@@ -22,7 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace tta
+namespace ttaenc
 {
     public class TrackInfo
     {
