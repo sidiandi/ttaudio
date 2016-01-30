@@ -8,9 +8,14 @@ using ttaenc;
 
 namespace ttaencTests
 {
-    class TestHelper
+    public class TestBase
     {
-        public static string TestFile(string relativePath)
+        static TestBase()
+        {
+            log4net.Config.BasicConfigurator.Configure();
+        }
+
+        protected string TestFile(string relativePath)
         {
             return System.IO.Path.Combine(
                 new DirectoryInfo(PathUtil.GetDirectory()).Parent.FullName,

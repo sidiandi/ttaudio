@@ -55,13 +55,20 @@ namespace ttaenc
 
         public static void EnsureNotExists(string path)
         {
-            if (Directory.Exists(path))
+            try
             {
-                Directory.Delete(path, true);
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path, true);
+                }
+                else
+                {
+                    EnsureFileNotExists(path);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                EnsureFileNotExists(path);
+                throw new System.IO.IOException(String.Format("Cannot ensure that {0} does not exist", path), ex);
             }
         }
 

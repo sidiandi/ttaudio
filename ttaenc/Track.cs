@@ -33,6 +33,9 @@ namespace ttaenc
         public uint TrackNumber;
         public TimeSpan Duration;
 
+        public string PenAudioFile { get; set; }
+        public int Oid { get; set; }
+
         public TagLib.IPicture[] GetPictures()
         {
             try

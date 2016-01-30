@@ -107,77 +107,6 @@ namespace ttaenc
 
         string MediaDir { get { return Path.Combine(RootDirectory, "media"); } }
 
-        public async static Task AudioFileToTipToiAudioFile(CancellationToken cancellationToken, string sourceFile, string oggDestinationFile)
-        {
-            using (new LogScope(log, "Convert {0} to {1}", sourceFile, oggDestinationFile))
-            {
-                using (var t = new FileTransaction(oggDestinationFile))
-                {
-                    var ext = Path.GetExtension(sourceFile).ToLowerInvariant();
-                    var wavFile = oggDestinationFile + ".wav";
-                    try
-                    {
-                        switch (ext)
-                        {
-                            case mp3Extension:
-                                {
-                                    await SubProcess.CheckedCall(cancellationToken
-                                        , "mpg123.exe",
-                                        "-w", wavFile.Quote(),
-                                        sourceFile.Quote());
-
-                                    await SubProcess.CheckedCall(cancellationToken,
-                                        "oggenc2.exe",
-                                        wavFile.Quote(),
-                                        ("--output=" + t.TempPath).Quote(),
-                                        "--quiet",
-                                        "--resample", "22500",
-                                        "--downmix");
-                                }
-                                break;
-                            case oggExtension:
-                                {
-                                    await SubProcess.CheckedCall(cancellationToken
-                                        , "oggdec.exe",
-                                        "--wavout", wavFile.Quote(),
-                                        "-q",
-                                        sourceFile.Quote());
-
-                                    await SubProcess.CheckedCall(cancellationToken,
-                                        "oggenc2.exe",
-                                        "-o", t.TempPath.Quote(),
-                                        "--quiet",
-                                        "--resample", "22500",
-                                        "--downmix",
-                                        wavFile.Quote()
-                                        );
-                                }
-                                break;
-                            case wavExtension:
-                                {
-                                    await SubProcess.CheckedCall(cancellationToken,
-                                        "oggenc2.exe",
-                                        sourceFile.Quote(),
-                                        "-o", t.TempPath.Quote(),
-                                        "--quiet",
-                                        "--resample", "22500",
-                                        "--downmix");
-                                }
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException("sourceFile", sourceFile, "File type is not supported.");
-                        }
-                    }
-                    finally
-                    {
-                        PathUtil.EnsureFileNotExists(wavFile);
-                    }
-
-                    t.Commit();
-                }
-            }
-        }
-
         static string CygPath(string windowsPath)
         {
             if (windowsPath.StartsWith(@"\\"))
@@ -200,7 +129,7 @@ namespace ttaenc
             var oggFile = Path.Combine(MediaDir, Digest.Get(mp3SourceFile.ToLowerInvariant()) + oggExtension);
             if (!File.Exists(oggFile) || alwaysConvert)
             {
-                await AudioFileToTipToiAudioFile(cancellationToken, mp3SourceFile, oggFile);
+                await MediaFileConverter.AudioFileToTipToiAudioFile(cancellationToken, mp3SourceFile, oggFile);
             }
             return oggFile;
         }

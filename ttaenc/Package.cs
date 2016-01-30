@@ -1,4 +1,4 @@
-// Copyright (c) https://github.com/sidiandi 2016
+﻿// Copyright (c) https://github.com/sidiandi 2016
 // 
 // This file is part of tta.
 // 
@@ -17,28 +17,23 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace ttaudio
+namespace ttaenc
 {
-    static class Program
+    public class Package
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main(string[] args)
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            var mainWindow = new MDIParent();
-            if (args.Any())
-            {
-                // mainWindow.Add(args);
-            }
-            Application.Run(mainWindow);
-        }
+        public string Name { set; get; }
+        public int ProductId { get; set; }
+        public Album[] Albums { get; set; }
+
+        public IEnumerable<Track> Tracks { get { return Albums.SelectMany(_ => _.Tracks); } }
+
+        public int StopOid { get; set; }
+
+        public string ConfirmationSound { set; get; }
     }
 }

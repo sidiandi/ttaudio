@@ -160,6 +160,26 @@ namespace ttaenc
             return track;
         }
 
+        public Album[] GetAlbums(IEnumerable<string> audioFiles)
+        {
+            var tracks = audioFiles
+                .Select(_ => new FileInfo(_))
+                .Select(GetTrack)
+                .ToList();
+
+            var albums = tracks
+                .GroupBy(_ => _.Album)
+                .Select(_ => new Album
+                {
+                    Title = _.Key,
+                    Tracks = _.OrderBy(t => t.TrackNumber).ToArray()
+                })
+                .OrderBy(_ => _.Title)
+                .ToArray();
+
+            return albums;
+        }
+
         static uint GetDirectoryIndex(string path)
         {
             var name = Path.GetFileName(path);
