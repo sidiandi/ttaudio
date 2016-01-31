@@ -386,11 +386,6 @@ namespace ttaudio
             return e;
         }
 
-        private void toolStripButton1_Click_1(object sender, EventArgs e)
-        {
-            Upload();
-        }
-
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -415,6 +410,16 @@ namespace ttaudio
         private void uploadToPenToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Upload();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            Upload();
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            Print();
         }
     }
 }
