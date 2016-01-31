@@ -16,7 +16,7 @@ namespace ttaenc
         {
             foreach (var p in new[] {
                 "tools",
-                @"tools\tttool-win32-1.5.1",
+                @"tools\tttool-win32-1.6",
                 @"tools\mpg123-1.22.0-x86-64"
                 })
             {

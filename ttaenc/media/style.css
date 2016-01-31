@@ -8,15 +8,6 @@ h2
 	font-size: 1.0em;
 }
 
-.OidButton { 
-	border: solid;
-	border-width: 1px;
-	display: inline-block;
-
-	padding: 4px;
-	margin: 4px;
-}
-
 .printInstructions img {
 	float: left;
 }
@@ -75,4 +66,13 @@ h2
 .oid-area { 
    	width: 0.5cm;
 	height: 0.5cm;
+}
+
+.oid-button { 
+	border: solid;
+	border-width: 1px;
+	display: inline-block;
+
+	padding: 4px;
+	margin: 4px;
 }

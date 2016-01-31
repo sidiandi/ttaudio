@@ -15,7 +15,7 @@ namespace ttaenc
     /// Writes gme, tta, html, and album art files for a package
     /// </summary>
     /// Usage: create an instance, modify properties, then call Build()
-    public class PackageBuilder
+    public class PackageBuilder : HtmlGenerator
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -301,11 +301,6 @@ Style: ");
         private async Task Assemble(CancellationToken cancellationToken)
         {
             await SubProcess.Cmd(cancellationToken, String.Format("tttool assemble {0} {1}", yamlFile.Quote(), packageDirectoryStructure.GmeFile.Quote()));
-        }
-
-        static string T(string rawText)
-        {
-            return HttpUtility.HtmlEncode(rawText);
         }
 
         /// <summary>

@@ -45,6 +45,7 @@
     <Compile Include="Environment.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileTransaction.cs" />
+    <Compile Include="HtmlGenerator.cs" />
     <Compile Include="IOidCode.cs" />
     <Compile Include="IPackageDirectoryStructure.cs" />
     <Compile Include="LogScope.cs" />
