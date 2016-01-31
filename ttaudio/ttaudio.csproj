@@ -33,18 +33,11 @@
     <Compile Include="Explorer.Designer.cs">
       <DependentUpon>Explorer.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileTransaction.cs" />
     <Compile Include="Editor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Editor.Designer.cs">
       <DependentUpon>Editor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MDIParent.cs">
       <SubType>Form</SubType>
@@ -66,9 +59,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDIParent.resx">
       <DependentUpon>MDIParent.cs</DependentUpon>
