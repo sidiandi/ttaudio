@@ -256,10 +256,14 @@ namespace ttaudio
 
         void UpdateView()
         {
-            var p = document.package;
+            Package p;
+            lock (this)
+            {
+                p = document.package;
+            }
 
             listViewInputFiles.Items.Clear();
-            Add(document.package.Albums.SelectMany(_ => _.Tracks.Select(track => track.Path)));
+            Add(p.Albums.SelectMany(_ => _.Tracks.Select(track => track.Path)));
 
             this.textBoxTitle.Text = p.Name;
             if (p.ProductId != 0)
@@ -280,7 +284,11 @@ namespace ttaudio
             {
                 p.ProductId = productId;
             }
-            document.package = p;
+
+            lock (this)
+            {
+                document.package = p;
+            }
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -290,23 +298,23 @@ namespace ttaudio
 
         public void Print()
         {
-            UpdateModel();
-            Save();
-            var builder = GetPackageBuilder();
             var cts = new CancellationTokenSource();
-            var task = Task.Factory.StartNew(() => builder.OpenHtmlPage(cts.Token), TaskCreationOptions.LongRunning);
+            var task = Task.Factory.StartNew(() =>
+            {
+                UpdateModel();
+                var builder = GetPackageBuilder();
+                builder.OpenHtmlPage(cts.Token);
+            }, TaskCreationOptions.LongRunning);
             var f = new TaskForm(task, cts) { Text = "Print" };
             f.Show();
         }
 
         public void Upload()
         {
-            UpdateModel();
-            Save();
-
             var cts = new CancellationTokenSource();
             var task = Task.Factory.StartNew(() =>
             {
+                UpdateModel();
                 var builder = GetPackageBuilder();
                 builder.Build(cts.Token);
             }, TaskCreationOptions.LongRunning);
