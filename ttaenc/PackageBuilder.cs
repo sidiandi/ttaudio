@@ -201,7 +201,7 @@ Style: ");
                     var pic = Extract(album.GetPicture());
                     htmlMediaFiles.Add(Path.GetFileName(pic));
                     w.WriteLine(@"<img src={0} class=""album-art"" />", ("media/" + Path.GetFileName(pic)).Quote());
-                    w.WriteLine("<h2>{0} - {1}</h2>", T(album.Artist), T(album.Title));
+                    w.WriteLine("<h2 class=\"album-title\" >{0} - {1}</h2>", T(album.Artist), T(album.Title));
                     w.WriteLine(@"<ul class={0}>", "track-list");
                     foreach (var track in album.Tracks)
                     {
@@ -214,6 +214,7 @@ Style: ");
                         w.WriteLine("</li>");
                     }
                     w.WriteLine("</ul>");
+                    w.WriteLine(@"<br class=""album-clear"" />");
                     w.WriteLine(@"</div>");
                 }
 
@@ -238,6 +239,44 @@ Style: ");
                     Name = String.Format("{0} - Part {1} of {2}", p.Name, partIndex, partAlbums.Count)
                 };
             }).ToList();
+        }
+
+        public async Task OpenHtmlPage(CancellationToken cancellationToken)
+        {
+            var p = packageDirectoryStructure.Package;
+
+            // assign oids to tracks
+            packageDirectoryStructure.Package.StopOid = GetNextOid();
+            foreach (var i in packageDirectoryStructure.Package.Tracks)
+            {
+                i.Oid = GetNextOid();
+            }
+
+            PrepareInputFiles(cancellationToken);
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            // check if size > MaxGmeSize and split into parts if required
+            var parts = Split(p);
+            if (parts.Count > 1)
+            {
+                foreach (var i in parts)
+                {
+                    var structure = new PackageDirectoryStructure(Path.GetDirectoryName(this.packageDirectoryStructure.GmeFile), i);
+                    var pb = new PackageBuilder(structure, this.converter);
+                    await pb.OpenHtmlPage(cancellationToken);
+                }
+                return;
+            }
+
+            // write yaml
+            WriteYaml();
+
+            // write html
+            WriteHtml(cancellationToken);
+
+            // open html
+            Process.Start(packageDirectoryStructure.HtmlFile);
         }
 
         void PrepareInputFiles(CancellationToken cancellationToken)

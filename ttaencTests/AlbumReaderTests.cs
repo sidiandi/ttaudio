@@ -26,7 +26,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ttaenc;
 
-namespace ttaencTests
+namespace ttaenc.Tests
 {
     [TestFixture()]
     public class AlbumReaderTests : TestBase

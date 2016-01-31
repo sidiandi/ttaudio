@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -44,6 +45,36 @@ namespace ttaenc
             {
                 var a = Assembly.GetCallingAssembly();
                 return a.GetCustomAttribute<AssemblyProductAttribute>().Product;
+            }
+        }
+
+        public static string Company
+        {
+            get
+            {
+                var a = Assembly.GetCallingAssembly();
+                return a.GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+            }
+        }
+
+        public static string LocalApplicationDataDirectory
+        {
+            get
+            {
+                return Path.Combine(
+                    System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    PathUtil.GetValidFileName(Company),
+                    PathUtil.GetValidFileName(Product));
+            }
+        }
+
+        public static string DocumentsDirectory
+        {
+            get
+            {
+                return Path.Combine(
+                    System.Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                    PathUtil.GetValidFileName(Product));
             }
         }
     }

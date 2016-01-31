@@ -1,12 +1,5 @@
 ﻿.album {
 	width: 8cm;
-	border: solid;
-	border-width: 1px;
-
-	padding: 4px;
-	margin: 4px;
-
-	page-break-inside: avoid;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -15,8 +8,21 @@
 	float: left;
 }
 
+.album-title { 
+    display: block;
+}
+
 .track-list {
 	clear: left;
     list-style:none;
     padding-left:0;
+    display: block;
 }​
+
+.track-list li { 
+    	display: block;
+}
+
+ .album-clear {
+    display: none;
+}

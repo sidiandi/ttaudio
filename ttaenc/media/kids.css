@@ -1,6 +1,14 @@
 .album {
-	width: 5cm;
-    display: inline-block;
+	clear:left;
+	display: block;
+}
+
+.album-title {
+	display: inline;
+}
+
+.track-list { 
+	display: inline;
 }
 
 .track-number {
@@ -19,3 +27,10 @@
 	style: none;
 	display: inline;
 }
+
+.oid-area {
+    width: 2cm;
+    height: 2cm;
+}
+
+

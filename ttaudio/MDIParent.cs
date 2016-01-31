@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ttaenc;
 
 namespace ttaudio
 {
@@ -28,29 +31,25 @@ namespace ttaudio
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "TipToi Game Files (*.gme)|*.gme";
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                InitialDirectory = About.DocumentsDirectory,
+            };
+            PathUtil.EnsureDirectoryExists(openFileDialog.InitialDirectory);
+
+            openFileDialog.Filter = Document.fileDialogFilter;
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                string fileName = openFileDialog.FileName;
-
-                var doc = Document.Load(fileName);
-                var childForm = new Editor(doc);
-                childForm.MdiParent = this;
-                childForm.Show();
+                Open(openFileDialog.FileName);
             }
         }
 
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void Open(string fileName)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
-            }
+            var doc = Document.Load(fileName);
+            var childForm = new Editor(doc);
+            childForm.MdiParent = this;
+            childForm.Show();
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -107,5 +106,22 @@ namespace ttaudio
                 childForm.Close();
             }
         }
+
+        private void contentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help();
+        }
+
+        private void Help()
+        {
+            Process.Start(About.GitUri.ToString());
+        }
+
+        private void helpToolStripButton_Click(object sender, EventArgs e)
+        {
+            Help();
+        }
+
+
     }
 }

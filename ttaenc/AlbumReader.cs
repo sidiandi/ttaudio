@@ -96,7 +96,7 @@ namespace ttaenc
         /// </summary>
         /// <param name="paths"></param>
         /// <returns></returns>
-        public static IEnumerable<string> GetAudioFiles(IEnumerable<string> paths)
+        public IEnumerable<string> GetAudioFiles(IEnumerable<string> paths)
         {
             return paths.SelectMany(file =>
             {

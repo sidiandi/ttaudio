@@ -43,7 +43,7 @@ namespace ttaenc
             }
         }
 
-        const string gmeExtension = ".gme";
+        const string gmeExtension = ".tta.gme";
         const string ttaExtension = ".tta";
         const string htmlExtension = ".html";
 

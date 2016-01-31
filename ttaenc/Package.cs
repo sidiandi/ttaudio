@@ -26,6 +26,11 @@ namespace ttaenc
 {
     public class Package
     {
+        public Package()
+        {
+            Albums = new Album[] { };
+        }
+
         public string Name { set; get; }
         public int ProductId { get; set; }
         public Album[] Albums { get; set; }
@@ -35,5 +40,20 @@ namespace ttaenc
         public int StopOid { get; set; }
 
         public string ConfirmationSound { set; get; }
+
+        public static Package CreateFromInputPaths(IEnumerable<string> inputPaths)
+        {
+            var albumReader = new AlbumReader();
+
+            var audioFiles = albumReader.GetAudioFiles(inputPaths);
+
+            var package = new Package
+            {
+                Albums = albumReader.GetAlbums(audioFiles),
+            };
+            package.Name = String.Join(", ", package.Albums.First().Tracks.First().Artists);
+
+            return package;
+        }
     }
 }

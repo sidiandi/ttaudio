@@ -31,12 +31,20 @@ namespace ttaudio
         [STAThread]
         static void Main(string[] args)
         {
+            log4net.Config.BasicConfigurator.Configure();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var mainWindow = new MDIParent();
-            if (args.Any())
+            foreach (var file in args)
             {
-                // mainWindow.Add(args);
+                try
+                {
+                    mainWindow.Open(file);
+                }
+                catch
+                {
+                }
             }
             Application.Run(mainWindow);
         }

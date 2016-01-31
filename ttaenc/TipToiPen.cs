@@ -36,6 +36,24 @@ namespace ttaenc
             get; private set;
         }
 
+        public static TipToiPen Simulated
+        {
+            get
+            {
+                return new TipToiPen(About.DocumentsDirectory);
+            }
+        }
+
+        public static TipToiPen Get()
+        {
+            var pen = GetAll().FirstOrDefault();
+            if (pen == null)
+            {
+                pen = Simulated;
+            }
+            return pen;
+        }
+
         public static IEnumerable<TipToiPen> GetAll()
         {
             // copy to stick, if possible

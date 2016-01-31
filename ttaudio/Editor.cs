@@ -43,6 +43,11 @@ namespace ttaudio
 
         public Editor(Document document)
         {
+            if (document == null)
+            {
+                document = new Document { package = new Package() };
+            }
+
             this.document = document;
 
             InitializeComponent();
@@ -50,25 +55,7 @@ namespace ttaudio
             CueProvider.SetCue(textBoxTitle, "automatic");
             CueProvider.SetCue(textBoxProductId, "automatic");
 
-            ConfigureLogging();
-
-            New();
-        }
-
-        void ConfigureLogging()
-        {
-            log4net.Config.BasicConfigurator.Configure();
-
-            /*
-            var a = new TextboxAppender(textBoxLog)
-            {
-                Layout = new PatternLayout("%utcdate{ISO8601} %level %message%newline"),
-                Threshold = Level.Info,
-                Name = textBoxLog.Name,
-            };
-            a.ActivateOptions();
-            log4net.Config.BasicConfigurator.Configure(a);
-            */
+            UpdateView();
         }
 
         private void listViewInputFiles_DragDrop(object sender, DragEventArgs e)
@@ -86,7 +73,7 @@ namespace ttaudio
         /// <param name="inputFiles"></param>
         public void Add(IEnumerable<string> inputFiles)
         {
-            foreach (var audioFile in AlbumReader.GetAudioFiles(inputFiles))
+            foreach (var audioFile in new AlbumReader().GetAudioFiles(inputFiles))
             {
                 this.listViewInputFiles.Items.Add(new ListViewItem(audioFile)
                 {
@@ -111,23 +98,28 @@ namespace ttaudio
 
         Task Convert(CancellationToken cancel, IList<string> files, string title, string productId)
         {
-            return Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew(async () => 
             {
                 try
                 {
-                    var dataDirectory = AlbumMaker.GetDefaultDataDirectory();
-                    var albumMaker = new AlbumMaker(dataDirectory);
-                    var collection = new AlbumReader().FromTags(files);
+                    var package = Package.CreateFromInputPaths(files);
+                    
                     if (!String.IsNullOrEmpty(title))
                     {
-                        collection.Title = title;
+                        package.Name = title;
                     }
                     if (!String.IsNullOrEmpty(productId))
                     {
-                        collection.ProductId = UInt16.Parse(productId);
+                        package.ProductId = UInt16.Parse(productId);
                     }
 
-                    albumMaker.Create(cancel, collection).Wait();
+                    var converter = Context.GetDefaultMediaFileConverter();
+
+                    var pen = TipToiPen.GetAll().First();
+                    var packageBuilder = new PackageBuilder(
+                        new PackageDirectoryStructure(pen.RootDirectory, package), converter);
+
+                    await packageBuilder.Build(cancel);
                 }
                 catch (Exception ex)
                 {
@@ -138,6 +130,8 @@ namespace ttaudio
 
         void StartConversion()
         {
+            UpdateModel();
+
             var files = listViewInputFiles.Items.Cast<ListViewItem>().Select(_ => (string)_.Tag).ToList();
             if (!files.Any())
             {
@@ -154,20 +148,6 @@ namespace ttaudio
             };
                 
             taskForm.Show();
-
-            New();
-        }
-
-        private void buttonStartNewConversion_Click(object sender, EventArgs e)
-        {
-            New();
-        }
-
-        void New()
-        {
-            textBoxTitle.Text = String.Empty;
-            textBoxProductId.Text = String.Empty;
-            this.listViewInputFiles.Items.Clear();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -177,7 +157,7 @@ namespace ttaudio
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", AlbumMaker.GetDefaultDataDirectory().Quote());
+            // Process.Start("explorer.exe", AlbumMaker.GetDefaultDataDirectory().Quote());
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -220,6 +200,110 @@ namespace ttaudio
                         break;
                 }
             }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+
+        void Save()
+        {
+            UpdateModel();
+
+            if (document.ttaFile == null)
+            {
+                SaveAs();
+                return;
+            }
+
+            document.Save();
+        }
+
+        const string fileDialogFilter = "TipToi Game Files (*.gme)|*.gme";
+
+        void SaveAs()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = About.DocumentsDirectory;
+            saveFileDialog.Filter = Document.fileDialogFilter;
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                document.ttaFile = saveFileDialog.FileName;
+            }
+            Save();
+        }
+
+        void UpdateView()
+        {
+            var p = document.package;
+
+            listViewInputFiles.Items.Clear();
+            Add(document.package.Albums.SelectMany(_ => _.Tracks.Select(track => track.Path)));
+
+            this.textBoxTitle.Text = p.Name;
+            if (p.ProductId != 0)
+            {
+                this.textBoxProductId.Text = p.ProductId.ToString();
+            }
+
+            this.Text = this.document.ttaFile;
+        }
+
+        void UpdateModel()
+        {
+            var files = listViewInputFiles.Items.Cast<ListViewItem>().Select(_ => (string)_.Tag).ToList();
+            var p = Package.CreateFromInputPaths(files);
+            p.Name = this.textBoxTitle.Text;
+            int productId;
+            if (Int32.TryParse(this.textBoxProductId.Text, out productId))
+            {
+                p.ProductId = productId;
+            }
+            document.package = p;
+        }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Print();
+        }
+
+        void Print()
+        {
+            UpdateModel();
+            Save();
+            var builder = GetPackageBuilder();
+            var cts = new CancellationTokenSource();
+            var task = Task.Factory.StartNew(() => builder.OpenHtmlPage(cts.Token), TaskCreationOptions.LongRunning);
+            var f = new TaskForm(task, cts);
+            f.Show();
+        }
+
+        void Upload()
+        {
+            UpdateModel();
+            Save();
+            var builder = GetPackageBuilder();
+            var cts = new CancellationTokenSource();
+            var task = Task.Factory.StartNew(() => builder.Build(cts.Token), TaskCreationOptions.LongRunning);
+            var f = new TaskForm(task, cts);
+            f.Show();
+        }
+
+        PackageBuilder GetPackageBuilder()
+        {
+            var s = new PackageDirectoryStructure(GetRootDirectory(), this.document.package);
+            return new PackageBuilder(s, Context.GetDefaultMediaFileConverter());
+        }
+
+        public static string GetRootDirectory()
+        {
+            return TipToiPen.Get().RootDirectory;
+        }
+
+        private void uploadToPenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Upload();
         }
     }
 }

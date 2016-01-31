@@ -82,7 +82,9 @@ namespace ttaudio
         /// <param name="inputFiles"></param>
         public void Add(IEnumerable<string> inputFiles)
         {
-            foreach (var audioFile in AlbumReader.GetAudioFiles(inputFiles))
+            var albumReader = new AlbumReader();
+
+            foreach (var audioFile in albumReader.GetAudioFiles(inputFiles))
             {
                 this.listViewInputFiles.Items.Add(new ListViewItem(audioFile)
                 {
@@ -111,19 +113,22 @@ namespace ttaudio
             {
                 try
                 {
-                    var dataDirectory = AlbumMaker.GetDefaultDataDirectory();
-                    var albumMaker = new AlbumMaker(dataDirectory);
-                    var collection = new AlbumReader().FromTags(files);
+                    var package = Package.CreateFromInputPaths(files);
+
                     if (!String.IsNullOrEmpty(title))
                     {
-                        collection.Title = title;
+                        package.Name = title;
                     }
                     if (!String.IsNullOrEmpty(productId))
                     {
-                        collection.ProductId = UInt16.Parse(productId);
+                        package.ProductId = UInt16.Parse(productId);
                     }
 
-                    albumMaker.Create(cancel, collection).Wait();
+                    var pen = TipToiPen.GetAll().First();
+                    var packageBuilder = new PackageBuilder(
+                        new PackageDirectoryStructure(pen.RootDirectory, package), ttaenc.Context.GetDefaultMediaFileConverter());
+
+                    packageBuilder.Build(cancel).Wait();
                 }
                 catch (Exception ex)
                 {
@@ -173,7 +178,7 @@ namespace ttaudio
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", AlbumMaker.GetDefaultDataDirectory().Quote());
+            // Process.Start("explorer.exe", AlbumMaker.GetDefaultDataDirectory().Quote());
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

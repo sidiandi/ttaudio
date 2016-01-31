@@ -39,15 +39,6 @@ h2
 	}
 }
 
-.album-art {
-	float: left;
-	width: 2cm;
-	height: 2cm;
-
-	padding: 4px;
-	margin: 4px;
-}
-
 .album {
 	border: solid;
 	border-width: 1px;
@@ -56,11 +47,32 @@ h2
 	margin: 4px;
 
 	page-break-inside: avoid;
-	display: inline-block;
+	clear:left;
+	display: block;
 	vertical-align: top;
 }
 
+.album-art {
+	float: left;
+	width: 2cm;
+	height: 2cm;
+	margin: 4px;
+}
+
+.album-title {
+	display: inline;
+}
+
+.album-clear {
+    clear: both;
+    display: inline-block;
+}
+
+.track-list { 
+    	display: inline;
+}
+
 .oid-area { 
-   	width: 1cm;
-	height: 1cm;
+   	width: 0.5cm;
+	height: 0.5cm;
 }

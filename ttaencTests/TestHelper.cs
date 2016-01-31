@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ttaenc;
 
-namespace ttaencTests
+namespace ttaenc.Tests
 {
     public class TestBase
     {

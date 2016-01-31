@@ -6,11 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace ttaenc.Tests
 {
     [TestFixture()]
-    public class PackageBuilderTests : ttaencTests.TestBase
+    public class PackageBuilderTests : TestBase
     {
         [Test()]
         public void PackageBuilderTest()
@@ -21,12 +23,9 @@ namespace ttaenc.Tests
             var converter = new MediaFileConverter(TestFile("media-cache"));
             var albumReader = new AlbumReader();
 
-            var package = new Package
-            {
-                Albums = albumReader.GetAlbums(AlbumReader.GetAudioFiles(new[] { TestFile("audio") })),
-                Name = "test",
-                ProductId = 800
-            };
+            var package = Package.CreateFromInputPaths(new[] { TestFile("audio") });
+            package.Albums.First().Tracks = Enumerable.Range(0, 20).Select(_ => package.Albums.First().Tracks.First()).ToArray();
+            package.ProductId = 800;
                 
             var structure = new PackageDirectoryStructure(penDirectory, package);
             var pb = new PackageBuilder(structure, converter);
