@@ -271,7 +271,8 @@ namespace ttaudio
                 this.textBoxProductId.Text = p.ProductId.ToString();
             }
 
-            this.Text = this.document.ttaFile;
+            this.Text = String.Join(" - ", new string[] { About.Product, this.document.ttaFile }
+                .Where(_ => !String.IsNullOrEmpty(_)));
         }
 
         void UpdateModel()
@@ -420,6 +421,14 @@ namespace ttaudio
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             Print();
+        }
+
+        private void Editor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Application.OpenForms.Count == 0)
+            {
+                Application.Exit();
+            }
         }
     }
 }

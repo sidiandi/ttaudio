@@ -306,7 +306,7 @@
             this.toolStripButtonPrint});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(157, 43);
+            this.toolStrip1.Size = new System.Drawing.Size(126, 43);
             this.toolStrip1.TabIndex = 1;
             // 
             // toolStripButtonUpload
@@ -343,6 +343,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "Editor";
             this.Text = "ttaudio";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Editor_FormClosed);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
