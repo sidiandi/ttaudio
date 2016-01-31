@@ -58,6 +58,13 @@ namespace ttaudio
             UpdateView();
         }
 
+        public static Editor Open(string file)
+        {
+            var e = new Editor(Document.Load(file));
+            e.Show();
+            return e;
+        }
+
         private void listViewInputFiles_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -73,14 +80,27 @@ namespace ttaudio
         /// <param name="inputFiles"></param>
         public void Add(IEnumerable<string> inputFiles)
         {
-            foreach (var audioFile in new AlbumReader().GetAudioFiles(inputFiles))
+            var albumReader = new AlbumReader();
+
+            var audioFiles = albumReader.GetAudioFiles(inputFiles).ToList();
+
+            if (audioFiles.Any())
             {
-                this.listViewInputFiles.Items.Add(new ListViewItem(audioFile)
+                if (String.IsNullOrEmpty(this.textBoxTitle.Text))
                 {
-                    Tag = audioFile
-                });
+                    var a = albumReader.GetAlbums(audioFiles.Take(1));
+                    textBoxTitle.Text = a.First().Artist;
+                }
+
+                foreach (var audioFile in audioFiles)
+                {
+                    this.listViewInputFiles.Items.Add(new ListViewItem(audioFile)
+                    {
+                        Tag = audioFile
+                    });
+                }
+                this.listViewInputFiles.Columns[this.listViewInputFiles.Columns.Count - 1].Width = -1;
             }
-            this.listViewInputFiles.Columns[this.listViewInputFiles.Columns.Count - 1].Width = -1;
         }
 
         private void listViewInputFiles_DragEnter(object sender, DragEventArgs e)
@@ -152,7 +172,7 @@ namespace ttaudio
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(About.GitUri.ToString());
+            Process.Start(ttaenc.About.GitUri.ToString());
         }
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -225,7 +245,7 @@ namespace ttaudio
         void SaveAs()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = About.DocumentsDirectory;
+            saveFileDialog.InitialDirectory = ttaenc.About.DocumentsDirectory;
             saveFileDialog.Filter = Document.fileDialogFilter;
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -268,25 +288,30 @@ namespace ttaudio
             Print();
         }
 
-        void Print()
+        public void Print()
         {
             UpdateModel();
             Save();
             var builder = GetPackageBuilder();
             var cts = new CancellationTokenSource();
             var task = Task.Factory.StartNew(() => builder.OpenHtmlPage(cts.Token), TaskCreationOptions.LongRunning);
-            var f = new TaskForm(task, cts);
+            var f = new TaskForm(task, cts) { Text = "Print" };
             f.Show();
         }
 
-        void Upload()
+        public void Upload()
         {
             UpdateModel();
             Save();
-            var builder = GetPackageBuilder();
+
             var cts = new CancellationTokenSource();
-            var task = Task.Factory.StartNew(() => builder.Build(cts.Token), TaskCreationOptions.LongRunning);
-            var f = new TaskForm(task, cts);
+            var task = Task.Factory.StartNew(() =>
+            {
+                var builder = GetPackageBuilder();
+                builder.Build(cts.Token);
+            }, TaskCreationOptions.LongRunning);
+
+            var f = new TaskForm(task, cts) { Text = "Upload" };
             f.Show();
         }
 
@@ -302,6 +327,84 @@ namespace ttaudio
         }
 
         private void uploadToPenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Upload();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            Upload();
+        }
+
+        private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            ShowAboutInformation();
+        }
+
+        public void ShowAboutInformation()
+        {
+            Process.Start(ttaenc.About.GitUri.ToString());
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Open();
+        }
+
+        public static void Open()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                InitialDirectory = About.DocumentsDirectory,
+            };
+            PathUtil.EnsureDirectoryExists(openFileDialog.InitialDirectory);
+
+            openFileDialog.Filter = Document.fileDialogFilter;
+            if (openFileDialog.ShowDialog(null) == DialogResult.OK)
+            {
+                Open(openFileDialog.FileName);
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            New();
+        }
+
+        public static Editor New()
+        {
+            var e = new Editor(new Document());
+            e.Show();
+            return e;
+        }
+
+        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        {
+            Upload();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void printerTestPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                var testPage = Path.Combine(About.LocalApplicationDataDirectory, "tiptoi-printer-test.html");
+                PathUtil.EnsureParentDirectoryExists(testPage);
+                OidSvgWriter.CreatePrinterTestPage(testPage);
+                Process.Start(testPage);
+            }, TaskCreationOptions.LongRunning);
+        }
+
+        private void printToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Print();
+        }
+
+        private void uploadToPenToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Upload();
         }

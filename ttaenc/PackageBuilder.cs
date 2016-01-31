@@ -90,6 +90,8 @@ namespace ttaenc
 
             // create gme
             await Assemble(cancellationToken);
+
+            log.InfoFormat("{0} was sucessfully built.", packageDirectoryStructure.GmeFile);
         }
 
         private void WriteYaml()

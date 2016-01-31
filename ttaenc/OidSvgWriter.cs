@@ -132,5 +132,10 @@ namespace ttaenc
 
             w.WriteLine(@"</pattern>");
         }
+
+        public static void CreatePrinterTestPage(string testPage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

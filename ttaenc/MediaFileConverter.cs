@@ -115,11 +115,17 @@ namespace ttaenc
 
         public async Task<string> ProvidePenAudioFile(CancellationToken cancellationToken, string mp3SourceFile)
         {
-            var oggFile = Path.Combine(cacheDirectory, Digest.Get(mp3SourceFile.ToLowerInvariant()) + oggExtension);
+            var oggFile = GetPenAudioFilePath(mp3SourceFile);
             if (!File.Exists(oggFile) || alwaysConvert)
             {
                 await AudioFileToTipToiAudioFile(cancellationToken, mp3SourceFile, oggFile);
             }
+            return oggFile;
+        }
+
+        public string GetPenAudioFilePath(string mp3SourceFile)
+        {
+            var oggFile = Path.Combine(cacheDirectory, Digest.Get(mp3SourceFile.ToLowerInvariant()) + oggExtension);
             return oggFile;
         }
     }

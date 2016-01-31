@@ -51,7 +51,9 @@ namespace ttaenc
             {
                 Albums = albumReader.GetAlbums(audioFiles),
             };
-            package.Name = String.Join(", ", package.Albums.First().Tracks.First().Artists);
+
+            var artists = package.Albums.SelectMany(_ => _.Tracks.SelectMany(track => track.Artists)).Distinct();
+            package.Name = String.Join(", ", artists);
 
             return package;
         }

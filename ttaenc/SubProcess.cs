@@ -66,8 +66,10 @@ namespace ttaenc
                 }
             };
 
-            log.Debug(Details(p));
+            var stopwatch = Stopwatch.StartNew();
             p.Start();
+                
+            log.DebugFormat("Process {0} started. {1}", p.Id, Details(p));
 
             var outputs = new[] {
                 Task.Factory.StartNew(() =>
@@ -83,11 +85,16 @@ namespace ttaenc
             await p.WaitForExitAsync(cancellationToken);
             Task.WaitAll(outputs);
 
+            log.DebugFormat("Process {0} finished. Exit code: {1}. Run time: {2}. {3}",
+                p.Id, p.ExitCode, stopwatch.Elapsed, Details(p));
+
+
             if (p.ExitCode != 0)
             {
                 throw new Exception(String.Format("Exit code {0}: {1}", p.ExitCode, Details(p)));
             }
         }
+
         public static string Details(Process p)
         {
             return String.Format("{0} {1}", p.StartInfo.FileName, p.StartInfo.Arguments);

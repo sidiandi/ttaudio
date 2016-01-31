@@ -27,23 +27,11 @@
   <ItemGroup>
     <Compile Include="CueProvider.cs" />
     <Compile Include="Document.cs" />
-    <Compile Include="Explorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Explorer.Designer.cs">
-      <DependentUpon>Explorer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Editor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Editor.Designer.cs">
       <DependentUpon>Editor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MDIParent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MDIParent.Designer.cs">
-      <DependentUpon>MDIParent.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,14 +42,8 @@
       <DependentUpon>TaskForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TextboxAppender.cs" />
-    <EmbeddedResource Include="Explorer.resx">
-      <DependentUpon>Explorer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MDIParent.resx">
-      <DependentUpon>MDIParent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
