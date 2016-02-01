@@ -29,11 +29,18 @@ namespace ttaenc
 {
     class Program
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         static void Main(string[] args)
         {
             log4net.Config.BasicConfigurator.Configure();
 
-            var pen = TipToiPen.GetAll().First();
+            var pen = TipToiPen.GetAll().FirstOrDefault();
+            if (pen == null)
+            {
+                pen = TipToiPen.Simulated;
+                log.InfoFormat("Pen is not attached. Output will be written to {0}", pen.RootDirectory);
+            }
 
             var package = Package.CreateFromInputPaths(args);
     
