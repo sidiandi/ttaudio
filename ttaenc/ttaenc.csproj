@@ -36,31 +36,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.cs" />
+    <Compile Include="util\About.cs" />
     <Compile Include="Album.cs" />
-    <Compile Include="AlbumCollection.cs" />
-    <Compile Include="AlbumCollectionMeta.cs" />
     <Compile Include="AlbumReader.cs" />
-    <Compile Include="Digest.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="FileTransaction.cs" />
-    <Compile Include="HtmlGenerator.cs" />
+    <Compile Include="util\Digest.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="util\Extensions.cs" />
+    <Compile Include="util\FileTransaction.cs" />
+    <Compile Include="util\HtmlGenerator.cs" />
     <Compile Include="IOidCode.cs" />
     <Compile Include="IPackageDirectoryStructure.cs" />
-    <Compile Include="LogScope.cs" />
+    <Compile Include="util\LogScope.cs" />
     <Compile Include="MediaFileConverter.cs" />
     <Compile Include="Oid.cs" />
     <Compile Include="OidSvgWriter.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="PackageBuilder.cs" />
     <Compile Include="PackageDirectoryStructure.cs" />
-    <Compile Include="PathUtil.cs" />
+    <Compile Include="util\PathUtil.cs" />
     <Compile Include="Picture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubProcess.cs" />
-    <Compile Include="TagReader.cs" />
+    <Compile Include="util\SubProcess.cs" />
     <Compile Include="TipToiPen.cs" />
     <Compile Include="Track.cs" />
   </ItemGroup>

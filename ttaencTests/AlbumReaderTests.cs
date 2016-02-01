@@ -31,22 +31,5 @@ namespace ttaenc.Tests
     [TestFixture()]
     public class AlbumReaderTests : TestBase
     {
-        [Test()]
-        public void FromTagsTest()
-        {
-            var audioFiles = new[] { TestFile(@"audio\187950__soundmatch24__rnb-beat.mp3") };
-            var ar = new AlbumReader();
-            var c = ar.FromTags(audioFiles);
-            var track = c.Album.Single().Tracks.Single();
-            Assert.AreEqual("Beat", track.Title);
-            Assert.AreEqual("Beats", track.Album);
-            Assert.AreEqual(42, track.TrackNumber);
-            Assert.AreEqual(TimeSpan.Parse("00:00:08.5910000"), track.Duration);
-
-            var pictureExportDir = TestFile("picture");
-            PathUtil.EnsureDirectoryExists(pictureExportDir);
-            var p = AlbumReader.ExportPicture(track.GetPictures()[0], pictureExportDir);
-            Assert.IsTrue(File.Exists(p));
-        }
     }
 }

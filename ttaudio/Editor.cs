@@ -163,7 +163,7 @@ namespace ttaudio
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(ttaenc.About.GitUri.ToString());
+            Process.Start(ttaenc.About.GithubUri.ToString());
         }
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -349,7 +349,7 @@ namespace ttaudio
 
         public void ShowAboutInformation()
         {
-            Process.Start(ttaenc.About.GitUri.ToString());
+            Process.Start(ttaenc.About.GithubUri.ToString());
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)

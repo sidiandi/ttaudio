@@ -27,15 +27,12 @@ namespace ttaenc
 {
     public class About
     {
-        public static Uri GitUri
+        public static Uri GithubUri
         {
             get
             {
                 var a = Assembly.GetCallingAssembly();
-                return new Uri(String.Format("https://github.com/{0}/{1}",
-                    a.GetCustomAttribute<AssemblyCompanyAttribute>().Company,
-                    a.GetCustomAttribute<AssemblyProductAttribute>().Product
-                    ));
+                return new Uri(String.Format("https://github.com/{0}/{1}", Company, Product));
             }
         }
 

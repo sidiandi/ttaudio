@@ -30,23 +30,6 @@ namespace ttaenc
     public class AlbumReader
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public AlbumCollection ReadCollection(DirectoryInfo inputDir)
-        {
-            var albumDirs = inputDir.GetDirectories();
-
-            if (!albumDirs.Any())
-            {
-                albumDirs = new[] { inputDir };
-            }
-
-            return new AlbumCollection
-            {
-                Title = inputDir.Name,
-                Album = albumDirs
-                    .OrderBy(_ => _.Name)
-                    .Select(ReadAlbum).ToArray()
-            };
-        }
 
         public static bool IsAudioFile(FileInfo file)
         {
@@ -196,30 +179,6 @@ namespace ttaenc
                 .OrderBy(_ => _.Name)
                 .Select((info, index) => new { Info = info, Index = index })
                 .Single(_ => object.Equals(_.Info.Name, name)).Index;
-        }
-
-        public AlbumCollection FromTags(IEnumerable<string> audioFiles)
-        {
-            var tracks = audioFiles
-                .Select(_ => new FileInfo(_))
-                .Select(GetTrack)
-                .ToList();
-
-            var albums = tracks
-                .GroupBy(_ => _.Album)
-                .Select(_ => new Album
-                {
-                    Title = _.Key,
-                    Tracks = _.OrderBy(t => t.TrackNumber).ToArray()
-                })
-                .OrderBy(_ => _.Title)
-                .ToArray();
-
-            return new AlbumCollection
-            {
-                Album = albums,
-                Title = albums.First().Title
-            };
         }
 
         public static string ExportPicture(IPicture picture, string exportDirectory)
