@@ -52,6 +52,16 @@ namespace ttaudio
 
             InitializeComponent();
 
+            this.listViewInputFiles.Columns.Clear();
+            var mWidth = (int) listViewInputFiles.Font.Size;
+            this.listViewInputFiles.Columns.AddRange(new[] {
+                    new ColumnHeader { Text = "Oid", Width = 5 * mWidth },
+                    new ColumnHeader { Text = "Artist", Width = 16 * mWidth },
+                    new ColumnHeader { Text = "Album", Width = 16 * mWidth},
+                    new ColumnHeader { Text = "#", Width = 5 * mWidth},
+                    new ColumnHeader { Text = "Title", Width = 32 * mWidth},
+            });
+
             CueProvider.SetCue(textBoxTitle, "automatic");
             CueProvider.SetCue(textBoxProductId, "automatic");
 
@@ -78,29 +88,10 @@ namespace ttaudio
         /// Add input files to the list view
         /// </summary>
         /// <param name="inputFiles"></param>
-        public void Add(IEnumerable<string> inputFiles)
+        public async Task Add(IEnumerable<string> inputFiles)
         {
-            var albumReader = new AlbumReader();
-
-            var audioFiles = albumReader.GetAudioFiles(inputFiles).ToList();
-
-            if (audioFiles.Any())
-            {
-                if (String.IsNullOrEmpty(this.textBoxTitle.Text))
-                {
-                    var a = albumReader.GetAlbums(audioFiles.Take(1));
-                    textBoxTitle.Text = a.First().Artist;
-                }
-
-                foreach (var audioFile in audioFiles)
-                {
-                    this.listViewInputFiles.Items.Add(new ListViewItem(audioFile)
-                    {
-                        Tag = audioFile
-                    });
-                }
-                this.listViewInputFiles.Columns[this.listViewInputFiles.Columns.Count - 1].Width = -1;
-            }
+            await TaskForm.StartTask("Add Files", () => this.document.package.AddTracks(inputFiles));
+            UpdateView();
         }
 
         private void listViewInputFiles_DragEnter(object sender, DragEventArgs e)
@@ -187,9 +178,9 @@ namespace ttaudio
 
         void DeleteSelected()
         {
-            var remainingItems = listViewInputFiles.Items.Cast<ListViewItem>().Where(_ => !_.Selected).ToArray();
-            listViewInputFiles.Items.Clear();
-            listViewInputFiles.Items.AddRange(remainingItems);
+            document.package.RemoveTracks(listViewInputFiles.Items.Cast<ListViewItem>().Where(_ => _.Selected)
+                .Select(_ => (Track)_.Tag));
+            UpdateView();
         }
 
         void SelectAll()
@@ -263,7 +254,16 @@ namespace ttaudio
             }
 
             listViewInputFiles.Items.Clear();
-            Add(p.Albums.SelectMany(_ => _.Tracks.Select(track => track.Path)));
+            listViewInputFiles.Items.AddRange(p.Tracks.Select(track => new ListViewItem(new string[] {
+                track.Oid.ToString(),
+                String.Join(", ", track.Artists),
+                track.Album,
+                track.TrackNumber.ToString(),
+                track.Title
+            })
+            {
+                Tag = track
+            }).ToArray());
 
             this.textBoxTitle.Text = p.Name;
             if (p.ProductId != 0)
@@ -277,18 +277,15 @@ namespace ttaudio
 
         void UpdateModel()
         {
-            var files = listViewInputFiles.Items.Cast<ListViewItem>().Select(_ => (string)_.Tag).ToList();
-            var p = Package.CreateFromInputPaths(files);
-            p.Name = this.textBoxTitle.Text;
-            int productId;
-            if (Int32.TryParse(this.textBoxProductId.Text, out productId))
-            {
-                p.ProductId = productId;
-            }
-
             lock (this)
             {
-                document.package = p;
+                var p = document.package;
+                p.Name = this.textBoxTitle.Text;
+                int productId;
+                if (Int32.TryParse(this.textBoxProductId.Text, out productId))
+                {
+                    p.ProductId = productId;
+                }
             }
         }
 
@@ -357,7 +354,7 @@ namespace ttaudio
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Open();
+            InstanceOpen();
         }
 
         public static void Open()
@@ -375,9 +372,29 @@ namespace ttaudio
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        public void InstanceOpen()
+        {
+            Open();
+            CloseIfEmpty();
+        }
+
+        public void InstanceNew()
         {
             New();
+            CloseIfEmpty();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InstanceNew();
+        }
+
+        void CloseIfEmpty()
+        {
+            if (!document.package.Tracks.Any())
+            {
+                Close();
+            }
         }
 
         public static Editor New()

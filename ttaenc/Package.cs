@@ -28,18 +28,41 @@ namespace ttaenc
     {
         public Package()
         {
-            Albums = new Album[] { };
+            Tracks = new Track[] { };
+            NextOid = 10250;
+            StopOid = GetNextOid();
         }
 
         public string Name { set; get; }
         public int ProductId { get; set; }
-        public Album[] Albums { get; set; }
 
-        public IEnumerable<Track> Tracks { get { return Albums.SelectMany(_ => _.Tracks); } }
+        public int NextOid {get; set; }
+
+        public int GetNextOid()
+        {
+            return NextOid++;
+        }
+
+        public Track[] Tracks
+        {
+            get; set;
+        }
 
         public int StopOid { get; set; }
 
         public string ConfirmationSound { set; get; }
+        public IEnumerable<Album> Albums
+        {
+            get
+            {
+                return Tracks.GroupBy(_ => _.Album)
+                    .Select(tracks => new Album
+                    {
+                        Title = tracks.Key,
+                        Tracks = tracks.ToArray()
+                    });
+            }
+        }
 
         public static Package CreateFromInputPaths(IEnumerable<string> inputPaths)
         {
@@ -49,13 +72,40 @@ namespace ttaenc
 
             var package = new Package
             {
-                Albums = albumReader.GetAlbums(audioFiles),
+                Tracks = albumReader.GetTracks(audioFiles)
             };
 
-            var artists = package.Albums.SelectMany(_ => _.Tracks.SelectMany(track => track.Artists)).Distinct();
+            var artists = package.Tracks.SelectMany(track => track.Artists).Distinct();
             package.Name = String.Join(", ", artists);
 
             return package;
+        }
+
+        /// <summary>
+        /// Add all new tracks found in inputfiles
+        /// </summary>
+        /// <param name="inputFiles"></param>
+        public void AddTracks(IEnumerable<string> inputFiles)
+        {
+            var albumReader = new AlbumReader();
+            var existing = Tracks.ToLookup(_ => _.Path);
+            var toAdd = albumReader.GetTracks(albumReader.GetAudioFiles(inputFiles))
+                .Where(t => !existing.Contains(t.Path));
+
+            foreach (var track in toAdd)
+            {
+                track.Oid = this.GetNextOid();
+            }
+
+            Tracks = Tracks.Concat(toAdd)
+                .OrderBy(_ => _.Album)
+                .ThenBy(_ => _.TrackNumber)
+                .ToArray();
+        }
+
+        public void RemoveTracks(IEnumerable<Track> enumerable)
+        {
+            Tracks = Tracks.Except(enumerable).ToArray();
         }
     }
 }

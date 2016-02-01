@@ -70,7 +70,7 @@ namespace ttaenc
             w.WriteLine("<defs>");
             OidPattern(w, oid);
             w.WriteLine(@"</defs>");
-            w.WriteLine(@"<rect fill=""url(#Code{0})"" x=""5%"" y=""5%"" width=""90%"" height=""90%""/>", oid);
+            w.WriteLine(@"<rect fill=""url(#Code{0})"" x=""0%"" y=""0%"" width=""100%"" height=""100%""/>", oid);
             // w.WriteLine(@"<circle fill=""url(#Code{0})"" cx=""50%"" cy=""50%"" r=""50%"" />", oid);
             w.WriteLine("</svg>");
         }

@@ -180,6 +180,14 @@ namespace ttaenc
             return albums;
         }
 
+        internal Track[] GetTracks(IEnumerable<string> audioFiles)
+        {
+            return audioFiles
+                .Select(_ => new FileInfo(_))
+                .Select(GetTrack)
+                .ToArray();
+        }
+
         static uint GetDirectoryIndex(string path)
         {
             var name = Path.GetFileName(path);
@@ -218,7 +226,7 @@ namespace ttaenc
         {
             if (picture == null)
             {
-                picture = new Picture(Path.Combine(PathUtil.GetDirectory(), "media", "default-album-art.png"));
+                picture = new Picture(new FileInfo(Path.Combine(PathUtil.GetDirectory(), "media", "default-album-art.png")));
             }
 
             var extension = "." + Regex.Split(picture.MimeType, "/").Last();

@@ -30,13 +30,7 @@ namespace ttaenc
         {
             this.packageDirectoryStructure = structure;
             this.converter = converter;
-            this.NextOid = 10250;
             this.MaxGmeSize = 800 * 1024 * 1024;
-        }
-
-        public int NextOid
-        {
-            get; set;
         }
 
         public long MaxGmeSize
@@ -44,21 +38,9 @@ namespace ttaenc
             get; set;
         }
 
-        int GetNextOid()
-        {
-            return NextOid++;
-        }
-
         public async Task Build(CancellationToken cancellationToken)
         {
             var p = packageDirectoryStructure.Package;
-
-            // assign oids to tracks
-            packageDirectoryStructure.Package.StopOid = GetNextOid();
-            foreach (var i in packageDirectoryStructure.Package.Tracks)
-            {
-                i.Oid = GetNextOid();
-            }
 
             PrepareInputFiles(cancellationToken);
 
@@ -98,7 +80,7 @@ namespace ttaenc
         {
             var p = packageDirectoryStructure.Package;
             // write tttool yaml file
-            yamlFile = Path.Combine(Path.GetDirectoryName(p.Albums.First().Tracks.First().PenAudioFile) , Path.GetRandomFileName() + ".yaml");
+            yamlFile = Path.Combine(Path.GetDirectoryName(p.Tracks.First().PenAudioFile) , Path.GetRandomFileName() + ".yaml");
             log.InfoFormat("Write {0}", yamlFile);
 
             using (var w = new StreamWriter(yamlFile))
@@ -229,16 +211,16 @@ Style: ");
 
         IList<Package> Split(Package p)
         {
-            var partAlbums = p.Albums
-                .Partition(album => album.Tracks.Sum(_ => new FileInfo(_.PenAudioFile).Length), MaxGmeSize)
+            var partTracks = p.Tracks
+                .Partition(track => new FileInfo(track.PenAudioFile).Length, MaxGmeSize)
                 .ToList();
 
-            return partAlbums.Select((albums, partIndex) =>
+            return partTracks.Select((tracks, partIndex) =>
             {
                 return new Package
                 {
-                    Albums = albums.ToArray(),
-                    Name = String.Format("{0} - Part {1} of {2}", p.Name, partIndex, partAlbums.Count)
+                    Tracks = tracks.ToArray(),
+                    Name = String.Format("{0} - Part {1} of {2}", p.Name, partIndex, partTracks.Count)
                 };
             }).ToList();
         }
@@ -246,13 +228,6 @@ Style: ");
         public async Task OpenHtmlPage(CancellationToken cancellationToken)
         {
             var p = packageDirectoryStructure.Package;
-
-            // assign oids to tracks
-            packageDirectoryStructure.Package.StopOid = GetNextOid();
-            foreach (var i in packageDirectoryStructure.Package.Tracks)
-            {
-                i.Oid = GetNextOid();
-            }
 
             PrepareInputFiles(cancellationToken);
 

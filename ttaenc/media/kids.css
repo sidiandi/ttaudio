@@ -4,11 +4,16 @@
 }
 
 .album-title {
-	display: inline;
+	display: none;
+}
+
+.album-art { 
+    margin: 0px;
 }
 
 .track-list { 
-	display: inline;
+    list-style:none;
+    padding-left:0;
 }
 
 .track-number {
@@ -32,5 +37,4 @@
     width: 2cm;
     height: 2cm;
 }
-
 

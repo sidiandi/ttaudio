@@ -35,24 +35,28 @@ namespace ttaudio
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            int openWindows = 0;
             if (args.Any())
             {
                 foreach (var file in args)
                 {
                     try
                     {
-                        var editorWindow = Editor.Open(file);
+                        Editor.Open(file);
+                        ++openWindows;
                     }
                     catch
                     {
                     }
                 }
             }
-            else
+
+            if (openWindows == 0)
             {
                 Editor.New();
             }
-            Application.Run();
+
+                Application.Run();
         }
 
         private static void EditorWindow_FormClosed(object sender, FormClosedEventArgs e)

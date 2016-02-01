@@ -20,6 +20,15 @@ namespace ttaudio
         Task task;
         CancellationTokenSource cancellationTokenSource;
 
+        public static Task StartTask(string caption, System.Action action)
+        {
+            var cts = new CancellationTokenSource();
+            var task = Task.Factory.StartNew(action, cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+            var tw = new TaskForm(task, cts) { Text = caption };
+            tw.Show();
+            return task;
+        }
+
         public TaskForm(Task task, CancellationTokenSource cancellationTokenSource)
         {
             InitializeComponent();
@@ -66,6 +75,7 @@ namespace ttaudio
             {
                 labelResult.Text = String.Format("Task completed sucessfully.");
                 buttonCancel.Text = "&Close";
+                this.Close();
             }
         }
 

@@ -52,37 +52,6 @@ namespace ttaenc
                 .Select(f => new Picture(f));
         }
 
-        class Picture : IPicture
-        {
-            public Picture(System.IO.FileInfo file)
-            {
-                using (var r = System.IO.File.OpenRead(file.FullName))
-                {
-                    Data = new ByteVector(PathUtil.ReadAll(r));
-                }
-                MimeType = "image/" + file.Extension.Substring(1);
-            }
-            public ByteVector Data { get; set; }
-
-            public string Description {
-                get; set; }
-
-            public string MimeType { get; set; }
-
-            public PictureType Type
-            {
-                get
-                {
-                    return PictureType.FrontCover;
-                }
-
-                set
-                {
-                    throw new NotImplementedException();
-                }
-            }
-        }
-
         public Track[] Tracks;
     }
 }
