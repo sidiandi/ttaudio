@@ -45,7 +45,7 @@ namespace ttaudio
         {
             if (document == null)
             {
-                document = new Document { package = new Package() };
+                throw new ArgumentNullException("document");
             }
 
             this.document = document;

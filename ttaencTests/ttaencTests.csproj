@@ -37,6 +37,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AlbumReaderTests.cs" />
+    <Compile Include="MediaFileConverterTests.cs" />
     <Compile Include="OidSvgWriterTests.cs" />
     <Compile Include="PackageBuilderTests.cs" />
     <Compile Include="PackageTests.cs" />

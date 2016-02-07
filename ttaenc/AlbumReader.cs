@@ -37,6 +37,7 @@ namespace ttaenc
             {
                 case ".mp3":
                 case ".ogg":
+                case ".wav":
                     return true;
                 default:
                     return false;

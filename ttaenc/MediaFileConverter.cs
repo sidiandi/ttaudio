@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -54,30 +55,31 @@ namespace ttaenc
                                         "-w", wavFile.Quote(),
                                         sourceFile.Quote());
 
+                                    bool isMono = true;
+
                                     await SubProcess.CheckedCall(cancellationToken,
                                         "oggenc2.exe",
                                         wavFile.Quote(),
                                         ("--output=" + t.TempPath).Quote(),
-                                        "--quiet",
                                         "--resample", "22500",
-                                        "--downmix");
+                                        isMono ? null : "--downmix"
+                                        );
                                 }
                                 break;
                             case oggExtension:
                                 {
-                                    await SubProcess.CheckedCall(cancellationToken
+                                    bool isMono = GetIsMonoFromOggdecOutput(await SubProcess.GetOutput(cancellationToken
                                         , "oggdec.exe",
                                         "--wavout", wavFile.Quote(),
                                         "-q",
-                                        sourceFile.Quote());
+                                        sourceFile.Quote()));
 
                                     await SubProcess.CheckedCall(cancellationToken,
                                         "oggenc2.exe",
-                                        "-o", t.TempPath.Quote(),
-                                        "--quiet",
+                                        wavFile.Quote(),
+                                        ("--output=" + t.TempPath).Quote(),
                                         "--resample", "22500",
-                                        "--downmix",
-                                        wavFile.Quote()
+                                        isMono ? null : "--downmix"
                                         );
                                 }
                                 break;
@@ -127,6 +129,11 @@ namespace ttaenc
         {
             var oggFile = Path.Combine(cacheDirectory, Digest.Get(mp3SourceFile.ToLowerInvariant()) + oggExtension);
             return oggFile;
+        }
+
+        static bool GetIsMonoFromOggdecOutput(string oggdecOutput)
+        {
+            return Regex.IsMatch(oggdecOutput, "Bitstream is 1 channel");
         }
     }
 }

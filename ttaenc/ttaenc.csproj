@@ -36,6 +36,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IProductIdProvider.cs" />
+    <Compile Include="ProductIdProvider.cs" />
     <Compile Include="util\About.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="AlbumReader.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="util\SubProcess.cs" />
     <Compile Include="TipToiPen.cs" />
     <Compile Include="Track.cs" />
+    <Compile Include="util\XmlSerializerUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -66,21 +66,21 @@ namespace ttaenc
                 }
             };
 
-            var stopwatch = Stopwatch.StartNew();
             p.Start();
-                
-            log.DebugFormat("Process {0} started. {1}", p.Id, Details(p));
 
             var outputs = new[] {
                 Task.Factory.StartNew(() =>
                 {
-                    CopyTo(p.StandardOutput, log.Debug);
-                }),
+                    CopyTo(p.StandardError, _ => log.DebugFormat("{0}:out: {1}", p.Id, _));
+                }, TaskCreationOptions.LongRunning),
                 Task.Factory.StartNew(() =>
                 {
-                    CopyTo(p.StandardError, log.Debug);
-                })
+                    CopyTo(p.StandardError, _ => log.DebugFormat("{0}:err: {1}", p.Id, _));
+                }, TaskCreationOptions.LongRunning)
             };
+
+            var stopwatch = Stopwatch.StartNew();
+            log.DebugFormat("Process {0} started. {1}", p.Id, Details(p));
 
             await p.WaitForExitAsync(cancellationToken);
             Task.WaitAll(outputs);
@@ -93,6 +93,59 @@ namespace ttaenc
             {
                 throw new Exception(String.Format("Exit code {0}: {1}", p.ExitCode, Details(p)));
             }
+        }
+
+        public async static Task<string> GetOutput(CancellationToken cancellationToken,
+            string fileName,
+            params string[] commands)
+        {
+            var p = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    FileName = fileName,
+                    Arguments = String.Join(" ", commands),
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
+                }
+            };
+
+            p.Start();
+
+            var output = new StringWriter();
+
+            var outputs = new[] {
+                Task.Factory.StartNew(() =>
+                {
+                    CopyTo(p.StandardError, _ => {
+                        log.DebugFormat("{0}:out: {1}", p.Id, _);
+                        output.WriteLine(_);
+                    });
+                }, TaskCreationOptions.LongRunning),
+                Task.Factory.StartNew(() =>
+                {
+                    CopyTo(p.StandardError, _ => log.DebugFormat("{0}:err: {1}", p.Id, _));
+                }, TaskCreationOptions.LongRunning)
+            };
+
+            var stopwatch = Stopwatch.StartNew();
+            log.DebugFormat("Process {0} started. {1}", p.Id, Details(p));
+
+            await p.WaitForExitAsync(cancellationToken);
+            Task.WaitAll(outputs);
+
+            log.DebugFormat("Process {0} finished. Exit code: {1}. Run time: {2}. {3}",
+                p.Id, p.ExitCode, stopwatch.Elapsed, Details(p));
+
+
+            if (p.ExitCode != 0)
+            {
+                throw new Exception(String.Format("Exit code {0}: {1}", p.ExitCode, Details(p)));
+            }
+
+            return output.ToString();
         }
 
         public static string Details(Process p)

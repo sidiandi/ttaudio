@@ -26,11 +26,12 @@ namespace ttaenc
 {
     public class Package
     {
-        public Package()
+        public Package(IProductIdProvider productIdProvider)
         {
             Tracks = new Track[] { };
             NextOid = 10250;
             StopOid = GetNextOid();
+            ProductId = productIdProvider.GetNextAvailableProductId();
         }
 
         public string Name { set; get; }
@@ -70,7 +71,7 @@ namespace ttaenc
 
             var audioFiles = albumReader.GetAudioFiles(inputPaths);
 
-            var package = new Package
+            var package = new Package(new ProductIdProvider())
             {
                 Tracks = albumReader.GetTracks(audioFiles)
             };

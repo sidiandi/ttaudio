@@ -217,7 +217,7 @@ Style: ");
 
             return partTracks.Select((tracks, partIndex) =>
             {
-                return new Package
+                return new Package(new ProductIdProvider())
                 {
                     Tracks = tracks.ToArray(),
                     Name = String.Format("{0} - Part {1} of {2}", p.Name, partIndex, partTracks.Count)
