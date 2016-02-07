@@ -12,7 +12,6 @@ namespace ttaenc.Tests
     [TestFixture()]
     public class MediaFileConverterTests : TestBase
     {
-        [Test()]
         public void TestConvert(string source)
         {
             var cacheDir = TestFile("media-cache");
