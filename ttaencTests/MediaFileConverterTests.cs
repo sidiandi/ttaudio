@@ -38,23 +38,5 @@ namespace ttaenc.Tests
         {
             TestConvert(TestFile(@"audio\mono\ding.ogg"));
         }
-
-        [Test()]
-        public void MediaFileConverterTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test()]
-        public void ProvidePenAudioFileTest()
-        {
-            Assert.Fail();
-        }
-
-        [Test()]
-        public void GetPenAudioFilePathTest()
-        {
-            Assert.Fail();
-        }
     }
 }
