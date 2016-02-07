@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace ttaenc
 {
-    class XmlSerializerUtil
+    public class XmlSerializerUtil
     {
         public static T Read<T>(string xmlFile) where T : new()
         {
@@ -41,7 +41,7 @@ namespace ttaenc
         {
             var s = new XmlSerializer(typeof(T));
             PathUtil.EnsureParentDirectoryExists(xmlFile);
-            using (var w = File.OpenWrite(xmlFile))
+            using (var w = File.Open(xmlFile, FileMode.Create))
             {
                 s.Serialize(w, data);
             }

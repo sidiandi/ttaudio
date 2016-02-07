@@ -28,14 +28,8 @@ namespace ttaudio
             var doc = new Document
             {
                 ttaFile = ttaFile,
+                package = XmlSerializerUtil.Read<Package>(ttaFile)
             };
-
-            var s = new XmlSerializer(typeof(Package));
-            using (var r = File.OpenRead(ttaFile))
-            {
-                doc.package = (Package) s.Deserialize(r);
-            }
-
             return doc;
         }
 
@@ -45,10 +39,7 @@ namespace ttaudio
         {
             var s = new XmlSerializer(package.GetType());
             package.FileName = Path.GetFileNameWithoutExtension(ttaFile);
-            using (var w = File.OpenWrite(ttaFile))
-            {
-                s.Serialize(w, package);
-            }
+            XmlSerializerUtil.Write(ttaFile, package);
         }
     }
 }
