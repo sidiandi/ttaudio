@@ -18,17 +18,17 @@ namespace ttaenc
 
         static string SettingsFile
         {
-            get { return Path.Combine(About.LocalApplicationDataDirectory, PathUtil.GetValidFileName(About.Product + ".settings.xml")); }
+            get { return Path.Combine(About.LocalApplicationDataDirectory, PathUtil.GetValidFileName(About.Product) + ".settings.xml"); }
         }
 
         public static Settings Read()
         {
-            return XmlSerializerUtil.Read<Settings>(SettingsFile);
+            return XmlSerializerUtil.SafeRead<Settings>(SettingsFile);
         }
 
         public void Write()
         {
-            XmlSerializerUtil.Write(SettingsFile, SettingsFile);
+            XmlSerializerUtil.Write(SettingsFile, this);
         }
     }
 

@@ -80,7 +80,7 @@ namespace ttaenc
         {
             var p = packageDirectoryStructure.Package;
             // write tttool yaml file
-            yamlFile = Path.Combine(Path.GetDirectoryName(p.Tracks.First().PenAudioFile) , Path.GetRandomFileName() + ".yaml");
+            yamlFile = Path.Combine(converter.OutputDirectory, Path.GetRandomFileName() + ".yaml");
             log.InfoFormat("Write {0}", yamlFile);
 
             using (var w = new StreamWriter(yamlFile))
@@ -149,7 +149,7 @@ scripts:");
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
 	<link rel=""stylesheet"" href=""media/style.css"" />
 	<link rel=""stylesheet"" href=""media/default.css"" />
-    <title>" + T(this.packageDirectoryStructure.Package.Name) + @"</title>
+    <title>" + T(this.packageDirectoryStructure.Package.Title) + @"</title>
 	<script>
 	function changeCSS(cssFile) {
 		var cssLinkIndex = 1;
@@ -176,7 +176,7 @@ Style: ");
                 w.WriteLine("<h1>");
                 ow.OidButton(w, p.ProductId, "<img class=\"oid-area\" src=\"media/power.svg\" />");
                 ow.OidButton(w, p.StopOid, "<img class=\"oid-area\" src=\"media/stop.svg\" />");
-                w.WriteLine(T(p.Name));
+                w.WriteLine(T(p.Title));
                 w.WriteLine("</h1>");
 
                 foreach (var album in p.Albums)
@@ -217,10 +217,12 @@ Style: ");
 
             return partTracks.Select((tracks, partIndex) =>
             {
+                var title = String.Format("{0} - Part {1} of {2}", p.Title, partIndex, partTracks.Count);
                 return new Package(new ProductIdProvider())
                 {
                     Tracks = tracks.ToArray(),
-                    Name = String.Format("{0} - Part {1} of {2}", p.Name, partIndex, partTracks.Count)
+                    Title = title,
+                    FileName = PathUtil.GetValidFileName(title)
                 };
             }).ToList();
         }

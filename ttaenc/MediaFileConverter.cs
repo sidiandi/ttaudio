@@ -62,6 +62,7 @@ namespace ttaenc
                                         wavFile.Quote(),
                                         ("--output=" + t.TempPath).Quote(),
                                         "--resample", "22500",
+                                        "--quiet",
                                         isMono ? null : "--downmix"
                                         );
                                 }
@@ -79,6 +80,7 @@ namespace ttaenc
                                         wavFile.Quote(),
                                         ("--output=" + t.TempPath).Quote(),
                                         "--resample", "22500",
+                                        "--quiet",
                                         isMono ? null : "--downmix"
                                         );
                                 }
@@ -114,6 +116,8 @@ namespace ttaenc
         }
 
         readonly string cacheDirectory;
+
+        public string OutputDirectory { get { return cacheDirectory; } }
 
         public async Task<string> ProvidePenAudioFile(CancellationToken cancellationToken, string mp3SourceFile)
         {

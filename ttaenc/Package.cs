@@ -26,15 +26,39 @@ namespace ttaenc
 {
     public class Package
     {
-        public Package(IProductIdProvider productIdProvider)
+        public Package()
         {
             Tracks = new Track[] { };
             NextOid = 10250;
+        }
+
+        public Package(IProductIdProvider productIdProvider)
+            :this()
+        {
             StopOid = GetNextOid();
             ProductId = productIdProvider.GetNextAvailableProductId();
         }
 
-        public string Name { set; get; }
+        public string FileName
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(fileName))
+                {
+                    return String.Format("ProductId{0}", ProductId);
+                }
+                return fileName;
+            }
+
+            set
+            {
+                fileName = value; }
+        }
+
+        string fileName;
+
+        public string Title { get; set; }
+
         public int ProductId { get; set; }
 
         public int NextOid {get; set; }
@@ -77,7 +101,7 @@ namespace ttaenc
             };
 
             var artists = package.Tracks.SelectMany(track => track.Artists).Distinct();
-            package.Name = String.Join(", ", artists);
+            package.Title = String.Join(", ", artists);
 
             return package;
         }

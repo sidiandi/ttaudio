@@ -1,6 +1,9 @@
 body {
 	font-family: helvetica;
 	font-size: 10px;
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
 }
 
 h2

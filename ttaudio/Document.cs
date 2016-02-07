@@ -44,6 +44,7 @@ namespace ttaudio
         public void Save()
         {
             var s = new XmlSerializer(package.GetType());
+            package.FileName = Path.GetFileNameWithoutExtension(ttaFile);
             using (var w = File.OpenWrite(ttaFile))
             {
                 s.Serialize(w, package);

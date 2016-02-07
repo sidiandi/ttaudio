@@ -39,11 +39,12 @@ namespace ttaenc
         {
             get
             {
-                return PathUtil.GetValidFileName(package.Name);
+                return package.FileName;
             }
         }
 
-        const string gmeExtension = ".tta.gme";
+        const string gmeExtension = ".gme";
+        const string gmePrefix = "tta.";
         const string ttaExtension = ".tta";
         const string htmlExtension = ".html";
 
@@ -51,7 +52,7 @@ namespace ttaenc
 
         public string GmeFile
         {
-            get { return Path.Combine(rootDirectory, FileName + gmeExtension); }
+            get { return Path.Combine(rootDirectory, gmePrefix + FileName + gmeExtension); }
         }
 
         string TtaDirectory

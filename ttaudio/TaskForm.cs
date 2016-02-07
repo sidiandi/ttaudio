@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ttaenc;
 
 namespace ttaudio
 {
@@ -50,9 +51,14 @@ namespace ttaudio
         {
             base.OnLoad(e);
 
+            var patternLayout = new PatternLayout();
+            patternLayout.AddConverter("rfc3339", typeof(Rfc3339Converter));
+            patternLayout.ConversionPattern = "%rfc3339 %level %message%newline";
+            patternLayout.ActivateOptions();
+
             var a = new TextboxAppender(this.textBoxProgress)
             {
-                Layout = new PatternLayout("%utcdate{ISO8601} %level %message%newline"),
+                Layout = patternLayout,
                 Threshold = Level.Debug,
                 Name = textBoxProgress.Name,
             };

@@ -99,7 +99,7 @@ namespace ttaenc
             });
         }
 
-        Track GetTrack(FileInfo audioFile)
+        public Track GetTrack(FileInfo audioFile)
         {
             log.InfoFormat("Read meta information from {0}", audioFile);
             var track = new Track { Path = audioFile.FullName };
@@ -113,7 +113,7 @@ namespace ttaenc
                         track.Title = f.Tag.Title;
                         track.TrackNumber = f.Tag.Track;
                         track.Album = f.Tag.Album;
-                        track.Artists = f.Tag.AlbumArtists;
+                        track.Artists = f.Tag.AlbumArtists.Concat(f.Tag.Performers).ToArray();
                     }
                 }
             }

@@ -31,5 +31,12 @@ namespace ttaenc.Tests
     [TestFixture()]
     public class AlbumReaderTests : TestBase
     {
+        [Test]
+        public void ReadArtist()
+        {
+            var audioFile = TestFile(@"audio\187950__soundmatch24__rnb-beat.mp3");
+            var track = new AlbumReader().GetTrack(new FileInfo(audioFile));
+            Assert.AreEqual("Soundmatch", String.Join(", ", track.Artists));
+        }
     }
 }

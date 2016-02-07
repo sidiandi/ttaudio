@@ -19,6 +19,24 @@ namespace ttaenc
             }
         }
 
+        /// <summary>
+        /// Returns the default value of T if something goes wrong
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="xmlFile"></param>
+        /// <returns></returns>
+        public static T SafeRead<T>(string xmlFile) where T : new()
+        {
+            try
+            {
+                return Read<T>(xmlFile);
+            }
+            catch (Exception)
+            {
+                return new T();
+            }
+        }
+
         public static void Write<T>(string xmlFile, T data)
         {
             var s = new XmlSerializer(typeof(T));

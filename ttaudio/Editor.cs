@@ -117,7 +117,7 @@ namespace ttaudio
                     
                     if (!String.IsNullOrEmpty(title))
                     {
-                        package.Name = title;
+                        package.Title = title;
                     }
                     if (!String.IsNullOrEmpty(productId))
                     {
@@ -220,14 +220,13 @@ namespace ttaudio
 
         void Save()
         {
-            UpdateModel();
-
             if (document.ttaFile == null)
             {
                 SaveAs();
                 return;
             }
 
+            UpdateModel();
             document.Save();
         }
 
@@ -265,7 +264,7 @@ namespace ttaudio
                 Tag = track
             }).ToArray());
 
-            this.textBoxTitle.Text = p.Name;
+            this.textBoxTitle.Text = p.Title;
             if (p.ProductId != 0)
             {
                 this.textBoxProductId.Text = p.ProductId.ToString();
@@ -280,7 +279,7 @@ namespace ttaudio
             lock (this)
             {
                 var p = document.package;
-                p.Name = this.textBoxTitle.Text;
+                p.Title = this.textBoxTitle.Text;
                 int productId;
                 if (Int32.TryParse(this.textBoxProductId.Text, out productId))
                 {
@@ -446,6 +445,11 @@ namespace ttaudio
             {
                 Application.Exit();
             }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAs();
         }
     }
 }
