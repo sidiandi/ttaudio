@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -82,7 +83,7 @@ namespace ttaenc
 
         static string Cm(float x)
         {
-            return String.Format("\"{0}cm\"", x);
+            return String.Format(CultureInfo.InvariantCulture, "\"{0}cm\"", x);
         }
 
         class Offset
@@ -106,7 +107,7 @@ namespace ttaenc
 
         public void OidPattern(TextWriter w, int oid)
         {
-            w.WriteLine(@"<pattern id=""Code{0}"" patternUnits=""userSpaceOnUse"" x=""0"" y=""0"" width=""{1}cm"" height=""{1}cm"" >", oid, GridSpacing*8);
+            w.WriteLine(@"<pattern id=""Code{0}"" patternUnits=""userSpaceOnUse"" x=""0"" y=""0"" width={1} height={1} >", oid, Cm(GridSpacing*8));
 
             // guide dots
             Dot(w, GridSpacing, GridSpacing);
