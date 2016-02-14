@@ -101,7 +101,9 @@ namespace ttaenc
 
             using (var w = new StreamWriter(yamlFile))
             {
-                w.WriteLine(@"product-id: " + p.ProductId.ToString() + @"
+                w.WriteLine(
+@"# " + p.FileName + @"
+product-id: " + p.ProductId.ToString() + @"
 comment: CHOMPTECH DATA FORMAT CopyRight 2009 Ver2.6.0925
 welcome: " + YamlPath(p.ConfirmationSound) + @"
 
@@ -109,13 +111,15 @@ scripts:");
 
                 w.WriteLine("  {0}:", p.StopOid);
                 w.WriteLine("  - P({0})", YamlPath(p.ConfirmationSound));
-                foreach (var album in p.Albums)
+                for (int i=0; i<p.Tracks.Length;++i)
                 {
-                    foreach (var track in album.Tracks)
+                    w.WriteLine("  {0}:", p.Tracks[i].Oid);
+                    w.Write("  - P({0})", YamlPath(p.Tracks[i].PenAudioFile));
+                    if (i < p.Tracks.Length - 1)
                     {
-                        w.WriteLine("  {0}:", track.Oid);
-                        w.WriteLine("  - P({0})", YamlPath(track.PenAudioFile));
+                        w.Write(" J({0})", p.Tracks[i + 1].Oid);
                     }
+                    w.WriteLine();
                 }
             }
         }

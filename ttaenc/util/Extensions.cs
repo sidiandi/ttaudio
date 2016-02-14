@@ -62,5 +62,34 @@ namespace ttaenc
                 yield return part;
             }
         }
+
+        public static IEnumerable<LinkedList<T>> Window<T>(this IEnumerable<T> data, int windowLength, int skip = 1)
+        {
+            var window = new LinkedList<T>();
+            int count = 0;
+            int skipCount = skip;
+
+            using (var e = data.GetEnumerator())
+            {
+                for (; e.MoveNext();)
+                {
+                    window.AddLast(e.Current);
+                    ++count;
+                    if (count > windowLength)
+                    {
+                        window.RemoveFirst();
+                    }
+                    if (count >= windowLength)
+                    {
+                        if (skipCount >= skip)
+                        {
+                            yield return window;
+                            skipCount = 0;
+                        }
+                        ++skipCount;
+                    }
+                }
+            }
+        }
     }
 }

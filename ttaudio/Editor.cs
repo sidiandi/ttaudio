@@ -102,63 +102,6 @@ namespace ttaudio
             }
         }
 
-        private void buttonConvert_Click(object sender, EventArgs e)
-        {
-            StartConversion();
-        }
-
-        Task Convert(CancellationToken cancel, IList<string> files, string title, string productId)
-        {
-            return Task.Factory.StartNew(async () => 
-            {
-                try
-                {
-                    var package = Package.CreateFromInputPaths(files);
-                    
-                    if (!String.IsNullOrEmpty(title))
-                    {
-                        package.Title = title;
-                    }
-                    if (!String.IsNullOrEmpty(productId))
-                    {
-                        package.ProductId = UInt16.Parse(productId);
-                    }
-
-                    var converter = Context.GetDefaultMediaFileConverter();
-
-                    var pen = TipToiPen.GetAll().First();
-                    var packageBuilder = GetPackageBuilder();
-                    await packageBuilder.Build(cancel);
-                }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
-            }, cancel);
-        }
-
-        void StartConversion()
-        {
-            UpdateModel();
-
-            var files = listViewInputFiles.Items.Cast<ListViewItem>().Select(_ => (string)_.Tag).ToList();
-            if (!files.Any())
-            {
-                MessageBox.Show("Drop some audio files into the list first.");
-                return;
-            }
-
-            var cancellationTokenSource = new System.Threading.CancellationTokenSource();
-            var task = Convert(cancellationTokenSource.Token, files, textBoxTitle.Text, textBoxProductId.Text);
-
-            var taskForm = new TaskForm(task, cancellationTokenSource)
-            {
-                Text = "Convert and Copy to Pen"
-            };
-                
-            taskForm.Show();
-        }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(ttaenc.About.GithubUri.ToString());
@@ -311,7 +254,8 @@ namespace ttaudio
             {
                 UpdateModel();
                 var builder = GetPackageBuilder();
-                builder.Build(cts.Token);
+                builder.Build(cts.Token).Wait();
+                log.Info("complete");
             }, TaskCreationOptions.LongRunning);
 
             var f = new TaskForm(task, cts) { Text = "Upload" };
