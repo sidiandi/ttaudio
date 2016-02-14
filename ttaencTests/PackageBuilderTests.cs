@@ -28,7 +28,7 @@ namespace ttaenc.Tests
             package.ProductId = 800;
                 
             var structure = new PackageDirectoryStructure(penDirectory, package);
-            var pb = new PackageBuilder(structure, converter);
+            var pb = new PackageBuilder(structure, converter, new OidSvgWriter(new TiptoiOidCode()));
 
             pb.Build(CancellationToken.None).Wait();
 

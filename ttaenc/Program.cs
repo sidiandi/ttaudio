@@ -48,7 +48,7 @@ namespace ttaenc
             var converter = new MediaFileConverter(cacheDirectory);
 
             var structure = new PackageDirectoryStructure(pen.RootDirectory, package);
-            var packageBuilder = new PackageBuilder(structure, converter);
+            var packageBuilder = new PackageBuilder(structure, converter, Settings.Read().CreateOidSvgWriter());
             packageBuilder.Build(CancellationToken.None).Wait();
         }
     }

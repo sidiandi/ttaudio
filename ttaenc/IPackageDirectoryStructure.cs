@@ -10,6 +10,5 @@
         string GmeFile { get; }
         string HtmlFile { get; }
         string HtmlMediaDirectory { get; }
-        string TtaFile { get; }
     }
 }

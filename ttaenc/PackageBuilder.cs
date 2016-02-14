@@ -25,15 +25,23 @@ namespace ttaenc
         string yamlFile;
 
         public PackageBuilder(
-            IPackageDirectoryStructure structure, 
-            MediaFileConverter converter)
+            IPackageDirectoryStructure structure,
+            MediaFileConverter converter,
+            OidSvgWriter oidWriter
+            )
         {
             this.packageDirectoryStructure = structure;
             this.converter = converter;
             this.MaxGmeSize = 800 * 1024 * 1024;
+            OidSvgWriter = oidWriter;
         }
 
         public long MaxGmeSize
+        {
+            get; set;
+        }
+
+        OidSvgWriter OidSvgWriter
         {
             get; set;
         }
@@ -53,7 +61,7 @@ namespace ttaenc
                 foreach (var i in parts)
                 {
                     var structure = new PackageDirectoryStructure(Path.GetDirectoryName(this.packageDirectoryStructure.GmeFile), i);
-                    var pb = new PackageBuilder(structure, this.converter);
+                    var pb = new PackageBuilder(structure, this.converter, OidSvgWriter);
                     await pb.Build(cancellationToken);
                 }
                 return;
@@ -76,11 +84,19 @@ namespace ttaenc
             log.InfoFormat("{0} was sucessfully built.", packageDirectoryStructure.GmeFile);
         }
 
+        string TempDir
+        {
+            get
+            {
+                return converter.OutputDirectory;
+            }
+        }
+
         private void WriteYaml()
         {
             var p = packageDirectoryStructure.Package;
             // write tttool yaml file
-            yamlFile = Path.Combine(converter.OutputDirectory, Path.GetRandomFileName() + ".yaml");
+            yamlFile = Path.Combine(converter.OutputDirectory, packageDirectoryStructure.Package.FileName + ".yaml");
             log.InfoFormat("Write {0}", yamlFile);
 
             using (var w = new StreamWriter(yamlFile))
@@ -137,7 +153,7 @@ scripts:");
 
             log.InfoFormat("Write {0}", packageDirectoryStructure.HtmlFile);
 
-            var ow = new OidSvgWriter(new TiptoiOidCode());
+            var ow = OidSvgWriter;
             PathUtil.EnsureParentDirectoryExists(packageDirectoryStructure.HtmlFile);
             using (var w = new StreamWriter(packageDirectoryStructure.HtmlFile))
             {
@@ -199,7 +215,7 @@ Style: ");
                     }
                     w.WriteLine("</ul>");
                     w.WriteLine(@"<br class=""album-clear"" />");
-                    w.WriteLine(@"</div>");
+                    w.Write(@"</div>");
                 }
 
                 w.WriteLine(@"
@@ -242,7 +258,7 @@ Style: ");
                 foreach (var i in parts)
                 {
                     var structure = new PackageDirectoryStructure(Path.GetDirectoryName(this.packageDirectoryStructure.GmeFile), i);
-                    var pb = new PackageBuilder(structure, this.converter);
+                    var pb = new PackageBuilder(structure, this.converter, OidSvgWriter);
                     await pb.OpenHtmlPage(cancellationToken);
                 }
                 return;
@@ -277,7 +293,16 @@ Style: ");
 
         private async Task Assemble(CancellationToken cancellationToken)
         {
-            await SubProcess.Cmd(cancellationToken, String.Format("tttool assemble {0} {1}", yamlFile.Quote(), packageDirectoryStructure.GmeFile.Quote()));
+            var tempGmeFile = Path.Combine(TempDir, Path.GetFileName(packageDirectoryStructure.GmeFile));
+            try
+            {
+                await SubProcess.Cmd(cancellationToken, String.Format("tttool assemble {0} {1}", yamlFile.Quote(), tempGmeFile.Quote()));
+                await PathUtil.Copy(cancellationToken, tempGmeFile, packageDirectoryStructure.GmeFile);
+            }
+            finally
+            {
+                PathUtil.EnsureFileNotExists(tempGmeFile);
+            }
         }
 
         /// <summary>

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="IProductIdProvider.cs" />
     <Compile Include="ProductIdProvider.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="util\About.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="AlbumReader.cs" />

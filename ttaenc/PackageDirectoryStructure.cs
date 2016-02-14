@@ -44,7 +44,7 @@ namespace ttaenc
         }
 
         const string gmeExtension = ".gme";
-        const string gmePrefix = "tta.";
+        const string gmePrefix = "tta_";
         const string ttaExtension = ".tta";
         const string htmlExtension = ".html";
 
@@ -55,19 +55,11 @@ namespace ttaenc
             get { return Path.Combine(rootDirectory, gmePrefix + FileName + gmeExtension); }
         }
 
-        string TtaDirectory
+        string HtmlDirectory
         {
             get
             {
-                return Path.Combine(rootDirectory, ttaExtension, FileName);
-            }
-        }
-
-        public string TtaFile
-        {
-            get
-            {
-                return Path.Combine(TtaDirectory, FileName + ttaExtension);
+                return Path.Combine(About.LocalApplicationDataDirectory, "html", FileName);
             }
         }
 
@@ -75,7 +67,7 @@ namespace ttaenc
         {
             get
             {
-                return Path.Combine(TtaDirectory, FileName + htmlExtension);
+                return Path.Combine(HtmlDirectory, FileName + htmlExtension);
             }
         }
 
@@ -83,7 +75,7 @@ namespace ttaenc
         {
             get
             {
-                return Path.Combine(TtaDirectory, "media");
+                return Path.Combine(HtmlDirectory, "media");
             }
         }
     }

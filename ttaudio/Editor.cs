@@ -127,9 +127,7 @@ namespace ttaudio
                     var converter = Context.GetDefaultMediaFileConverter();
 
                     var pen = TipToiPen.GetAll().First();
-                    var packageBuilder = new PackageBuilder(
-                        new PackageDirectoryStructure(pen.RootDirectory, package), converter);
-
+                    var packageBuilder = GetPackageBuilder();
                     await packageBuilder.Build(cancel);
                 }
                 catch (Exception ex)
@@ -323,7 +321,7 @@ namespace ttaudio
         PackageBuilder GetPackageBuilder()
         {
             var s = new PackageDirectoryStructure(GetRootDirectory(), this.document.package);
-            return new PackageBuilder(s, Context.GetDefaultMediaFileConverter());
+            return new PackageBuilder(s, Context.GetDefaultMediaFileConverter(), Settings.Read().CreateOidSvgWriter());
         }
 
         public static string GetRootDirectory()

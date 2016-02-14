@@ -1,9 +1,6 @@
 body {
 	font-family: helvetica;
 	font-size: 10px;
-    width: 21cm;
-    min-height: 29.7cm;
-    padding: 2cm;
 }
 
 h2
@@ -37,8 +34,8 @@ h2
 	border: solid;
 	border-width: 1px;
 
-	padding: 4px;
-	margin: 4px;
+	padding: 0.1cm;
+	margin: 0.05cm;
 
 	page-break-inside: avoid;
 	clear:left;
