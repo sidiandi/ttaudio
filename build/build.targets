@@ -25,11 +25,14 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 		<Git>git</Git>
   </PropertyGroup>
 
-	<PropertyGroup>
+  <PropertyGroup>
 	<MSBuildCommunityTasksPath>$(SourceDir)\build</MSBuildCommunityTasksPath>
+	<MSBuildGitTfsTasksLib>$(SourceDir)/packages/GitTfsTasks-1.0.0/GitTfsTasks.dll</MSBuildGitTfsTasksLib>
   </PropertyGroup>
   
   <Import Project="$(NugetPackagesDir)\GitVersionTask.3.3.0\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
+  
+  <UsingTask AssemblyFile="$(MSBuildGitTfsTasksLib)" TaskName="GitTfsTasks.CreateRelease" />
 
   <Target Name="GetVersion">
 		<GetVersion SolutionDirectory="$(SolutionDir)">
@@ -94,14 +97,24 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	<Exec Command="@(SetupFile, ' ')" />
   </Target>
   
-  <Target Name="Release" DependsOnTargets="Build;Test;BuildSetup" />
-
   <!-- This target puts the build.log file into the build directory -->
   <Target Name="StartWrapper" >
 	<MakeDir Directories="$(BuildDir)"/>
     <Exec
 		Command="&quot;$(MSBuildBinPath)\msbuild.exe&quot; &quot;$(MSBuildProjectFullPath)&quot; /t:$(BuildTarget) &quot;/fileLoggerParameters:LogFile=$(BuildDir)\build.log;Verbosity=diagnostic;Encoding=UTF-8&quot;"
 		/>
+  </Target>
+  
+  <Target Name="Release" DependsOnTargets="BuildSetup" >
+	<CreateRelease
+		Repository="$(GitHubUser)/$(GitHubProject)" 
+		TagName="v$(GfvSemVer)" 
+		Files="@(SetupFile)" 
+		OauthToken="$(GitHubAuthToken)" 
+		ReleaseNotesFile ="$(SourceDir)\Readme.md"
+		>
+		<Output TaskParameter="IdRelease" PropertyName="IdRelease" />
+  	</CreateRelease>
   </Target>
 
 </Project>

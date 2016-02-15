@@ -26,5 +26,10 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 		<Configuration>Release</Configuration>
 		<Platform>AnyCPU</Platform>
+		
+		<GitHubUser>sidiandi</GitHubUser>
+		<GitHubProject>ttaudio</GitHubProject>
 	</PropertyGroup>
+	
+	<Import Project="Auth.targets"  />
 </Project>
