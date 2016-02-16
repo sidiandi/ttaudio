@@ -13,20 +13,17 @@ ttaudio is neither offered nor supported by Ravensburger. All information shown 
 
 ![Screenshot of HTML output](/doc/screenshot_html_output.png)
 
-## Printing
-
-* Use a printer with at least 600 dpi black-and-white resolution. 
-* Disable all "Toner Saving" or "Eco-Mode" settings. 
-* Check the [list of supported printers](https://github.com/entropia/tip-toi-reveng/wiki/Printing)
-
 ## Workflow
 * Attach the TipToi pen to the USB port of your computer
 * Start ttaudio
 * Drop audio files into the file list
-* Click "Convert and Copy to Pen"
+* Click `menu -> Build -> Upload to Pen`
 * The conversion of audio files starts
 * A web page with optical IDs to play the audio files opens
 * Print the web page
+  * Use a printer with at least 600 dpi black-and-white resolution. 
+  * Disable all "Toner Saving" or "Eco-Mode" settings. 
+  * Check the [list of supported printers](https://github.com/entropia/tip-toi-reveng/wiki/Printing)
 * Wait until ttaudio has copied the *.gme file to the pen
 
 ## More possibilities
