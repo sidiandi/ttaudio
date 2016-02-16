@@ -181,8 +181,9 @@ namespace ttaudio
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 document.ttaFile = saveFileDialog.FileName;
+                Save();
+                UpdateView();
             }
-            Save();
         }
 
         void UpdateView()
