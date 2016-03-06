@@ -87,7 +87,7 @@ namespace ttaenc
         {
             get
             {
-                return string.Format("{0} {1} {2}", Company, Product, Version);
+                return string.Format("{0} {1} {2}. See {3}", Company, Product, Version, GithubUri);
             }
         }
     }
