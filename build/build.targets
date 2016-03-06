@@ -30,7 +30,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	<MSBuildGitTfsTasksLib>$(SourceDir)/packages/GitTfsTasks-1.0.0/GitTfsTasks.dll</MSBuildGitTfsTasksLib>
   </PropertyGroup>
   
-  <Import Project="$(NugetPackagesDir)\GitVersionTask.3.3.0\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
+  <Import Project="$(NugetPackagesDir)\GitVersionTask.3.4.1\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
   
   <UsingTask AssemblyFile="$(MSBuildGitTfsTasksLib)" TaskName="GitTfsTasks.CreateRelease" />
 

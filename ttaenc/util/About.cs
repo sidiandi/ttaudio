@@ -54,6 +54,15 @@ namespace ttaenc
             }
         }
 
+        public static string Version
+        {
+            get
+            {
+                var a = Assembly.GetCallingAssembly();
+                return a.GetCustomAttribute<AssemblyVersionAttribute>().Version;
+            }
+        }
+
         public static string LocalApplicationDataDirectory
         {
             get
@@ -72,6 +81,13 @@ namespace ttaenc
                 return Path.Combine(
                     System.Environment.GetFolderPath(Environment.SpecialFolder.Personal),
                     PathUtil.GetValidFileName(Product));
+            }
+        }
+        public static string Info
+        {
+            get
+            {
+                return string.Format("{0} {1} {2}", Company, Product, Version);
             }
         }
     }
