@@ -21,7 +21,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	<PropertyGroup>
 		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
 		<NugetPackagesDir>$(SourceDir)\packages</NugetPackagesDir>
-		<NUnitConsole>$(NugetPackagesDir)\NUnit.Console.3.0.1\tools\nunit3-console.exe</NUnitConsole>
+		<NUnitConsole>$(NugetPackagesDir)\NUnit.Console.3.2.0\tools\nunit3-console.exe</NUnitConsole>
 		<Git>git</Git>
   </PropertyGroup>
 
@@ -75,7 +75,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
     <Exec Command="$(NUnitConsole) @(TestTargets, ' ')" />
   </Target>
 
-  <Target Name="BuildSetup" DependsOnTargets="GetVersion;Tag">
+  <Target Name="BuildSetup" DependsOnTargets="Tag;Test">
 	<MSBuild
         Projects="$(SourceDir)\setup\setup.wixproj" Properties="
 			CompanyName=$(CompanyName);
