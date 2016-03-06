@@ -87,6 +87,9 @@
                 <Component Id="cmp69E2297E5EF04741C1ED11CDD812DF3A" Guid="*">
                     <File Id="filC751B64F5C3AD3249360A98BD612AE65" KeyPath="yes" Source="$(var.BinDir)\media\power.svg" />
                 </Component>
+                <Component Id="cmp316EA8FCBA2C77721AE85A38A8AFF3E6" Guid="*">
+                    <File Id="fil18B16DA707123368DA7C5B92705BFA11" KeyPath="yes" Source="$(var.BinDir)\media\stop.svg" />
+                </Component>
                 <Component Id="cmp352D5BBE0DE1F53049334803CAB38CE1" Guid="*">
                     <File Id="fil6AE47CDCB0034705F5819399EE672B19" KeyPath="yes" Source="$(var.BinDir)\media\style.css" />
                 </Component>
@@ -1112,6 +1115,7 @@
             <ComponentRef Id="cmpD37F97F8EA2E04C35857046D5E38E47C" />
             <ComponentRef Id="cmp006A4CBA6AD37D30E2A636588C5C0F82" />
             <ComponentRef Id="cmp69E2297E5EF04741C1ED11CDD812DF3A" />
+            <ComponentRef Id="cmp316EA8FCBA2C77721AE85A38A8AFF3E6" />
             <ComponentRef Id="cmp352D5BBE0DE1F53049334803CAB38CE1" />
             <ComponentRef Id="cmp08DBFED1E3DA8D0C61213A04B5337E3F" />
             <ComponentRef Id="cmp9191BAB569AB7162B7D9A1EF09FAF6CC" />
