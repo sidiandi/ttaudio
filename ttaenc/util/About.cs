@@ -59,7 +59,7 @@ namespace ttaenc
             get
             {
                 var a = Assembly.GetCallingAssembly();
-                return a.GetCustomAttribute<AssemblyVersionAttribute>().Version;
+                return a.GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
             }
         }
 
