@@ -81,6 +81,7 @@
     <Content Include="media\note_to_pen.png" />
     <Content Include="media\power-symbol.svg" />
     <Content Include="media\power.svg" />
+    <Content Include="media\stop.svg" />
     <Content Include="media\style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
