@@ -21,7 +21,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	<PropertyGroup>
 		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
 		<NugetPackagesDir>$(SourceDir)\packages</NugetPackagesDir>
-		<NUnitConsoleExe>$(NugetPackagesDir)\$(NunitConsole)\bin\nunit3-console.exe</NUnitConsoleExe>
+		<NUnitConsole>$(NugetPackagesDir)\NUnit.ConsoleRunner.$(NunitVersion)\tools\nunit3-console.exe</NUnitConsole>
 		<Git>git</Git>
   </PropertyGroup>
 
@@ -30,7 +30,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	<MSBuildGitTfsTasksLib>$(SourceDir)/packages/GitTfsTasks-1.0.0/GitTfsTasks.dll</MSBuildGitTfsTasksLib>
   </PropertyGroup>
   
-  <Import Project="$(NugetPackagesDir)\$(GitVersionTask)\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
+  <Import Project="$(NugetPackagesDir)\GitVersionTask.$(GitVersionTaskVersion)\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
   
   <UsingTask AssemblyFile="$(MSBuildGitTfsTasksLib)" TaskName="GitTfsTasks.CreateRelease" />
 
@@ -72,7 +72,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 	<ItemGroup>
 		<TestTargets Include="@(Targets)" Condition=" $([System.Text.RegularExpressions.Regex]::IsMatch('%(FullPath)', 'Tests.dll$')) " />
 	</ItemGroup>
-    <Exec Command="$(NUnitConsoleExe) @(TestTargets, ' ')" />
+    <Exec Command="$(NUnitConsole) @(TestTargets, ' ')" />
   </Target>
 
   <Target Name="BuildSetup" DependsOnTargets="Tag;Test">
