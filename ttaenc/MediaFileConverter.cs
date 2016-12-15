@@ -17,8 +17,8 @@ namespace ttaenc
         {
             foreach (var p in new[] {
                 "tools",
-                @"tools\tttool-win32-1.6",
-                @"tools\mpg123-1.22.0-x86-64"
+                @"tools\tttool-win32-1.6.1",
+                @"tools\mpg123-1.23.8-x86"
                 })
             {
                 var d = Path.Combine(PathUtil.GetDirectory(), p);
