@@ -14,6 +14,15 @@
             <Component Id="cmpB92DF3B9C359B83A9BA4E27C5DBD40E1" Guid="*">
                 <File Id="filCCD055F61AE65252A5472B26C3AD9DB0" KeyPath="yes" Source="$(var.BinDir)\nunit.framework.xml" />
             </Component>
+            <Component Id="cmpE33D03E621A9BBA053187D6C3AD388FC" Guid="*">
+                <File Id="filCDDE76FA99EB4F03424CD53D7E2E94AF" KeyPath="yes" Source="$(var.BinDir)\Octokit.dll" />
+            </Component>
+            <Component Id="cmp32DF5B952AFBBA00ACA01A24FB49EB79" Guid="*">
+                <File Id="fil3789217810E30C1D1B37DE1EA8CC3662" KeyPath="yes" Source="$(var.BinDir)\Octokit.pdb" />
+            </Component>
+            <Component Id="cmp47E180168EDF033DA84DB0951D7C6AF9" Guid="*">
+                <File Id="fil887AAF5FFE52252F84858C26FD6EEC04" KeyPath="yes" Source="$(var.BinDir)\Octokit.xml" />
+            </Component>
             <Component Id="cmp0C02B03F271D69FF87C615C00C09CED8" Guid="*">
                 <File Id="fil55BCBAE6A6F48C0B864E3241DC559371" KeyPath="yes" Source="$(var.BinDir)\policy.2.0.taglib-sharp.config" />
             </Component>
@@ -1091,6 +1100,9 @@
             <ComponentRef Id="cmp742785C9A7B88BE6B2E81C2322E3D2EE" />
             <ComponentRef Id="cmp7FBBFC727329AAA372231FA34295C0C6" />
             <ComponentRef Id="cmpB92DF3B9C359B83A9BA4E27C5DBD40E1" />
+            <ComponentRef Id="cmpE33D03E621A9BBA053187D6C3AD388FC" />
+            <ComponentRef Id="cmp32DF5B952AFBBA00ACA01A24FB49EB79" />
+            <ComponentRef Id="cmp47E180168EDF033DA84DB0951D7C6AF9" />
             <ComponentRef Id="cmp0C02B03F271D69FF87C615C00C09CED8" />
             <ComponentRef Id="cmp8DB197CC057AC7C94619B4892024F92C" />
             <ComponentRef Id="cmp8841C0AC2F5771377A6D40464B9E9CA3" />

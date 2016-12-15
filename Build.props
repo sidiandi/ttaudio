@@ -30,7 +30,7 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
     <GitHubUser>sidiandi</GitHubUser>
     <GitHubProject>ttaudio</GitHubProject>
 
-    <GitVersionTaskVersion>3.6.4</GitVersionTaskVersion>
+    <GitVersionTaskVersion>3.6.5</GitVersionTaskVersion>
     <NUnitVersion>3.5.0</NUnitVersion>
   </PropertyGroup>
   
