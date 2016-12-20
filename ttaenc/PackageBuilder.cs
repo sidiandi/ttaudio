@@ -113,11 +113,59 @@ scripts:");
                 w.WriteLine("  - P({0})", YamlPath(p.ConfirmationSound));
                 for (int i=0; i<p.Tracks.Length;++i)
                 {
-                    w.WriteLine("  {0}:", p.Tracks[i].Oid);
-                    w.Write("  - P({0})", YamlPath(p.Tracks[i].PenAudioFile));
-                    if (i < p.Tracks.Length - 1)
+                    var current = p.Tracks[i];
+                    w.WriteLine("  {0}:", current.Oid);
+                    w.Write("  - P({0})", YamlPath(current.PenAudioFile));
+
+                    var next = (i < p.Tracks.Length - 1) ? p.Tracks[i + 1] : null;
+
+                    switch (p.PlaybackMode)
                     {
-                        w.Write(" J({0})", p.Tracks[i + 1].Oid);
+                        case PlaybackModes.StopAfterEverything:
+                            if (next != null)
+                            {
+                                w.JumpTo(next);
+                            }
+                            break;
+                        case PlaybackModes.StopAfterEveryAlbum:
+                            if (next != null)
+                            {
+                                if (string.Equals(current.Album, next.Album))
+                                {
+                                    w.JumpTo(next);
+                                }
+                            }
+                            break;
+                        case PlaybackModes.StopAfterEveryTrack:
+                            break;
+                        case PlaybackModes.LoopEverything:
+                            if (next != null)
+                            {
+                                w.JumpTo(next);
+                            }
+                            else
+                            {
+                                w.JumpTo(p.Tracks.First());
+                            }
+                            break;
+                        case PlaybackModes.LoopAlbum:
+                            if (next != null)
+                            {
+                                if (string.Equals(current.Album, next.Album))
+                                {
+                                    w.JumpTo(next);
+                                }
+                                else
+                                {
+                                    w.JumpTo(p.Tracks.First(_ => string.Equals(_.Album, current.Album)));
+                                }
+                            }
+                            break;
+                        case PlaybackModes.LoopTrack:
+                            w.JumpTo(current);
+                            break;
+                        default:
+                            throw new NotImplementedException();
                     }
                     w.WriteLine();
                 }
@@ -320,4 +368,13 @@ Style: ");
             return AlbumReader.ExportPicture(picture, packageDirectoryStructure.HtmlMediaDirectory);
         }
     }
+
+    static class TextWriterExtensions
+    {
+        public static void JumpTo(this TextWriter yamlWriter, Track track)
+        {
+            yamlWriter.Write(" J({0})", track.Oid);
+        }
+    }
 }
+

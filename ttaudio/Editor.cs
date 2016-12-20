@@ -212,6 +212,8 @@ namespace ttaudio
                 this.textBoxProductId.Text = p.ProductId.ToString();
             }
 
+            this.comboBoxPlaybackMode.SelectedIndex = (int) p.PlaybackMode;
+
             this.Text = String.Join(" - ", new string[] { About.Product, this.document.ttaFile }
                 .Where(_ => !String.IsNullOrEmpty(_)));
         }
@@ -227,6 +229,7 @@ namespace ttaudio
                 {
                     p.ProductId = productId;
                 }
+                p.PlaybackMode = (PlaybackModes)this.comboBoxPlaybackMode.SelectedIndex;
             }
         }
 
@@ -393,6 +396,11 @@ namespace ttaudio
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveAs();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

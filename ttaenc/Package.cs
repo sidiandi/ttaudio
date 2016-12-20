@@ -24,6 +24,16 @@ using System.Threading.Tasks;
 
 namespace ttaenc
 {
+    public enum PlaybackModes
+    {
+        StopAfterEverything,
+        StopAfterEveryAlbum,
+        StopAfterEveryTrack,
+        LoopEverything,
+        LoopAlbum,
+        LoopTrack
+    }
+
     public class Package
     {
         public Package()
@@ -60,6 +70,8 @@ namespace ttaenc
         public string Title { get; set; }
 
         public int ProductId { get; set; }
+
+        public PlaybackModes PlaybackMode;
 
         public int NextOid {get; set; }
 
