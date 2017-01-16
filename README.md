@@ -31,6 +31,10 @@ ttaudio is neither offered nor supported by Ravensburger. All information shown 
 ttaudio is based on [tttool](http://tttool.entropia.de/), a universal, command line based tool to create and analyze GME files. 
 Check out http://tttool.entropia.de/ if you want to do more than just upload some MP3 files, e.g. print your own interactive books or toys.
 
+## Alternatives
+
+[ttmp32gme](https://github.com/thawn/ttmp32gme) is a great alternative to ttaudio. It is HTTP-server-based and also runs on Linux and MacOS. 
+
 ## Dependencies
 
 Internally, ttaudio uses following tools:
