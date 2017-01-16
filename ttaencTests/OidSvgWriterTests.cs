@@ -26,11 +26,13 @@ using System.Xml.XPath;
 using System.Xml;
 using System.Drawing;
 using ttaenc;
+using System.Diagnostics;
+using ttaenc.Tests;
 
 namespace ttaencTests
 {
     [TestFixture()]
-    public class OidSvgWriterTests
+    public class OidSvgWriterTests : TestBase
     {
         class Code
         {
@@ -125,6 +127,15 @@ namespace ttaencTests
 
             Console.WriteLine("{0} errors", errors);
             Assert.AreEqual(80, errors);
+        }
+
+        [Test, Explicit("interactive")]
+        public void CreateTestPage()
+        {
+            IOidCode oidCode = new TiptoiOidCode();
+            var printerTestPageFile = TestFile("printer-test.html");
+            OidSvgWriter.CreatePrinterTestPage(printerTestPageFile);
+            Process.Start(printerTestPageFile);
         }
     }
 }

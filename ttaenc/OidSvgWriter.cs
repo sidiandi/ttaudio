@@ -182,21 +182,26 @@ namespace ttaenc
 
                 var powBase = 1.1;
 
+                const char columnLetterStart = '1';
+                const char rowLetterStart = 'A';
+
                 w.Write("<table>");
                 w.Write("<tr>");
                 w.Write("<td/>");
+                char columnLetter = columnLetterStart;
                 for (int dotSize = -4; dotSize <= 4; ++dotSize)
                 {
                     var fDotSize = (float)Math.Pow(powBase, dotSize);
-                    w.Write("<td>"); w.Write(T(String.Format("Dot Size {0:F4} cm", defaultOidWriter.DotSize * fDotSize))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0}", columnLetter++))); w.Write("</td>");
                 }
                 w.Write("</tr>");
 
+                char rowLetter = rowLetterStart;
                 for (int gridSpacing = -4; gridSpacing <= 4; ++gridSpacing)
                 {
                     var fGridSpacing = (float)Math.Pow(powBase, gridSpacing);
                     w.Write("<tr>");
-                    w.Write("<td>"); w.Write(T(String.Format("Grid Spacing {0:F4} cm", defaultOidWriter.GridSpacing * fGridSpacing))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0}", rowLetter++))); w.Write("</td>");
                     for (int dotSize = -4; dotSize <= 4; ++dotSize)
                     {
                         var fDotSize = (float)Math.Pow(powBase, dotSize);
@@ -212,6 +217,34 @@ namespace ttaenc
                         oidWriter.OidArea(w, oid++); // , String.Format("spacing: {0:F0}%, dot: {1:F0}%", fGridSpacing*100, fDotSize*100));
                         w.Write("</td>");
                     }
+                    w.Write("</tr>");
+                }
+                w.Write("</table>");
+
+                w.Write("<p/>");
+                w.Write("<table border=\"solid\">");
+                w.Write("<tr><th>Row</th><th>Dot Size</th></tr>");
+                rowLetter = rowLetterStart;
+                for (int dotSize = -4; dotSize <= 4; ++dotSize)
+                {
+                    w.Write("<tr>");
+                    var fDotSize = (float)Math.Pow(powBase, dotSize);
+                    w.Write("<td>"); w.Write(T(String.Format("{0}", rowLetter++)));w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F4} cm", defaultOidWriter.DotSize * fDotSize))); w.Write("</td>");
+                    w.Write("</tr>");
+                }
+                w.Write("</table>");
+
+                w.Write("<p/>");
+                w.Write("<table border=\"1\" style=\"border: solid 1px;\" >");
+                w.Write("<tr><th>Column</th><th>Grid Spacing</th></tr>");
+                columnLetter = columnLetterStart;
+                for (int gridSpacing = -4; gridSpacing <= 4; ++gridSpacing)
+                {
+                    var fGridSpacing = (float)Math.Pow(powBase, gridSpacing);
+                    w.Write("<tr>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0}", columnLetter++))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F4} cm", defaultOidWriter.GridSpacing * fGridSpacing))); w.Write("</td>");
                     w.Write("</tr>");
                 }
                 w.Write("</table>");
