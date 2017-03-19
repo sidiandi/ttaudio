@@ -402,5 +402,21 @@ namespace ttaudio
         {
 
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var optionsDialog = new Options();
+            var s = ttaenc.Settings.Read();
+            optionsDialog.GridSpacing = s.OidGridSpacing;
+            optionsDialog.DotSize = s.OidDotSize;
+            optionsDialog.UpdateView();
+            if (optionsDialog.ShowDialog() == DialogResult.OK)
+            {
+                optionsDialog.UpdateModel();
+                s.OidGridSpacing = (float) optionsDialog.GridSpacing;
+                s.OidDotSize = (float) optionsDialog.DotSize;
+                s.Write();
+            }
+        }
     }
 }

@@ -165,6 +165,10 @@ namespace ttaenc
     .oid-button {
         width: 4cm;
     }
+    table { 
+      margin: 1em;
+      float: left;
+    }
     </style>
   </head>
   <body>
@@ -230,7 +234,7 @@ namespace ttaenc
                     w.Write("<tr>");
                     var fDotSize = (float)Math.Pow(powBase, dotSize);
                     w.Write("<td>"); w.Write(T(String.Format("{0}", rowLetter++)));w.Write("</td>");
-                    w.Write("<td>"); w.Write(T(String.Format("{0:F4} cm", defaultOidWriter.DotSize * fDotSize))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F0} µm", defaultOidWriter.DotSize * fDotSize * 1e4))); w.Write("</td>");
                     w.Write("</tr>");
                 }
                 w.Write("</table>");
@@ -244,7 +248,7 @@ namespace ttaenc
                     var fGridSpacing = (float)Math.Pow(powBase, gridSpacing);
                     w.Write("<tr>");
                     w.Write("<td>"); w.Write(T(String.Format("{0}", columnLetter++))); w.Write("</td>");
-                    w.Write("<td>"); w.Write(T(String.Format("{0:F4} cm", defaultOidWriter.GridSpacing * fGridSpacing))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F0} µm", defaultOidWriter.GridSpacing * fGridSpacing * 1e4))); w.Write("</td>");
                     w.Write("</tr>");
                 }
                 w.Write("</table>");

@@ -53,11 +53,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxProductId = new System.Windows.Forms.TextBox();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.comboBoxPlaybackMode = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonUpload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrint = new System.Windows.Forms.ToolStripButton();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxPlaybackMode = new System.Windows.Forms.ComboBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -233,7 +235,9 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.printerTestPageToolStripMenuItem});
+            this.printerTestPageToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.optionsToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
@@ -303,6 +307,32 @@
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
+            // comboBoxPlaybackMode
+            // 
+            this.comboBoxPlaybackMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPlaybackMode.FormattingEnabled = true;
+            this.comboBoxPlaybackMode.Items.AddRange(new object[] {
+            "Stop after everything",
+            "Stop after every album",
+            "Stop after every track",
+            "Loop everything",
+            "Loop album",
+            "Loop track"});
+            this.comboBoxPlaybackMode.Location = new System.Drawing.Point(260, 35);
+            this.comboBoxPlaybackMode.Name = "comboBoxPlaybackMode";
+            this.comboBoxPlaybackMode.Size = new System.Drawing.Size(362, 21);
+            this.comboBoxPlaybackMode.TabIndex = 7;
+            this.comboBoxPlaybackMode.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(173, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(81, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Playback Mode";
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
@@ -338,31 +368,17 @@
             this.toolStripButtonPrint.Text = "Print";
             this.toolStripButtonPrint.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
-            // label4
+            // toolStripSeparator2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(173, 39);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Playback Mode";
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
             // 
-            // comboBoxPlaybackMode
+            // optionsToolStripMenuItem
             // 
-            this.comboBoxPlaybackMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPlaybackMode.FormattingEnabled = true;
-            this.comboBoxPlaybackMode.Items.AddRange(new object[] {
-            "Stop after everything",
-            "Stop after every album",
-            "Stop after every track",
-            "Loop everything",
-            "Loop album",
-            "Loop track"});
-            this.comboBoxPlaybackMode.Location = new System.Drawing.Point(260, 35);
-            this.comboBoxPlaybackMode.Name = "comboBoxPlaybackMode";
-            this.comboBoxPlaybackMode.Size = new System.Drawing.Size(362, 21);
-            this.comboBoxPlaybackMode.TabIndex = 7;
-            this.comboBoxPlaybackMode.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.optionsToolStripMenuItem.Text = "&Options...";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -422,6 +438,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonPrint;
         private System.Windows.Forms.ComboBox comboBoxPlaybackMode;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
     }
 }
 
