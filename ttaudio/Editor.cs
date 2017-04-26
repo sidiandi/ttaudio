@@ -222,6 +222,11 @@ namespace ttaudio
         {
             lock (this)
             {
+                if (this.InvokeRequired)
+                {
+                    throw new InvalidOperationException("Must be called from UI thread.");
+                }
+
                 var p = document.package;
                 p.Title = this.textBoxTitle.Text;
                 int productId;
@@ -240,11 +245,11 @@ namespace ttaudio
 
         public void Print()
         {
+            UpdateModel();
+            var builder = GetPackageBuilder();
             var cts = new CancellationTokenSource();
             var task = Task.Factory.StartNew(() =>
             {
-                UpdateModel();
-                var builder = GetPackageBuilder();
                 builder.OpenHtmlPage(cts.Token);
             }, TaskCreationOptions.LongRunning);
             var f = new TaskForm(task, cts) { Text = "Print" };
@@ -253,11 +258,12 @@ namespace ttaudio
 
         public void Upload()
         {
+            UpdateModel();
+            var builder = GetPackageBuilder();
+
             var cts = new CancellationTokenSource();
             var task = Task.Factory.StartNew(() =>
             {
-                UpdateModel();
-                var builder = GetPackageBuilder();
                 builder.Build(cts.Token).Wait();
                 log.Info("complete");
             }, TaskCreationOptions.LongRunning);

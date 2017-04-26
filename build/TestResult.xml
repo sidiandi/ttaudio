@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-run id="2" testcasecount="9" result="Skipped" label="Ignored" total="9" passed="8" failed="0" inconclusive="0" skipped="1" asserts="9" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:47Z" duration="2.768666">
+<test-run id="2" testcasecount="10" result="Skipped" label="Ignored" total="10" passed="8" failed="0" inconclusive="0" skipped="2" asserts="9" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:17Z" duration="3.383809">
   <command-line><![CDATA[C:\work\tta\packages\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe  C:\work\tta.build\Release-AnyCPU\bin\ttaencTests.dll]]></command-line>
-  <test-suite type="Assembly" id="0-1016" name="ttaencTests.dll" fullname="C:\work\tta.build\Release-AnyCPU\bin\ttaencTests.dll" runstate="Runnable" testcasecount="9" result="Skipped" label="Ignored" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:47Z" duration="2.685772" total="9" passed="8" failed="0" inconclusive="0" skipped="1" asserts="9">
+  <test-suite type="Assembly" id="0-1017" name="ttaencTests.dll" fullname="C:\work\tta.build\Release-AnyCPU\bin\ttaencTests.dll" runstate="Runnable" testcasecount="10" result="Skipped" label="Ignored" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:17Z" duration="3.285247" total="10" passed="8" failed="0" inconclusive="0" skipped="2" asserts="9">
     <environment framework-version="3.5.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.14393.0" platform="Win32NT" cwd="C:\work\tta\build" machine-name="GB" user="andreas" user-domain="GB" culture="de-DE" uiculture="en-US" os-architecture="x64" />
     <settings>
       <setting name="DisposeRunners" value="True" />
@@ -13,243 +13,251 @@
       <setting name="NumberOfTestWorkers" value="4" />
     </settings>
     <properties>
-      <property name="_PID" value="9744" />
+      <property name="_PID" value="4872" />
       <property name="_APPDOMAIN" value="test-domain-" />
     </properties>
     <reason>
       <message><![CDATA[One or more child tests were ignored]]></message>
     </reason>
-    <test-suite type="TestSuite" id="0-1018" name="ttaenc" fullname="ttaenc" runstate="Runnable" testcasecount="8" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:47Z" duration="2.649971" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="9">
-      <test-suite type="TestSuite" id="0-1019" name="Tests" fullname="ttaenc.Tests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:47Z" duration="2.646473" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="9">
-        <test-suite type="TestFixture" id="0-1002" name="AlbumReaderTests" fullname="ttaenc.Tests.AlbumReaderTests" classname="ttaenc.Tests.AlbumReaderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:44Z" duration="0.438871" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="1">
-          <test-case id="0-1003" name="ReadArtist" fullname="ttaenc.Tests.AlbumReaderTests.ReadArtist" methodname="ReadArtist" classname="ttaenc.Tests.AlbumReaderTests" runstate="Runnable" seed="52414442" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:44Z" duration="0.210494" asserts="1">
+    <test-suite type="TestSuite" id="0-1019" name="ttaenc" fullname="ttaenc" runstate="Runnable" testcasecount="8" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:17Z" duration="3.247788" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="9">
+      <test-suite type="TestSuite" id="0-1020" name="Tests" fullname="ttaenc.Tests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:17Z" duration="3.243650" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="9">
+        <test-suite type="TestFixture" id="0-1003" name="AlbumReaderTests" fullname="ttaenc.Tests.AlbumReaderTests" classname="ttaenc.Tests.AlbumReaderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:14Z" duration="0.431291" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="1">
+          <test-case id="0-1004" name="ReadArtist" fullname="ttaenc.Tests.AlbumReaderTests.ReadArtist" methodname="ReadArtist" classname="ttaenc.Tests.AlbumReaderTests" runstate="Runnable" seed="173823380" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:14Z" duration="0.204204" asserts="1">
             <output><![CDATA[260 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3
 ]]></output>
           </test-case>
         </test-suite>
-        <test-suite type="TestFixture" id="0-1012" name="DateTimeExtensionsTests" fullname="ttaenc.Tests.DateTimeExtensionsTests" classname="ttaenc.Tests.DateTimeExtensionsTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:44Z" duration="0.021636" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="2">
-          <test-case id="0-1013" name="ToInternetDateTimeFormatTest" fullname="ttaenc.Tests.DateTimeExtensionsTests.ToInternetDateTimeFormatTest" methodname="ToInternetDateTimeFormatTest" classname="ttaenc.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="1609576665" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:44Z" duration="0.018570" asserts="2" />
+        <test-suite type="TestFixture" id="0-1013" name="DateTimeExtensionsTests" fullname="ttaenc.Tests.DateTimeExtensionsTests" classname="ttaenc.Tests.DateTimeExtensionsTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:14Z" duration="0.023545" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="2">
+          <test-case id="0-1014" name="ToInternetDateTimeFormatTest" fullname="ttaenc.Tests.DateTimeExtensionsTests.ToInternetDateTimeFormatTest" methodname="ToInternetDateTimeFormatTest" classname="ttaenc.Tests.DateTimeExtensionsTests" runstate="Runnable" seed="2043379081" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:14Z" duration="0.020382" asserts="2" />
         </test-suite>
-        <test-suite type="TestFixture" id="0-1004" name="MediaFileConverterTests" fullname="ttaenc.Tests.MediaFileConverterTests" classname="ttaenc.Tests.MediaFileConverterTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:45Z" duration="0.829650" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="1">
-          <test-case id="0-1005" name="ConvertAllTestFiles" fullname="ttaenc.Tests.MediaFileConverterTests.ConvertAllTestFiles" methodname="ConvertAllTestFiles" classname="ttaenc.Tests.MediaFileConverterTests" runstate="Runnable" seed="19544606" result="Passed" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:45Z" duration="0.724938" asserts="1">
-            <output><![CDATA[460 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
-483 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 15496 started. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
-521 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
-521 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: 	version 1.23.8; written and copyright by Michael Hipp and others
-522 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: 	free software (LGPL) without any warranty but with best wishes
-522 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: 
-522 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: Playing MPEG stream 1 of 1: C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 ...
-522 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: 
-522 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: MPEG 1.0 L III cbr160 44100 j-s
-523 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: 
-523 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: Title:   Beat                            Artist: Soundmatch                    
-523 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: Comment: Some comment                    Album:  Beats                         
-523 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: Year:                                    Genre:  Unknown                       
-523 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: 
-523 [10] DEBUG ttaenc.SubProcess (null) - 15496:out: [0:08] Decoding of C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 finished.
-530 [6] DEBUG ttaenc.SubProcess (null) - Process 15496 finished. Exit code: 0. Run time: 00:00:00.0483746. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
-532 [6] DEBUG ttaenc.SubProcess (null) - Process 17444 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\s054iexw.puh.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
-690 [6] DEBUG ttaenc.SubProcess (null) - Process 17444 finished. Exit code: 0. Run time: 00:00:00.1575702. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\s054iexw.puh.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
-693 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.2333082 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
-695 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
-700 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 5472 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
-762 [14] DEBUG ttaenc.SubProcess (null) - 5472:out: 
-762 [14] DEBUG ttaenc.SubProcess (null) - 5472:out: 
-762 [14] DEBUG ttaenc.SubProcess (null) - 5472:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
-762 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Encoder Version: 0
-762 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Serial Number: 10519
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out: 
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Bitstream is 2 channel, 44100Hz
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Scale = 1.0000
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Decoded length: 443216 samples = 0:10 mins.
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out: 
-763 [14] DEBUG ttaenc.SubProcess (null) - 5472:out: 
-764 [14] DEBUG ttaenc.SubProcess (null) - 5472:out:  ********** Done decoding all input files. **********
-763 [15] DEBUG ttaenc.SubProcess (null) - 5472:err: 
-764 [6] DEBUG ttaenc.SubProcess (null) - Process 5472 finished. Exit code: 0. Run time: 00:00:00.0639990. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
-774 [6] DEBUG ttaenc.SubProcess (null) - Process 2056 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\01ncye1c.0qt.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
-909 [6] DEBUG ttaenc.SubProcess (null) - Process 2056 finished. Exit code: 0. Run time: 00:00:00.1352348. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\01ncye1c.0qt.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
-912 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.2168836 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
-913 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
-917 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 10980 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\fyznzef3.j5i.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
-1065 [6] DEBUG ttaenc.SubProcess (null) - Process 10980 finished. Exit code: 0. Run time: 00:00:00.1483881. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\fyznzef3.j5i.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
-1066 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.1520312 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
-1067 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
-1070 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 9632 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
-1097 [20] DEBUG ttaenc.SubProcess (null) - 9632:out: 
-1097 [20] DEBUG ttaenc.SubProcess (null) - 9632:out: 
-1097 [20] DEBUG ttaenc.SubProcess (null) - 9632:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
-1097 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Encoder Version: 0
-1097 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Serial Number: 11195
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out: 
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Bitstream is 1 channel, 22500Hz
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Scale = 1.0000
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Decoded length: 26880 samples = 0:01 mins.
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out: 
-1098 [20] DEBUG ttaenc.SubProcess (null) - 9632:out: 
-1098 [21] DEBUG ttaenc.SubProcess (null) - 9632:err: 
-1099 [20] DEBUG ttaenc.SubProcess (null) - 9632:out:  ********** Done decoding all input files. **********
-1099 [6] DEBUG ttaenc.SubProcess (null) - Process 9632 finished. Exit code: 0. Run time: 00:00:00.0293227. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
-1105 [6] DEBUG ttaenc.SubProcess (null) - Process 6976 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ihhafsfu.y4w.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
-1151 [6] DEBUG ttaenc.SubProcess (null) - Process 6976 finished. Exit code: 0. Run time: 00:00:00.0465265. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ihhafsfu.y4w.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
-1153 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.0855525 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
+        <test-suite type="TestFixture" id="0-1005" name="MediaFileConverterTests" fullname="ttaenc.Tests.MediaFileConverterTests" classname="ttaenc.Tests.MediaFileConverterTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:15Z" duration="0.996764" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="1">
+          <test-case id="0-1006" name="ConvertAllTestFiles" fullname="ttaenc.Tests.MediaFileConverterTests.ConvertAllTestFiles" methodname="ConvertAllTestFiles" classname="ttaenc.Tests.MediaFileConverterTests" runstate="Runnable" seed="644018151" result="Passed" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:15Z" duration="0.874071" asserts="1">
+            <output><![CDATA[457 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
+520 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 12052 started. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
+594 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
+594 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: 	version 1.23.8; written and copyright by Michael Hipp and others
+594 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: 	free software (LGPL) without any warranty but with best wishes
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: 
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: Playing MPEG stream 1 of 1: C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 ...
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: 
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: MPEG 1.0 L III cbr160 44100 j-s
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: 
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: Title:   Beat                            Artist: Soundmatch                    
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: Comment: Some comment                    Album:  Beats                         
+595 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: Year:                                    Genre:  Unknown                       
+596 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: 
+596 [10] DEBUG ttaenc.SubProcess (null) - 12052:out: [0:08] Decoding of C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 finished.
+602 [6] DEBUG ttaenc.SubProcess (null) - Process 12052 finished. Exit code: 0. Run time: 00:00:00.0831400. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
+654 [6] DEBUG ttaenc.SubProcess (null) - Process 3668 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\r05nqyfr.eba.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
+819 [6] DEBUG ttaenc.SubProcess (null) - Process 3668 finished. Exit code: 0. Run time: 00:00:00.1650382. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\r05nqyfr.eba.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
+823 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.3643276 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
+824 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
+863 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 212 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
+926 [14] DEBUG ttaenc.SubProcess (null) - 212:out: 
+927 [14] DEBUG ttaenc.SubProcess (null) - 212:out: 
+927 [14] DEBUG ttaenc.SubProcess (null) - 212:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
+927 [14] DEBUG ttaenc.SubProcess (null) - 212:out:  Encoder Version: 0
+927 [14] DEBUG ttaenc.SubProcess (null) - 212:out:  Serial Number: 10519
+927 [14] DEBUG ttaenc.SubProcess (null) - 212:out: 
+927 [14] DEBUG ttaenc.SubProcess (null) - 212:out:  Bitstream is 2 channel, 44100Hz
+928 [14] DEBUG ttaenc.SubProcess (null) - 212:out:  Scale = 1.0000
+928 [14] DEBUG ttaenc.SubProcess (null) - 212:out:  Decoded length: 443216 samples = 0:10 mins.
+928 [14] DEBUG ttaenc.SubProcess (null) - 212:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
+928 [14] DEBUG ttaenc.SubProcess (null) - 212:out: 
+928 [14] DEBUG ttaenc.SubProcess (null) - 212:out: 
+928 [15] DEBUG ttaenc.SubProcess (null) - 212:err:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
+929 [15] DEBUG ttaenc.SubProcess (null) - 212:err:  ********** Done decoding all input files. **********
+928 [14] DEBUG ttaenc.SubProcess (null) - 212:out: 
+929 [6] DEBUG ttaenc.SubProcess (null) - Process 212 finished. Exit code: 0. Run time: 00:00:00.0657507. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
+939 [6] DEBUG ttaenc.SubProcess (null) - Process 14748 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ydxrbsz2.t0i.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
+1068 [6] DEBUG ttaenc.SubProcess (null) - Process 14748 finished. Exit code: 0. Run time: 00:00:00.1295910. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ydxrbsz2.t0i.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
+1070 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.2462564 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
+1072 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
+1075 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 11368 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\sqlnljil.w1d.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
+1207 [6] DEBUG ttaenc.SubProcess (null) - Process 11368 finished. Exit code: 0. Run time: 00:00:00.1320952. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\sqlnljil.w1d.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
+1208 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.136188 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
+1211 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
+1214 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 15264 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
+1243 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: 
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: 
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out:  Encoder Version: 0
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out:  Serial Number: 11195
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: 
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out:  Bitstream is 1 channel, 22500Hz
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out:  Scale = 1.0000
+1244 [20] DEBUG ttaenc.SubProcess (null) - 15264:out:  Decoded length: 26880 samples = 0:01 mins.
+1245 [20] DEBUG ttaenc.SubProcess (null) - 15264:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
+1245 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: 
+1245 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: 
+1245 [21] DEBUG ttaenc.SubProcess (null) - 15264:err:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
+1245 [21] DEBUG ttaenc.SubProcess (null) - 15264:err:  ********** Done decoding all input files. **********
+1245 [20] DEBUG ttaenc.SubProcess (null) - 15264:out: 
+1246 [6] DEBUG ttaenc.SubProcess (null) - Process 15264 finished. Exit code: 0. Run time: 00:00:00.0320041. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
+1252 [6] DEBUG ttaenc.SubProcess (null) - Process 14864 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\thml522o.lk2.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
+1299 [6] DEBUG ttaenc.SubProcess (null) - Process 14864 finished. Exit code: 0. Run time: 00:00:00.0470063. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\thml522o.lk2.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
+1300 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.0895314 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
 ]]></output>
           </test-case>
-          <test-case id="0-1006" name="ConvertMonoOgg" fullname="ttaenc.Tests.MediaFileConverterTests.ConvertMonoOgg" methodname="ConvertMonoOgg" classname="ttaenc.Tests.MediaFileConverterTests" runstate="Runnable" seed="1264096330" result="Passed" start-time="2016-12-20 04:17:45Z" end-time="2016-12-20 04:17:45Z" duration="0.099305" asserts="0">
-            <output><![CDATA[1158 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
-1160 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 17312 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
-1191 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: 
-1192 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: 
-1192 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
-1192 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Encoder Version: 0
-1193 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Serial Number: 11195
-1193 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: 
-1193 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Bitstream is 1 channel, 22500Hz
-1193 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Scale = 1.0000
-1193 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Decoded length: 26880 samples = 0:01 mins.
-1194 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
-1194 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
-1194 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: 
-1194 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: 
-1194 [24] DEBUG ttaenc.SubProcess (null) - 17312:out: 
-1194 [24] DEBUG ttaenc.SubProcess (null) - 17312:out:  ********** Done decoding all input files. **********
-1195 [6] DEBUG ttaenc.SubProcess (null) - Process 17312 finished. Exit code: 0. Run time: 00:00:00.0349576. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
-1200 [6] DEBUG ttaenc.SubProcess (null) - Process 13276 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\iy4v1tm1.zic.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
-1254 [6] DEBUG ttaenc.SubProcess (null) - Process 13276 finished. Exit code: 0. Run time: 00:00:00.0545782. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\iy4v1tm1.zic.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
-1255 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.0974419 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
+          <test-case id="0-1007" name="ConvertMonoOgg" fullname="ttaenc.Tests.MediaFileConverterTests.ConvertMonoOgg" methodname="ConvertMonoOgg" classname="ttaenc.Tests.MediaFileConverterTests" runstate="Runnable" seed="1597597812" result="Passed" start-time="2017-03-19 09:36:15Z" end-time="2017-03-19 09:36:15Z" duration="0.116508" asserts="0">
+            <output><![CDATA[1305 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
+1307 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 9976 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
+1344 [24] DEBUG ttaenc.SubProcess (null) - 9976:out: 
+1344 [24] DEBUG ttaenc.SubProcess (null) - 9976:out: 
+1344 [24] DEBUG ttaenc.SubProcess (null) - 9976:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Encoder Version: 0
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Serial Number: 11195
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out: 
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Bitstream is 1 channel, 22500Hz
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Scale = 1.0000
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Decoded length: 26880 samples = 0:01 mins.
+1345 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
+1346 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
+1346 [24] DEBUG ttaenc.SubProcess (null) - 9976:out: 
+1347 [24] DEBUG ttaenc.SubProcess (null) - 9976:out: 
+1347 [24] DEBUG ttaenc.SubProcess (null) - 9976:out:  ********** Done decoding all input files. **********
+1346 [25] DEBUG ttaenc.SubProcess (null) - 9976:err: 
+1347 [6] DEBUG ttaenc.SubProcess (null) - Process 9976 finished. Exit code: 0. Run time: 00:00:00.0402527. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg"
+1353 [6] DEBUG ttaenc.SubProcess (null) - Process 10308 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\2i3dua2c.poq.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
+1416 [6] DEBUG ttaenc.SubProcess (null) - Process 10308 finished. Exit code: 0. Run time: 00:00:00.0634016. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\2i3dua2c.poq.A96CFB3545B53EAC56B1EAD473FC9715.ogg" --resample 22500 --quiet 
+1420 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.1143459 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\A96CFB3545B53EAC56B1EAD473FC9715.ogg
 ]]></output>
           </test-case>
         </test-suite>
-        <test-suite type="TestFixture" id="0-1007" name="PackageBuilderTests" fullname="ttaenc.Tests.PackageBuilderTests" classname="ttaenc.Tests.PackageBuilderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2016-12-20 04:17:45Z" end-time="2016-12-20 04:17:46Z" duration="1.119375" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
-          <test-case id="0-1008" name="PackageBuilderTest" fullname="ttaenc.Tests.PackageBuilderTests.PackageBuilderTest" methodname="PackageBuilderTest" classname="ttaenc.Tests.PackageBuilderTests" runstate="Runnable" seed="1096405741" result="Passed" start-time="2016-12-20 04:17:45Z" end-time="2016-12-20 04:17:46Z" duration="1.111398" asserts="0">
-            <output><![CDATA[1615 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3
-1615 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
-1644 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav
-1677 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
-1698 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg
-1702 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 10656 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg"
-1727 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: 
-1727 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: 
-1727 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Genre=Other
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  EncodedBy=Free Mp3 Wma Converter
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Date=2013
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  TrackNumber=1
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Encoder Version: 0
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Serial Number: 55555
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: 
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Bitstream is 2 channel, 24000Hz
-1728 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Scale = 1.0000
-1729 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Decoded length: 28672 samples = 0:01 mins.
-1729 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  Encoded by: Xiph.Org libVorbis I 20030909
-1729 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: 
-1729 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: 
-1729 [26] DEBUG ttaenc.SubProcess (null) - 10656:out: 
-1729 [26] DEBUG ttaenc.SubProcess (null) - 10656:out:  ********** Done decoding all input files. **********
-1729 [25] DEBUG ttaenc.SubProcess (null) - 10656:err:  Decoding: C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg
-1730 [6] DEBUG ttaenc.SubProcess (null) - Process 10656 finished. Exit code: 0. Run time: 00:00:00.0279467. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg"
-1732 [6] DEBUG ttaenc.SubProcess (null) - Process 1592 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\gxovcjhd.irq.886CA5D21C83327B63758E3D48D7144C.ogg" --resample 22500 --quiet --downmix
-1782 [6] DEBUG ttaenc.SubProcess (null) - Process 1592 finished. Exit code: 0. Run time: 00:00:00.0499251. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\gxovcjhd.irq.886CA5D21C83327B63758E3D48D7144C.ogg" --resample 22500 --quiet --downmix
-1783 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.084736 seconds: Convert C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg
-1784 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
-1784 [22] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
-1784 [21] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
-1787 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 8136 started. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
-1789 [22] DEBUG ttaenc.SubProcess (null) - Process 12556 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
-1791 [21] DEBUG ttaenc.SubProcess (null) - Process 15432 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\zbb4qq4n.z5u.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
-1843 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
-1843 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: 	version 1.23.8; written and copyright by Michael Hipp and others
-1843 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: 	free software (LGPL) without any warranty but with best wishes
-1843 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: 
-1844 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: Playing MPEG stream 1 of 1: C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 ...
-1844 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: 
-1844 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: MPEG 1.0 L III cbr160 44100 j-s
-1844 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: 
-1844 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: Title:   Beat                            Artist: Soundmatch                    
-1844 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: Comment: Some comment                    Album:  Beats                         
-1845 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: Year:                                    Genre:  Unknown                       
-1845 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: 
-1845 [18] DEBUG ttaenc.SubProcess (null) - 8136:out: [0:08] Decoding of C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 finished.
-1847 [6] DEBUG ttaenc.SubProcess (null) - Process 8136 finished. Exit code: 0. Run time: 00:00:00.0595281. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
-1864 [6] DEBUG ttaenc.SubProcess (null) - Process 7004 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\0lk1csa2.yn4.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
-1866 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: 
-1866 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: 
-1866 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
-1866 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Encoder Version: 0
-1866 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Serial Number: 10519
-1867 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: 
-1867 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Bitstream is 2 channel, 44100Hz
-1867 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Scale = 1.0000
-1867 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Decoded length: 443216 samples = 0:10 mins.
-1867 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
-1867 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
-1868 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: 
-1868 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: 
-1868 [16] DEBUG ttaenc.SubProcess (null) - 12556:out: 
-1868 [16] DEBUG ttaenc.SubProcess (null) - 12556:out:  ********** Done decoding all input files. **********
-1869 [6] DEBUG ttaenc.SubProcess (null) - Process 12556 finished. Exit code: 0. Run time: 00:00:00.0800161. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
-1881 [6] DEBUG ttaenc.SubProcess (null) - Process 7772 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\54xuoqvk.su1.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
-2006 [6] DEBUG ttaenc.SubProcess (null) - Process 15432 finished. Exit code: 0. Run time: 00:00:00.2145197. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\zbb4qq4n.z5u.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
-2007 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.2215283 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
-2078 [6] DEBUG ttaenc.SubProcess (null) - Process 7772 finished. Exit code: 0. Run time: 00:00:00.1974177. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\54xuoqvk.su1.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
-2080 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.2950151 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
-2094 [6] DEBUG ttaenc.SubProcess (null) - Process 7004 finished. Exit code: 0. Run time: 00:00:00.2303147. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\0lk1csa2.yn4.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
-2096 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.310917 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
-2109 [Worker#STA_NP] INFO ttaenc.PackageBuilder (null) - Write C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ProductId800.yaml
-2122 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\style.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\style.css
-2124 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\power.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\power.svg
-2125 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\stop.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\stop.svg
-2126 [22] INFO ttaenc.PathUtil (null) - Completed after 0.0038239 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\style.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\style.css
-2127 [19] INFO ttaenc.PathUtil (null) - Completed after 0.0023574 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\power.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\power.svg
-2127 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\2-columns.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\2-columns.css
-2128 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\compact.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\compact.css
-2128 [22] INFO ttaenc.PathUtil (null) - Completed after 0.0026254 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\stop.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\stop.svg
-2129 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\default.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\default.css
-2130 [21] INFO ttaenc.PathUtil (null) - Completed after 0.0024156 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\2-columns.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\2-columns.css
-2130 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\kids.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\kids.css
-2132 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\note_to_pen.png to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\note_to_pen.png
-2132 [19] INFO ttaenc.PathUtil (null) - Completed after 0.0024046 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\default.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\default.css
-2133 [Worker#STA_NP] INFO ttaenc.PackageBuilder (null) - Write C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\ProductId800.html
-2135 [21] INFO ttaenc.PathUtil (null) - Completed after 0.0027676 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\note_to_pen.png to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\note_to_pen.png
-2135 [20] INFO ttaenc.PathUtil (null) - Completed after 0.0067946 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\compact.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\compact.css
-2138 [22] INFO ttaenc.PathUtil (null) - Completed after 0.0074469 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\kids.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\kids.css
-2276 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 16044 started. C:\WINDOWS\system32\cmd.exe /c tttool assemble "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ProductId800.yaml" "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme"
-2367 [6] DEBUG ttaenc.SubProcess (null) - Process 16044 finished. Exit code: 0. Run time: 00:00:00.0912619. C:\WINDOWS\system32\cmd.exe /c tttool assemble "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ProductId800.yaml" "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme"
-2367 [6] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme to C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme
-2376 [19] INFO ttaenc.PathUtil (null) - Completed after 0.0086838 seconds: Copy C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme to C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme
-2377 [19] INFO ttaenc.PackageBuilder (null) - C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme was sucessfully built.
+        <test-suite type="TestFixture" id="0-1008" name="PackageBuilderTests" fullname="ttaenc.Tests.PackageBuilderTests" classname="ttaenc.Tests.PackageBuilderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2017-03-19 09:36:15Z" end-time="2017-03-19 09:36:17Z" duration="1.488347" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-case id="0-1009" name="PackageBuilderTest" fullname="ttaenc.Tests.PackageBuilderTests.PackageBuilderTest" methodname="PackageBuilderTest" classname="ttaenc.Tests.PackageBuilderTests" runstate="Runnable" seed="429469188" result="Passed" start-time="2017-03-19 09:36:15Z" end-time="2017-03-19 09:36:17Z" duration="1.483995" asserts="0">
+            <output><![CDATA[1816 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3
+1817 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
+1846 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav
+1879 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
+1898 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg
+1901 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 11244 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg"
+1932 [26] DEBUG ttaenc.SubProcess (null) - 11244:out: 
+1932 [26] DEBUG ttaenc.SubProcess (null) - 11244:out: 
+1932 [26] DEBUG ttaenc.SubProcess (null) - 11244:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
+1932 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Genre=Other
+1932 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  EncodedBy=Free Mp3 Wma Converter
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Date=2013
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  TrackNumber=1
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Encoder Version: 0
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Serial Number: 55555
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Bitstream is 2 channel, 24000Hz
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Scale = 1.0000
+1933 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Decoded length: 28672 samples = 0:01 mins.
+1934 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Encoded by: Xiph.Org libVorbis I 20030909
+1934 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  Decoding: C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg
+1934 [26] DEBUG ttaenc.SubProcess (null) - 11244:out: 
+1934 [26] DEBUG ttaenc.SubProcess (null) - 11244:out: 
+1934 [26] DEBUG ttaenc.SubProcess (null) - 11244:out: 
+1934 [26] DEBUG ttaenc.SubProcess (null) - 11244:out:  ********** Done decoding all input files. **********
+1933 [25] DEBUG ttaenc.SubProcess (null) - 11244:err: 
+1935 [6] DEBUG ttaenc.SubProcess (null) - Process 11244 finished. Exit code: 0. Run time: 00:00:00.0333995. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg"
+1937 [6] DEBUG ttaenc.SubProcess (null) - Process 12868 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\rskcqjz3.qgo.886CA5D21C83327B63758E3D48D7144C.ogg" --resample 22500 --quiet --downmix
+1990 [6] DEBUG ttaenc.SubProcess (null) - Process 12868 finished. Exit code: 0. Run time: 00:00:00.0527122. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\rskcqjz3.qgo.886CA5D21C83327B63758E3D48D7144C.ogg" --resample 22500 --quiet --downmix
+1992 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.0925944 seconds: Convert C:\work\tta.build\Release-AnyCPU\bin\media\ding.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\886CA5D21C83327B63758E3D48D7144C.ogg
+1993 [Worker#STA_NP] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
+1993 [21] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
+1993 [22] INFO ttaenc.MediaFileConverter (null) - Begin: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
+1996 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 14608 started. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
+1998 [21] DEBUG ttaenc.SubProcess (null) - Process 7916 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ti2kgqhm.wos.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
+2000 [22] DEBUG ttaenc.SubProcess (null) - Process 8640 started. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
+2059 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: High Performance MPEG 1.0/2.0/2.5 Audio Player for Layers 1, 2 and 3
+2059 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: 	version 1.23.8; written and copyright by Michael Hipp and others
+2059 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: 	free software (LGPL) without any warranty but with best wishes
+2059 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: 
+2060 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: Playing MPEG stream 1 of 1: C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 ...
+2060 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: 
+2060 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: MPEG 1.0 L III cbr160 44100 j-s
+2061 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: 
+2061 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: Title:   Beat                            Artist: Soundmatch                    
+2061 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: Comment: Some comment                    Album:  Beats                         
+2061 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: Year:                                    Genre:  Unknown                       
+2061 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: 
+2062 [18] DEBUG ttaenc.SubProcess (null) - 14608:out: [0:08] Decoding of C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 finished.
+2064 [6] DEBUG ttaenc.SubProcess (null) - Process 14608 finished. Exit code: 0. Run time: 00:00:00.0685780. mpg123.exe -w "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3"
+2074 [6] DEBUG ttaenc.SubProcess (null) - Process 14520 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\300zb0ye.mkw.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
+2097 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: 
+2097 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: 
+2098 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: OggDec v1.10.1 (libVorbis 1.3.5) Compiled on: Mar 19 2015
+2098 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Encoder Version: 0
+2098 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Serial Number: 10519
+2098 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: 
+2098 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Bitstream is 2 channel, 44100Hz
+2099 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Scale = 1.0000
+2099 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Decoded length: 443216 samples = 0:10 mins.
+2099 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Encoded by: Xiph.Org libVorbis I 20150105 (??]
+2099 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  Decoding: C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
+2099 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: 
+2099 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: 
+2100 [14] DEBUG ttaenc.SubProcess (null) - 8640:out: 
+2100 [14] DEBUG ttaenc.SubProcess (null) - 8640:out:  ********** Done decoding all input files. **********
+2102 [6] DEBUG ttaenc.SubProcess (null) - Process 8640 finished. Exit code: 0. Run time: 00:00:00.1021620. oggdec.exe --wavout "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" -q "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg"
+2106 [6] DEBUG ttaenc.SubProcess (null) - Process 5328 started. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\lnx53moe.20l.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
+2222 [6] DEBUG ttaenc.SubProcess (null) - Process 7916 finished. Exit code: 0. Run time: 00:00:00.2244463. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav" -o "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ti2kgqhm.wos.06C4C7CADCA7ADFD21BD901D29703BC9.ogg" --quiet --resample 22500 --downmix
+2224 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.2306161 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\06C4C7CADCA7ADFD21BD901D29703BC9.ogg
+2313 [6] DEBUG ttaenc.SubProcess (null) - Process 5328 finished. Exit code: 0. Run time: 00:00:00.2072399. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\lnx53moe.20l.14094FB51C5E4DF565736D7ADADC1FA4.ogg" --resample 22500 --quiet --downmix
+2315 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.3219184 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\14094FB51C5E4DF565736D7ADADC1FA4.ogg
+2331 [6] DEBUG ttaenc.SubProcess (null) - Process 14520 finished. Exit code: 0. Run time: 00:00:00.2573711. oggenc2.exe "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg.wav" "--output=C:\work\tta.build\Release-AnyCPU\test-data\media-cache\300zb0ye.mkw.4E365A2F18069A2F9BDBCD917EEE30E8.ogg" --resample 22500 --quiet 
+2333 [6] INFO ttaenc.MediaFileConverter (null) - Completed after 0.3400231 seconds: Convert C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3 to C:\work\tta.build\Release-AnyCPU\test-data\media-cache\4E365A2F18069A2F9BDBCD917EEE30E8.ogg
+2349 [Worker#STA_NP] INFO ttaenc.PackageBuilder (null) - Write C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ProductId800.yaml
+2365 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\style.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\style.css
+2368 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\power.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\power.svg
+2373 [22] INFO ttaenc.PathUtil (null) - Completed after 0.0078224 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\style.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\style.css
+2373 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\stop.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\stop.svg
+2375 [21] INFO ttaenc.PathUtil (null) - Completed after 0.0062457 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\power.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\power.svg
+2378 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\2-columns.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\2-columns.css
+2379 [20] INFO ttaenc.PathUtil (null) - Completed after 0.0059731 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\stop.svg to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\stop.svg
+2380 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\compact.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\compact.css
+2381 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\default.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\default.css
+2382 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\kids.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\kids.css
+2384 [Worker#STA_NP] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\bin\media\note_to_pen.png to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\note_to_pen.png
+2388 [Worker#STA_NP] INFO ttaenc.PackageBuilder (null) - Write C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\ProductId800.html
+2390 [21] INFO ttaenc.PathUtil (null) - Completed after 0.0084945 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\default.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\default.css
+2390 [19] INFO ttaenc.PathUtil (null) - Completed after 0.0114507 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\2-columns.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\2-columns.css
+2392 [20] INFO ttaenc.PathUtil (null) - Completed after 0.0092365 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\kids.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\kids.css
+2394 [22] INFO ttaenc.PathUtil (null) - Completed after 0.0143643 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\compact.css to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\compact.css
+2395 [21] INFO ttaenc.PathUtil (null) - Completed after 0.0109751 seconds: Copy C:\work\tta.build\Release-AnyCPU\bin\media\note_to_pen.png to C:\Users\andreas\AppData\Local\sidiandi\ttaudio\html\ProductId800\media\note_to_pen.png
+2540 [Worker#STA_NP] DEBUG ttaenc.SubProcess (null) - Process 8384 started. C:\WINDOWS\system32\cmd.exe /c tttool assemble "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ProductId800.yaml" "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme"
+2907 [6] DEBUG ttaenc.SubProcess (null) - Process 8384 finished. Exit code: 0. Run time: 00:00:00.3670736. C:\WINDOWS\system32\cmd.exe /c tttool assemble "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\ProductId800.yaml" "C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme"
+2907 [6] INFO ttaenc.PathUtil (null) - Begin: Copy C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme to C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme
+2917 [22] INFO ttaenc.PathUtil (null) - Completed after 0.0096489 seconds: Copy C:\work\tta.build\Release-AnyCPU\test-data\media-cache\tta_ProductId800.gme to C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme
+2918 [22] INFO ttaenc.PackageBuilder (null) - C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme was sucessfully built.
 C:\work\tta.build\Release-AnyCPU\test-data\penDirectory\tta_ProductId800.gme
 ]]></output>
           </test-case>
         </test-suite>
-        <test-suite type="TestFixture" id="0-1009" name="PackageTests" fullname="ttaenc.Tests.PackageTests" classname="ttaenc.Tests.PackageTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2016-12-20 04:17:46Z" end-time="2016-12-20 04:17:47Z" duration="0.186164" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="3">
-          <test-case id="0-1011" name="CreateFromInputPathsTest_works_with_empty_enumerable" fullname="ttaenc.Tests.PackageTests.CreateFromInputPathsTest_works_with_empty_enumerable" methodname="CreateFromInputPathsTest_works_with_empty_enumerable" classname="ttaenc.Tests.PackageTests" runstate="Runnable" seed="2057922921" result="Passed" start-time="2016-12-20 04:17:46Z" end-time="2016-12-20 04:17:46Z" duration="0.004844" asserts="0" />
-          <test-case id="0-1010" name="Serialize" fullname="ttaenc.Tests.PackageTests.Serialize" methodname="Serialize" classname="ttaenc.Tests.PackageTests" runstate="Runnable" seed="246741033" result="Passed" start-time="2016-12-20 04:17:46Z" end-time="2016-12-20 04:17:47Z" duration="0.176055" asserts="3">
-            <output><![CDATA[2409 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3
-2409 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
-2410 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav
-2412 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
+        <test-suite type="TestFixture" id="0-1010" name="PackageTests" fullname="ttaenc.Tests.PackageTests" classname="ttaenc.Tests.PackageTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.217674" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="3">
+          <test-case id="0-1012" name="CreateFromInputPathsTest_works_with_empty_enumerable" fullname="ttaenc.Tests.PackageTests.CreateFromInputPathsTest_works_with_empty_enumerable" methodname="CreateFromInputPathsTest_works_with_empty_enumerable" classname="ttaenc.Tests.PackageTests" runstate="Runnable" seed="390491255" result="Passed" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.006732" asserts="0" />
+          <test-case id="0-1011" name="Serialize" fullname="ttaenc.Tests.PackageTests.Serialize" methodname="Serialize" classname="ttaenc.Tests.PackageTests" runstate="Runnable" seed="790292049" result="Passed" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.205190" asserts="3">
+            <output><![CDATA[2959 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\187950__soundmatch24__rnb-beat.mp3
+2961 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.ogg
+2962 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\268049__sceza__bass-sine-sweep-10-400hz.wav
+2964 [Worker#STA_NP] INFO ttaenc.AlbumReader (null) - Read meta information from C:\work\tta.build\Release-AnyCPU\test-data\audio\mono\ding.ogg
 ]]></output>
           </test-case>
         </test-suite>
-        <test-suite type="TestFixture" id="0-1014" name="XmlSerializerUtilTests" fullname="ttaenc.Tests.XmlSerializerUtilTests" classname="ttaenc.Tests.XmlSerializerUtilTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2016-12-20 04:17:47Z" end-time="2016-12-20 04:17:47Z" duration="0.027464" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="2">
-          <test-case id="0-1015" name="WriteTest" fullname="ttaenc.Tests.XmlSerializerUtilTests.WriteTest" methodname="WriteTest" classname="ttaenc.Tests.XmlSerializerUtilTests" runstate="Runnable" seed="1376343893" result="Passed" start-time="2016-12-20 04:17:47Z" end-time="2016-12-20 04:17:47Z" duration="0.024156" asserts="2" />
+        <test-suite type="TestFixture" id="0-1015" name="XmlSerializerUtilTests" fullname="ttaenc.Tests.XmlSerializerUtilTests" classname="ttaenc.Tests.XmlSerializerUtilTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.053334" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="2">
+          <test-case id="0-1016" name="WriteTest" fullname="ttaenc.Tests.XmlSerializerUtilTests.WriteTest" methodname="WriteTest" classname="ttaenc.Tests.XmlSerializerUtilTests" runstate="Runnable" seed="1109374351" result="Passed" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.049410" asserts="2" />
         </test-suite>
       </test-suite>
     </test-suite>
-    <test-suite type="TestSuite" id="0-1017" name="ttaencTests" fullname="ttaencTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2016-12-20 04:17:44Z" end-time="2016-12-20 04:17:47Z" duration="2.654472" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+    <test-suite type="TestSuite" id="0-1018" name="ttaencTests" fullname="ttaencTests" runstate="Runnable" testcasecount="2" result="Skipped" label="Ignored" start-time="2017-03-19 09:36:14Z" end-time="2017-03-19 09:36:17Z" duration="3.256793" total="2" passed="0" failed="0" inconclusive="0" skipped="2" asserts="0">
       <reason>
         <message><![CDATA[One or more child tests were ignored]]></message>
       </reason>
-      <test-suite type="TestFixture" id="0-1000" name="OidSvgWriterTests" fullname="ttaencTests.OidSvgWriterTests" classname="ttaencTests.OidSvgWriterTests" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2016-12-20 04:17:47Z" end-time="2016-12-20 04:17:47Z" duration="0.003690" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+      <test-suite type="TestFixture" id="0-1000" name="OidSvgWriterTests" fullname="ttaencTests.OidSvgWriterTests" classname="ttaencTests.OidSvgWriterTests" runstate="Runnable" testcasecount="2" result="Skipped" label="Ignored" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.009052" total="2" passed="0" failed="0" inconclusive="0" skipped="2" asserts="0">
         <reason>
           <message><![CDATA[One or more child tests were ignored]]></message>
         </reason>
-        <test-case id="0-1001" name="ReadPatterns" fullname="ttaencTests.OidSvgWriterTests.ReadPatterns" methodname="ReadPatterns" classname="ttaencTests.OidSvgWriterTests" runstate="Ignored" seed="288964173" result="Skipped" label="Ignored" start-time="2016-12-20 04:17:47Z" end-time="2016-12-20 04:17:47Z" duration="0.000885" asserts="0">
+        <test-case id="0-1002" name="CreateTestPage" fullname="ttaencTests.OidSvgWriterTests.CreateTestPage" methodname="CreateTestPage" classname="ttaencTests.OidSvgWriterTests" runstate="Explicit" seed="1824013408" result="Skipped" label="Explicit" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.002427" asserts="0">
+          <properties>
+            <property name="_SKIPREASON" value="interactive" />
+          </properties>
+          <reason>
+            <message><![CDATA[interactive]]></message>
+          </reason>
+        </test-case>
+        <test-case id="0-1001" name="ReadPatterns" fullname="ttaencTests.OidSvgWriterTests.ReadPatterns" methodname="ReadPatterns" classname="ttaencTests.OidSvgWriterTests" runstate="Ignored" seed="303642691" result="Skipped" label="Ignored" start-time="2017-03-19 09:36:17Z" end-time="2017-03-19 09:36:17Z" duration="0.000071" asserts="0">
           <properties>
             <property name="_SKIPREASON" value="takes too long" />
           </properties>

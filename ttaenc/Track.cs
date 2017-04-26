@@ -48,7 +48,7 @@ namespace ttaenc
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 
