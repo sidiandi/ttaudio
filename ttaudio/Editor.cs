@@ -248,9 +248,10 @@ namespace ttaudio
             UpdateModel();
             var builder = GetPackageBuilder();
             var cts = new CancellationTokenSource();
-            var task = Task.Factory.StartNew(() =>
+            var task = Task.Factory.StartNew(async () =>
             {
-                builder.OpenHtmlPage(cts.Token);
+                await builder.CreateHtmlPage(cts.Token);
+                await builder.OpenHtmlPage(cts.Token);
             }, TaskCreationOptions.LongRunning);
             var f = new TaskForm(task, cts) { Text = "Print" };
             f.Show();
@@ -260,21 +261,33 @@ namespace ttaudio
         {
             UpdateModel();
             var builder = GetPackageBuilder();
-
             var cts = new CancellationTokenSource();
-            var task = Task.Factory.StartNew(() =>
+
+            var task = Task.Factory.StartNew(async () =>
             {
-                builder.Build(cts.Token).Wait();
+                await builder.Build(cts.Token);
+
+                var pen = TipToiPen.GetAll().FirstOrDefault();
+                if (pen != null)
+                {
+                    await builder.Upload(cts.Token, pen);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show(String.Format("Upload is not possible because the Tiptoi pen is not connected."), About.Product);
+                    ShowOutput(builder);
+                }
+
                 log.Info("complete");
             }, TaskCreationOptions.LongRunning);
 
-            var f = new TaskForm(task, cts) { Text = "Upload" };
+            var f = new TaskForm(task, cts) { Text = "Convert and Upload" };
             f.Show();
         }
 
         PackageBuilder GetPackageBuilder()
         {
-            var s = new PackageDirectoryStructure(GetRootDirectory(), this.document.package);
+            var s = new PackageDirectoryStructure(Path.Combine(About.DocumentsDirectory, "output"), this.document.package);
             return new PackageBuilder(s, Context.GetDefaultMediaFileConverter(), Settings.Read().CreateOidSvgWriter());
         }
 
@@ -284,11 +297,6 @@ namespace ttaudio
         }
 
         private void uploadToPenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Upload();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
         {
             Upload();
         }
@@ -423,6 +431,18 @@ namespace ttaudio
                 s.OidDotSize = (float) optionsDialog.DotSize;
                 s.Write();
             }
+        }
+
+        static void ShowOutput(PackageBuilder builder)
+        {
+            Process.Start("explorer.exe", "/select," + builder.packageDirectoryStructure.GmeFile.Quote());
+        }
+
+        private void showOutputToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateModel();
+            var builder = GetPackageBuilder();
+            ShowOutput(builder);
         }
     }
 }

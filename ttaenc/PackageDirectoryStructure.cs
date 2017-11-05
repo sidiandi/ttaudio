@@ -28,23 +28,24 @@ namespace ttaenc
     {
         public PackageDirectoryStructure(string rootDirectory, Package package)
         {
-            this.rootDirectory = rootDirectory;
             this.package = package;
+            this.rootDirectory = Path.Combine(rootDirectory, FileName);
         }
 
-        string rootDirectory;
-        Package package;
+        readonly string rootDirectory;
+        readonly Package package;
 
         string FileName
         {
             get
             {
-                return package.FileName;
+                return String.Join("_", gmePrefix, this.package.ProductId, PathUtil.GetValidFileName(this.package.Title)).Truncate(64);
             }
         }
 
         const string gmeExtension = ".gme";
-        const string gmePrefix = "tta_";
+        const string gmePrefix = "ttaudio";
+
         const string ttaExtension = ".tta";
         const string htmlExtension = ".html";
 
@@ -52,14 +53,14 @@ namespace ttaenc
 
         public string GmeFile
         {
-            get { return Path.Combine(rootDirectory, gmePrefix + FileName + gmeExtension); }
+            get { return Path.Combine(rootDirectory, FileName + gmeExtension); }
         }
 
         string HtmlDirectory
         {
             get
             {
-                return Path.Combine(About.LocalApplicationDataDirectory, "html", FileName);
+                return rootDirectory;
             }
         }
 

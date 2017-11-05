@@ -19,7 +19,7 @@ namespace ttaenc
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        readonly IPackageDirectoryStructure packageDirectoryStructure;
+        public readonly IPackageDirectoryStructure packageDirectoryStructure;
         readonly MediaFileConverter converter;
 
         string yamlFile;
@@ -72,9 +72,6 @@ namespace ttaenc
 
             // write html
             WriteHtml(cancellationToken);
-
-            // open html
-            Process.Start(packageDirectoryStructure.HtmlFile);
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -277,6 +274,11 @@ Style: ");
             }
         }
 
+        public async Task Upload(CancellationToken cancellationToken, TipToiPen pen)
+        {
+            await PathUtil.CopyToDir(cancellationToken, this.packageDirectoryStructure.GmeFile, pen.RootDirectory);
+        }
+
         IList<Package> Split(Package p)
         {
             var partTracks = p.Tracks
@@ -295,7 +297,7 @@ Style: ");
             }).ToList();
         }
 
-        public async Task OpenHtmlPage(CancellationToken cancellationToken)
+        public async Task CreateHtmlPage(CancellationToken cancellationToken)
         {
             var p = packageDirectoryStructure.Package;
 
@@ -311,7 +313,7 @@ Style: ");
                 {
                     var structure = new PackageDirectoryStructure(Path.GetDirectoryName(this.packageDirectoryStructure.GmeFile), i);
                     var pb = new PackageBuilder(structure, this.converter, OidSvgWriter);
-                    await pb.OpenHtmlPage(cancellationToken);
+                    await pb.CreateHtmlPage(cancellationToken);
                 }
                 return;
             }
@@ -321,9 +323,13 @@ Style: ");
 
             // write html
             WriteHtml(cancellationToken);
+        }
 
+        public Task OpenHtmlPage(CancellationToken cancellationToken)
+        {
             // open html
             Process.Start(packageDirectoryStructure.HtmlFile);
+            return Task.CompletedTask;
         }
 
         void PrepareInputFiles(CancellationToken cancellationToken)

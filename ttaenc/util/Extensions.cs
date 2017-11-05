@@ -30,6 +30,18 @@ namespace ttaenc
             return "\"" + x.ToString() + "\"";
         }
 
+        public static string Truncate(this string s, int maxLength)
+        {
+            if (s.Length <= maxLength)
+            {
+                return s;
+            }
+            else
+            {
+                return s.Substring(0, maxLength);
+            }
+        }
+
         public static Y OrNull<X, Y>(this X x, Func<X, Y> f)
         {
             if ((object)x == null)
