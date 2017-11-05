@@ -68,17 +68,18 @@ namespace ttaenc
         public void OidArea(TextWriter w, int oid)
         {
             w.WriteLine(@"<svg class=""oid-area"" >");
-            w.WriteLine("<defs>");
+            w.Write("  <defs>");
             OidPattern(w, oid);
             w.WriteLine(@"</defs>");
-            w.WriteLine(@"<rect fill=""url(#Code{0})"" x=""0%"" y=""0%"" width=""100%"" height=""100%""/>", oid);
+            w.WriteLine(@"  <rect fill=""url(#oid{0})"" x=""0%"" y=""0%"" width=""100%"" height=""100%""/>", oid);
             // w.WriteLine(@"<circle fill=""url(#Code{0})"" cx=""50%"" cy=""50%"" r=""50%"" />", oid);
             w.WriteLine("</svg>");
+            w.WriteLine("<span class=\"oidDebug\">oid={0}</span>", oid);
         }
 
         public void Dot(TextWriter w, float cx, float cy)
         {
-            w.WriteLine(@"<circle cx={0} cy={1} r={2} style=""stroke: none; fill: #000000;""/>", Cm(cx), Cm(cy), Cm(DotSize));
+            w.Write(@"<circle cx={0} cy={1} r={2} style=""stroke: none; fill: #000000;""/>", Cm(cx), Cm(cy), Cm(DotSize));
         }
 
         static string Cm(float x)
@@ -107,7 +108,7 @@ namespace ttaenc
 
         public void OidPattern(TextWriter w, int oid)
         {
-            w.WriteLine(@"<pattern id=""Code{0}"" patternUnits=""userSpaceOnUse"" x=""0"" y=""0"" width={1} height={1} >", oid, Cm(GridSpacing*8));
+            w.Write(@"<pattern id=""oid{0}"" patternUnits=""userSpaceOnUse"" x=""0"" y=""0"" width={1} height={1} >", oid, Cm(GridSpacing*8));
 
             // guide dots
             Dot(w, GridSpacing, GridSpacing);
@@ -131,7 +132,7 @@ namespace ttaenc
                 }
             }
 
-            w.WriteLine(@"</pattern>");
+            w.Write(@"</pattern>");
         }
 
         public static void CreatePrinterTestPage(string testPagePath)

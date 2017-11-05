@@ -23,11 +23,25 @@ h2
 	margin: 4px;
 }
 
+.oidDebug {
+    display: none;
+    font-size: 12px;
+    border: solid;
+    border-width: 1px;
+    background-color: lightyellow;
+    padding: 4px;
+    margin: 4px;
+}
+
 @media print {
 
 	.printInstructions {
 		display: none;
 	}
+
+    .oidDebug {
+        display: none;
+    }
 }
 
 .album {

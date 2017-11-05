@@ -221,6 +221,15 @@ scripts:");
 		var oldlink = document.getElementsByTagName(""link"").item(cssLinkIndex);
 		oldlink.setAttribute(""href"", cssFile);
 	}
+    
+    function debug(debugFlag) {
+        var x = document.getElementsByClassName(""oidDebug"");
+        var i;
+        for (i = 0; i < x.length; i++)
+        {
+            x[i].style.display = debugFlag ? ""inline"" : ""none"";
+        }
+    }
 	</script>
   </head>
   <body>
@@ -236,6 +245,8 @@ Style: ");
                 {
                     w.WriteLine(@"<a href=""#"" onclick=""changeCSS('media/{0}')"" >{1}</a>", i.Name, Path.GetFileNameWithoutExtension(i.Name));
                 }
+
+                w.WriteLine(@"<p>Print OIDs: <a href=""#"" onclick=""debug(1)"">on</a> <a href=""#"" onclick=""debug(0)"">off</a></p>");
 
                 w.WriteLine(@"</div>");
                 w.WriteLine("<h1>");
