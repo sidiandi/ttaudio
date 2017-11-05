@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<Project ToolsVersion="4.0" DefaultTargets="Help" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <!-- Set an auth token here. You can create one at https://github.com/settings/applications. -->
-    <GitHubAuthToken>e0cc0362ecb0f0c148bd48af74e5acd34b149a89</GitHubAuthToken>
-  </PropertyGroup>
-</Project>
