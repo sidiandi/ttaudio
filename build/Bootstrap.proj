@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
+<Project DefaultTargets="Bootstrap" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="Paths.props" />
+
+  <UsingTask  
+    TaskName="CreatePackageVersionProps"  
+    TaskFactory="CodeTaskFactory"  
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
+    <ParameterGroup>  
+      <SolutionDir Required="true" />
+      <PropsFile Required="true" />
+    </ParameterGroup>  
+    <Task>  
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />  
+      <Using Namespace="System.Xml.Linq" />  
+      <Using Namespace="System.Text.RegularExpressions" />  
+      <Code Type="Fragment" Language="cs"><![CDATA[  
+      
+var props = String.Empty;
+
+var packagesFiles = Directory.GetDirectories(SolutionDir)
+	.Select(_ => Path.Combine(_, "packages.config"))
+	.Where(_ => File.Exists(_))
+	.ToList();
+
+foreach (var packagesFile in packagesFiles)
+{
+	var doc = XDocument.Load(packagesFile);
+	props = props + "\r\n" + String.Join("\r\n", doc.Root.Elements().Select(p => 
+	{
+		var propertyName = "NugetPackageVersion_" + Regex.Replace(p.Attribute("id").Value, "[^\\w]", "_");
+		var value = p.Attribute("version").Value;
+		return "<" + propertyName + ">" + value + "</" + propertyName + ">";
+	}));
+}
+	
+Directory.CreateDirectory(Path.GetDirectoryName(PropsFile));
+File.WriteAllText(PropsFile, @"<?xml version=""1.0"" encoding=""utf-8""?>
+<!-- Generated. Changes will be lost. -->
+<Project xmlns=""http://schemas.microsoft.com/developer/msbuild/2003"">
+  <PropertyGroup>
+" + props + @"
+  </PropertyGroup>
+</Project>
+");
+  
+      ]]></Code>  
+    </Task>  
+  </UsingTask>  
+
+  <Target Name="CreateBuildDir" >
+    <MakeDir Directories="$(BuildDir)"/>
+  </Target>
+
+  <Target Name="RestorePackages" DependsOnTargets="CreateBuildDir" >
+    <Exec Command="nuget restore &quot;$(SourceDir)\$(ProductName).sln&quot;" />
+    <CreatePackageVersionProps SolutionDir="$(SourceDir)" PropsFile="$(BuildDir)\obj\nuget.props" />
+  </Target>
+  
+  <!-- This target puts the build.log file into the build directory -->
+  <Target Name="Bootstrap" DependsOnTargets="RestorePackages" >
+    <MakeDir Directories="$(BuildDir)\log" />
+    <Exec Command="&quot;$(MSBuildBinPath)\msbuild.exe&quot; &quot;$(MSBuildProjectDir)Build.proj&quot; /verbosity:minimal /t:$(BuildTarget) &quot;/fileLoggerParameters:LogFile=$(BuildDir)\log\build.log;Verbosity=diagnostic;Encoding=UTF-8&quot;" />
+  </Target>
+
+</Project>

@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="Common.props" />
-  <PropertyGroup>
-    <TestProjectType>UnitTest</TestProjectType>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-  </PropertyGroup>
-
-  
-  <Target Name="CopyTestFiles" BeforeTargets="Build" >
 	<ItemGroup>
 		<TestFiles Include="test-data\**\*" />
 	</ItemGroup>
-	<Message Importance="High" Text="Copying test files to $(TestDir)" />
+
+	<Target Name="CopyTestFiles" AfterTargets="CoreCompile" >
 	<Copy
 		SourceFiles="@(TestFiles)"
 		DestinationFolder="$(TestDir)\%(RecursiveDir)"
@@ -21,6 +14,5 @@
 		UseHardlinksIfPossible="true"
 	/>
   </Target>
-</Project>
 
-	
+</Project>

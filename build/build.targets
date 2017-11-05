@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Copyright (c) https://github.com/sidiandi 2016
+<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/)
 
-This file is part of tta.
+This file is part of sidi-util.
 
-tta is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
+sidi-util is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-tta is distributed in the hope that it will be useful,
+sidi-util is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
--->
+You should have received a copy of the GNU Lesser General Public License
+along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(BuildDir)\obj\nuget.props" />
+  
+  <PropertyGroup>
+    <Configuration>Release</Configuration>
+    <Platform>Any CPU</Platform>
+  </PropertyGroup>
+
+  <!-- Directories -->
 	<PropertyGroup>
 		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
 		<NugetPackagesDir>$(SourceDir)\packages</NugetPackagesDir>
-		<NUnitConsole>$(NugetPackagesDir)\NUnit.ConsoleRunner.$(NunitVersion)\tools\nunit3-console.exe</NUnitConsole>
+  </PropertyGroup>
+  
+  <!-- Tools -->
+	<PropertyGroup>
+		<NUnitConsole>$(NugetPackagesDir)\NUnit.ConsoleRunner.$(NugetPackageVersion_NUnit_ConsoleRunner)\tools\nunit3-console.exe</NUnitConsole>
+		<Nuget>NuGet.exe</Nuget>
 		<Git>git</Git>
+    <GithubRelease>github-release.exe</GithubRelease>
+    <GithubReleaseEnvironmentVariables>GITHUB_TOKEN=$(GITHUB_TOKEN);GITHUB_USER=$(GITHUB_USER);GITHUB_REPO=$(GITHUB_REPO)</GithubReleaseEnvironmentVariables>
   </PropertyGroup>
 
-  <PropertyGroup>
-	<MSBuildCommunityTasksPath>$(SourceDir)\build</MSBuildCommunityTasksPath>
-	<MSBuildGitTfsTasksLib>$(SourceDir)/packages/GitTfsTasks-1.0.0/GitTfsTasks.dll</MSBuildGitTfsTasksLib>
-  </PropertyGroup>
+  <Import Project="$(NugetPackagesDir)\GitVersionTask.$(NugetPackageVersion_GitVersionTask)\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
   
-  <Import Project="$(NugetPackagesDir)\GitVersionTask.$(GitVersionTaskVersion)\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
-  
-  <UsingTask AssemblyFile="$(MSBuildGitTfsTasksLib)" TaskName="GitTfsTasks.CreateRelease" />
-
   <Target Name="GetVersion">
 		<GetVersion SolutionDirectory="$(SolutionDir)">
 		  <Output TaskParameter="Major" PropertyName="GfvMajor" />
@@ -56,65 +63,96 @@ along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 		</GetVersion>
 		<Message Text="$(GfvSemVer)" />
 		<Message Text="$(GfvNuGetVersion)" />
+		<Message Text="$(GfvInformationalVersion)" />
 	</Target>
 
 	<Target Name="Build" DependsOnTargets="GetVersion" >
-    <MSBuild Projects="$(SourceDir)\$(ProductName).sln" Properties="Configuration=$(Configuration);Platform=Any CPU;BuildDir=$(BuildDir)">
-		<Output ItemName="Targets" TaskParameter="TargetOutputs"/>
+    <MSBuild Projects="$(SourceDir)\$(ProductName).sln" Properties="Configuration=$(Configuration);Platform=$(Platform);BuildDir=$(BuildDir);Version=$(GfvNuGetVersion)" >
+      <Output ItemName="Targets" TaskParameter="TargetOutputs" />
     </MSBuild>
+  </Target>
+
+  <Target Name="Setup" DependsOnTargets="Build;BuildSetup">
+  </Target>
+
+  <Target Name="BuildSetup" DependsOnTargets="GetVersion">
+  <MSBuild
+        Projects="$(SourceDir)\wix\wix.wixproj" Properties="
+          CompanyName=$(CompanyName);
+          ProductName=$(ProductName);
+          Version=$(GfvMajorMinorPatch);
+          Description=$(GfvSemVer);
+          Configuration=$(Configuration);
+          Platform=$(Platform);
+          OutputPath=$(BuildDir)\setup;
+          BinDir=$(OutDir);
+          SourceDir=$(SourceDir);
+          UpgradeCode=$(UpgradeCode);
+          IntermediateOutputPath=$(BaseIntermediateOutputPath)\setup\
+          ">
+      <Output ItemName="SetupFiles" TaskParameter="TargetOutputs"/>
+    </MSBuild>
+    <Message Text="@(SetupFiles, ' ')" />
   </Target>
 
   <Target Name="Tag" DependsOnTargets="GetVersion">
-	<Exec WorkingDirectory="$(SourceDir)" Command="$(Git) tag --force v$(GfvSemVer)" />
+    <PropertyGroup>
+      <ReleaseTag>v$(GfvFullSemVer)</ReleaseTag>
+    </PropertyGroup>
+    <Exec WorkingDirectory="$(SourceDir)" Command="$(Git) tag --force $(ReleaseTag)" />
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build">
-	<ItemGroup>
-		<TestTargets Include="@(Targets)" Condition=" $([System.Text.RegularExpressions.Regex]::IsMatch('%(FullPath)', 'Tests.dll$')) " />
-	</ItemGroup>
-    <Exec Command="$(NUnitConsole) @(TestTargets, ' ')" />
+    <ItemGroup>
+      <TestTargets Include="%(Targets.Identity)" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch(%(Filename), 'Test'))"/>
+    </ItemGroup>
+    <Exec Command="&quot;$(NUnitConsole)&quot; --labels=On --work=&quot;$(TestDir)&quot; --result=&quot;$(TestDir)\TestResult.xml&quot; --labels=All @(TestTargets -> '&quot;%(Identity)&quot;', ' ')" />
   </Target>
 
-  <Target Name="BuildSetup" DependsOnTargets="Tag;Test">
-	<MSBuild
-        Projects="$(SourceDir)\setup\setup.wixproj" Properties="
-			CompanyName=$(CompanyName);
-			ProductName=$(ProductName);
-			Version=$(GfvSemVer);
-			Configuration=Release;
-			Platform=Any CPU;
-			OutputPath=$(BuildDir)\setup;
-			BinDir=$(OutDir);
-			UpgradeCode=$(UpgradeCode);
-			IntermediateOutputPath=$(BaseIntermediateOutputPath)\setup\
-			">
-      <Output ItemName="SetupFile" TaskParameter="TargetOutputs"/>
-    </MSBuild>
+  <Target Name="Pack" DependsOnTargets="GetVersion">
+    <PropertyGroup>
+		<PackageDir>$(BuildDir)\package</PackageDir>
+	</PropertyGroup>
+	<RemoveDir Directories="$(PackageDir)"/>
+	<MakeDir Directories="$(PackageDir)" />
+	<Exec WorkingDirectory="$(ReleaseDir)" Command="&quot;$(Nuget)&quot; pack &quot;$(SourceDir)\%(Package.Identity)\%(Package.Identity).csproj&quot; -OutputDirectory &quot;$(PackageDir)&quot; -Version $(GfvNuGetVersion)" />
+	<ItemGroup>
+		<PackageFiles Include="$(PackageDir)\%(Package.Identity).$(GfvNuGetVersion).nupkg" />
+	</ItemGroup>
+  </Target>
+
+  <!-- Push nuget packages to feed -->
+  <Target Name="Push" DependsOnTargets="Test;Pack">
+    <Exec WorkingDirectory="$(ReleaseDir)" Command="&quot;$(Nuget)&quot; push &quot;%(PackageFiles.Identity)&quot; -ApiKey $(NugetApiKey) -Source $(NugetFeed)" />
+  </Target>
+
+  <Target Name="Run" DependsOnTargets="Build">
+	<Exec Command="$(OutDir)\hagen.exe Popup" />
   </Target>
   
-  <Target Name="Install" DependsOnTargets="BuildSetup">
-    <Message Text="@(SetupFile, ' ')" />
-	<Exec Command="@(SetupFile, ' ')" />
+  <Target Name="Install" DependsOnTargets="Setup">
+    <Exec Command="&quot;@(SetupFiles, ' ')&quot;" />
   </Target>
   
-  <!-- This target puts the build.log file into the build directory -->
-  <Target Name="StartWrapper" >
-	<MakeDir Directories="$(BuildDir)"/>
-    <Exec
-		Command="&quot;$(MSBuildBinPath)\msbuild.exe&quot; &quot;$(MSBuildProjectFullPath)&quot; /t:$(BuildTarget) &quot;/fileLoggerParameters:LogFile=$(BuildDir)\build.log;Verbosity=diagnostic;Encoding=UTF-8&quot;"
-		/>
+  <Target Name="PublishOnDropbox" DependsOnTargets="Setup" >
+    <Copy SourceFiles="@(SetupFiles)"  DestinationFolder="$(USERPROFILE)\Dropbox\hagen\setup" />
   </Target>
   
-  <Target Name="Release" DependsOnTargets="BuildSetup" >
-	<CreateRelease
-		Repository="$(GitHubUser)/$(GitHubProject)" 
-		TagName="v$(GfvSemVer)" 
-		Files="@(SetupFile)" 
-		OauthToken="$(GitHubAuthToken)" 
-		ReleaseNotesFile ="$(SourceDir)\Readme.md"
-		>
-		<Output TaskParameter="IdRelease" PropertyName="IdRelease" />
-  	</CreateRelease>
+  <Target Name="PublishAsGithubRelease" DependsOnTargets="Setup" >
+    <Exec IgnoreExitCode="true" IgnoreStandardErrorWarningFormat="true" Command="&quot;$(GithubRelease)&quot; release --tag $(ReleaseTag)" 
+      EnvironmentVariables="$(GithubReleaseEnvironmentVariables)"
+    />
+    <Exec Command="&quot;$(GithubRelease)&quot; upload --tag $(ReleaseTag) --name &quot;$(ProductName)-$(GfvFullSemVer).msi&quot; --replace --file @(SetupFiles -> '&quot;%(Identity)&quot;', ' ')" 
+      EnvironmentVariables="$(GithubReleaseEnvironmentVariables)"
+    />
+  </Target>
+  
+  <Target Name="Release" DependsOnTargets="Test;Setup;Tag;PublishAsGithubRelease" />
+  
+  <Target Name="PreRelease" DependsOnTargets="Test;Setup;Tag;PublishOnDropbox" />
+  
+  <Target Name="Clean" >
+    <RemoveDir Directories="$(BuildDir)" />
   </Target>
 
 </Project>
