@@ -73,9 +73,9 @@ namespace ttaenc
 
         public PlaybackModes PlaybackMode;
 
-        public int NextOid {get; set; }
+        int NextOid {get; set; }
 
-        public int GetNextOid()
+        int GetNextOid()
         {
             return NextOid++;
         }
@@ -143,6 +143,16 @@ namespace ttaenc
         public void RemoveTracks(IEnumerable<Track> enumerable)
         {
             Tracks = Tracks.Except(enumerable).ToArray();
+        }
+
+        public void AssignOids(int firstUid)
+        {
+            this.NextOid = firstUid;
+            this.StopOid = GetNextOid();
+            foreach (var i in this.Tracks)
+            {
+                i.Oid = GetNextOid();
+            }
         }
     }
 }

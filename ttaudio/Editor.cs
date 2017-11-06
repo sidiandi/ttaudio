@@ -444,5 +444,18 @@ namespace ttaudio
             var builder = GetPackageBuilder();
             ShowOutput(builder);
         }
+
+        private void assignOIDsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dlg = new AssignOids();
+            dlg.FirstOid = 10250;
+            dlg.UpdateView();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                dlg.UpdateModel();
+                this.document.package.AssignOids(dlg.FirstOid);
+                UpdateView();
+            }
+        }
     }
 }

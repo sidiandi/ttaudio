@@ -46,6 +46,7 @@
             this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadToPenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printerTestPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -60,7 +61,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonUpload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrint = new System.Windows.Forms.ToolStripButton();
-            this.showOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assignOIDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -127,6 +129,7 @@
             this.menuStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.buildToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -233,6 +236,13 @@
             this.uploadToPenToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.uploadToPenToolStripMenuItem.Text = "&Upload to Pen";
             this.uploadToPenToolStripMenuItem.Click += new System.EventHandler(this.uploadToPenToolStripMenuItem_Click_1);
+            // 
+            // showOutputToolStripMenuItem
+            // 
+            this.showOutputToolStripMenuItem.Name = "showOutputToolStripMenuItem";
+            this.showOutputToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.showOutputToolStripMenuItem.Text = "Show &Output";
+            this.showOutputToolStripMenuItem.Click += new System.EventHandler(this.showOutputToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -382,12 +392,20 @@
             this.toolStripButtonPrint.Text = "Print";
             this.toolStripButtonPrint.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
-            // showOutputToolStripMenuItem
+            // editToolStripMenuItem
             // 
-            this.showOutputToolStripMenuItem.Name = "showOutputToolStripMenuItem";
-            this.showOutputToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.showOutputToolStripMenuItem.Text = "Show &Output";
-            this.showOutputToolStripMenuItem.Click += new System.EventHandler(this.showOutputToolStripMenuItem_Click);
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assignOIDsToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // assignOIDsToolStripMenuItem
+            // 
+            this.assignOIDsToolStripMenuItem.Name = "assignOIDsToolStripMenuItem";
+            this.assignOIDsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assignOIDsToolStripMenuItem.Text = "&Assign OIDs...";
+            this.assignOIDsToolStripMenuItem.Click += new System.EventHandler(this.assignOIDsToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -450,6 +468,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem assignOIDsToolStripMenuItem;
     }
 }
 
