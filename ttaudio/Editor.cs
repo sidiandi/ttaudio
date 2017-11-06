@@ -285,8 +285,17 @@ namespace ttaudio
             f.Show();
         }
 
+        IProductIdProvider productIdProvider = new ProductIdProvider();
+
         PackageBuilder GetPackageBuilder()
         {
+            // fill ProductId if empty
+            if (this.document.package.ProductId == 0)
+            {
+                this.document.package.ProductId = productIdProvider.GetNextAvailableProductId();
+                UpdateView();
+            }
+
             var s = new PackageDirectoryStructure(Path.Combine(About.DocumentsDirectory, "output"), this.document.package);
             return new PackageBuilder(s, Context.GetDefaultMediaFileConverter(), Settings.Read().CreateOidSvgWriter());
         }

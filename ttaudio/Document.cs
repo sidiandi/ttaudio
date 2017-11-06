@@ -13,7 +13,7 @@ namespace ttaudio
     {
         public Document()
         {
-            package = new Package(new ProductIdProvider());
+            package = new Package();
         }
 
         public string ttaFile

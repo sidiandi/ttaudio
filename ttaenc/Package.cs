@@ -40,12 +40,12 @@ namespace ttaenc
         {
             Tracks = new Track[] { };
             NextOid = 10250;
+            StopOid = GetNextOid();
         }
 
         public Package(IProductIdProvider productIdProvider)
             :this()
         {
-            StopOid = GetNextOid();
             ProductId = productIdProvider.GetNextAvailableProductId();
         }
 
