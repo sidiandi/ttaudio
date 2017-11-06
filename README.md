@@ -9,6 +9,8 @@ ttaudio is neither offered nor supported by Ravensburger. All information shown 
 
 Download the .msi file of the latest release [here](https://github.com/sidiandi/ttaudio/releases/latest).
 
+Save the .msi file to your computer and open it to start the installation.
+
 ## Main Window
 
 ![Screenshot of MainForm](/doc/screenshot_mainform.png)
