@@ -43,3 +43,20 @@ Internally, ttaudio uses following tools:
 * [oggdec.exe](http://www.rarewares.org/ogg-oggdec.php) to decode input *.ogg files
 * [tttool-win32-1.5.1](https://github.com/entropia/tip-toi-reveng) to assemble the *.gme files
 
+## How to Compile
+
+Install prerequisites:
+* Visual Studio 2017
+* nuget
+* WiX Toolset
+
+With [chocolatey](https://chocolatey.org/):
+~~~~
+choco install visualstudio2017community nuget wixtoolset 
+~~~~
+
+Build, test, create msi:
+~~~~
+cd $(SourceRoot)
+build Setup
+~~~~
