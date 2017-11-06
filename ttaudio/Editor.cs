@@ -90,6 +90,7 @@ namespace ttaudio
         /// <param name="inputFiles"></param>
         public async Task Add(IEnumerable<string> inputFiles)
         {
+            UpdateModel();
             await TaskForm.StartTask("Add Files", () => this.document.package.AddTracks(inputFiles));
             UpdateView();
         }

@@ -43,6 +43,8 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assignOIDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadToPenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,8 +63,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonUpload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrint = new System.Windows.Forms.ToolStripButton();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.assignOIDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -84,7 +84,7 @@
             this.listViewInputFiles.Location = new System.Drawing.Point(15, 84);
             this.listViewInputFiles.Name = "listViewInputFiles";
             this.listViewInputFiles.Size = new System.Drawing.Size(607, 466);
-            this.listViewInputFiles.TabIndex = 6;
+            this.listViewInputFiles.TabIndex = 7;
             this.listViewInputFiles.UseCompatibleStateImageBehavior = false;
             this.listViewInputFiles.View = System.Windows.Forms.View.Details;
             this.listViewInputFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewInputFiles_DragDrop);
@@ -102,7 +102,7 @@
             this.label1.Location = new System.Drawing.Point(12, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(151, 13);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 6;
             this.label1.Text = "Drop the input audio files here.";
             // 
             // textBoxTitle
@@ -112,7 +112,7 @@
             this.textBoxTitle.Location = new System.Drawing.Point(78, 10);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(544, 20);
-            this.textBoxTitle.TabIndex = 2;
+            this.textBoxTitle.TabIndex = 1;
             // 
             // label3
             // 
@@ -120,7 +120,7 @@
             this.label3.Location = new System.Drawing.Point(12, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(27, 13);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Title";
             // 
             // menuStrip
@@ -206,6 +206,21 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.closeToolStripMenuItem.Text = "&Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assignOIDsToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // assignOIDsToolStripMenuItem
+            // 
+            this.assignOIDsToolStripMenuItem.Name = "assignOIDsToolStripMenuItem";
+            this.assignOIDsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.assignOIDsToolStripMenuItem.Text = "&Assign OIDs...";
+            this.assignOIDsToolStripMenuItem.Click += new System.EventHandler(this.assignOIDsToolStripMenuItem_Click);
             // 
             // buildToolStripMenuItem
             // 
@@ -294,7 +309,7 @@
             this.label2.Location = new System.Drawing.Point(12, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Product Id";
             // 
             // textBoxProductId
@@ -302,7 +317,7 @@
             this.textBoxProductId.Location = new System.Drawing.Point(78, 36);
             this.textBoxProductId.Name = "textBoxProductId";
             this.textBoxProductId.Size = new System.Drawing.Size(80, 20);
-            this.textBoxProductId.TabIndex = 4;
+            this.textBoxProductId.TabIndex = 3;
             // 
             // toolStripContainer1
             // 
@@ -345,7 +360,7 @@
             this.comboBoxPlaybackMode.Location = new System.Drawing.Point(260, 35);
             this.comboBoxPlaybackMode.Name = "comboBoxPlaybackMode";
             this.comboBoxPlaybackMode.Size = new System.Drawing.Size(362, 21);
-            this.comboBoxPlaybackMode.TabIndex = 7;
+            this.comboBoxPlaybackMode.TabIndex = 5;
             this.comboBoxPlaybackMode.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label4
@@ -354,7 +369,7 @@
             this.label4.Location = new System.Drawing.Point(173, 39);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
-            this.label4.TabIndex = 3;
+            this.label4.TabIndex = 4;
             this.label4.Text = "Playback Mode";
             // 
             // toolStrip1
@@ -391,21 +406,6 @@
             this.toolStripButtonPrint.Size = new System.Drawing.Size(40, 40);
             this.toolStripButtonPrint.Text = "Print";
             this.toolStripButtonPrint.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.assignOIDsToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "&Edit";
-            // 
-            // assignOIDsToolStripMenuItem
-            // 
-            this.assignOIDsToolStripMenuItem.Name = "assignOIDsToolStripMenuItem";
-            this.assignOIDsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.assignOIDsToolStripMenuItem.Text = "&Assign OIDs...";
-            this.assignOIDsToolStripMenuItem.Click += new System.EventHandler(this.assignOIDsToolStripMenuItem_Click);
             // 
             // Editor
             // 
