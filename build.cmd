@@ -6,7 +6,7 @@ rem Target: build target. Default: Release. See build/build.targets for availabl
 
 set Target=%1
 if "%Target%" == "" (
-	set Target=Release
+	set Target=Setup
 )
 
 set msbuild="%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\MSBuild.exe"
