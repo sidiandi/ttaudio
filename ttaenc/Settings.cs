@@ -40,7 +40,11 @@ namespace ttaenc
 
         static string SettingsFile
         {
-            get { return Path.Combine(About.LocalApplicationDataDirectory, PathUtil.GetValidFileName(About.Product) + ".settings.xml"); }
+            get
+            {
+                var about = About.Get();
+                return Path.Combine(about.LocalApplicationDataDirectory, PathUtil.GetValidFileName(about.Product) + ".settings.xml");
+            }
         }
 
         public static Settings Read()

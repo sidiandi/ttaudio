@@ -44,7 +44,7 @@ namespace ttaenc
 
             var package = Package.CreateFromInputPaths(args);
     
-            var cacheDirectory = Path.Combine(About.LocalApplicationDataDirectory, "cache");
+            var cacheDirectory = Path.Combine(About.Get().LocalApplicationDataDirectory, "cache");
             var converter = new MediaFileConverter(cacheDirectory);
 
             var structure = new PackageDirectoryStructure(pen.RootDirectory, package);

@@ -4,6 +4,6 @@
   <PropertyGroup>
     <Configuration>Release</Configuration>
     <Platform>Any CPU</Platform>
-    <NugetFeed>https://www.myget.org/F/sidiandi/api/v2/package</NugetFeed>
+    <NugetFeed>https://www.nuget.org/api/v2/package</NugetFeed>
   </PropertyGroup>
 </Project>

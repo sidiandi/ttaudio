@@ -11,9 +11,8 @@
     <RootNamespace>ttaenc</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <HintPath>..\packages\taglib.2.1.0.0\lib\policy.2.0.taglib-sharp.dll</HintPath>
@@ -69,20 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="media\ding.ogg" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="media\2-columns.css" />
-    <Content Include="media\compact.css" />
-    <Content Include="media\default-album-art.png" />
-    <Content Include="media\default.css" />
-    <Content Include="media\kids.css" />
-    <Content Include="media\note_to_pen.png" />
-    <Content Include="media\power-symbol.svg" />
-    <Content Include="media\power.svg" />
-    <Content Include="media\stop.svg" />
-    <Content Include="media\style.css" />
+    <None Include="media\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -91,6 +85,7 @@
   </Target>
   -->
   <Target Name="AfterBuild">
+    <!--
     <ItemGroup>
       <ToolFiles Include="tools\**\*.*" />
     </ItemGroup>
@@ -99,13 +94,13 @@
       <MediaFiles Include="media\**\*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(MediaFiles)" DestinationFiles="@(MediaFiles->'$(OutDir)\media\%(RecursiveDir)%(FileName)%(Extension)')" UseHardlinksIfPossible="true" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+    -->
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\GitVersionTask.3.4.1\build\dotnet\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.4.1\build\dotnet\GitVersionTask.targets'))" />
-    <Error Condition="!Exists('..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets'))" />
+    <Error Condition="!Exists('..\..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets'))" />
   </Target>
-  <Import Project="..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\dotnet\GitVersionTask.targets')" />
+  <Import Project="..\..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets" Condition="Exists('..\..\packages\GitVersionTask.4.0.0-beta0012\build\GitVersionTask.targets')" />
 </Project>

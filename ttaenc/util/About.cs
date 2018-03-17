@@ -27,7 +27,12 @@ namespace ttaenc
 {
     public class About
     {
-        public static Uri GithubUri
+        public static About Get()
+        {
+            return new About();
+        }
+
+        public Uri GithubUri
         {
             get
             {
@@ -36,7 +41,7 @@ namespace ttaenc
             }
         }
 
-        public static string Product
+        public string Product
         {
             get
             {
@@ -45,7 +50,7 @@ namespace ttaenc
             }
         }
 
-        public static string Company
+        public string Company
         {
             get
             {
@@ -54,7 +59,7 @@ namespace ttaenc
             }
         }
 
-        public static string Version
+        public string Version
         {
             get
             {
@@ -63,7 +68,7 @@ namespace ttaenc
             }
         }
 
-        public static string LocalApplicationDataDirectory
+        public string LocalApplicationDataDirectory
         {
             get
             {
@@ -74,7 +79,7 @@ namespace ttaenc
             }
         }
 
-        public static string DocumentsDirectory
+        public string DocumentsDirectory
         {
             get
             {
@@ -83,7 +88,7 @@ namespace ttaenc
                     PathUtil.GetValidFileName(Product));
             }
         }
-        public static string Info
+        public string Info
         {
             get
             {

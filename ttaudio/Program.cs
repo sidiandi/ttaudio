@@ -41,7 +41,7 @@ namespace ttaudio
         [STAThread]
         static void Main(string[] args)
         {
-            log.Info(About.Info);
+            log.Info(About.Get().Info);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
+<Project DefaultTargets="Bootstrap" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask  
+    TaskName="NugetRead"  
+    TaskFactory="CodeTaskFactory"  
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
+    <ParameterGroup>  
+      <SolutionDir Required="true" />
+      <PropsFile Required="true" />
+    </ParameterGroup>  
+    <Task>  
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />  
+      <Using Namespace="System.Xml.Linq" />  
+      <Using Namespace="System.Text.RegularExpressions" />  
+      <Code Source="NugetRead.cs" />
+    </Task>  
+  </UsingTask>  
+
+  <UsingTask  
+    TaskName="NugetRestore"  
+    TaskFactory="CodeTaskFactory"  
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
+    <ParameterGroup>  
+      <SolutionFile Required="true" />
+    </ParameterGroup>  
+    <Task>  
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />  
+      <Using Namespace="System.Xml.Linq" />  
+      <Using Namespace="System.Text.RegularExpressions" />  
+      <Code Source="Nuget.cs" />
+    </Task>  
+  </UsingTask>  
+
+  <UsingTask  
+    TaskName="NugetUpdate"  
+    TaskFactory="CodeTaskFactory"  
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
+    <ParameterGroup>  
+      <SolutionFile Required="true" />
+    </ParameterGroup>  
+    <Task>  
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />  
+      <Using Namespace="System.Xml.Linq" />  
+      <Using Namespace="System.Text.RegularExpressions" />  
+      <Code Source="Nuget.cs" />
+    </Task>  
+  </UsingTask>  
+
+  <UsingTask  
+    TaskName="NugetPack"  
+    TaskFactory="CodeTaskFactory"  
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
+    <ParameterGroup>  
+      <OutputDirectory Required="true" />
+      <Targets ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <Outputs ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+      <Version />
+    </ParameterGroup>  
+    <Task>  
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />  
+      <Using Namespace="System.Xml.Linq" />  
+      <Using Namespace="System.Text.RegularExpressions" />  
+      <Code Source="Nuget.cs" />
+    </Task>  
+  </UsingTask>  
+
+  <UsingTask  
+    TaskName="NugetPush"  
+    TaskFactory="CodeTaskFactory"  
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
+    <ParameterGroup>  
+      <Packages ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <Source />
+      <ApiKey />
+    </ParameterGroup>  
+    <Task>  
+      <Reference Include="System.Xml" />
+      <Reference Include="System.Xml.Linq" />  
+      <Using Namespace="System.Xml.Linq" />  
+      <Using Namespace="System.Text.RegularExpressions" />  
+      <Code Source="Nuget.cs" />
+    </Task>
+  </UsingTask>  
+</Project>

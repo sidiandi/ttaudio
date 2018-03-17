@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/)
-
-This file is part of sidi-util.
-
-sidi-util is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-sidi-util is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="$(BuildDir)\obj\nuget.props" />
+  <Import Project="$(BuildDir)\nuget.props" />
+  <Import Project="AssemblyInfo.task" />
+  <Import Project="Nuget.task" />
   
   <PropertyGroup>
     <Configuration>Release</Configuration>
@@ -27,19 +13,19 @@ along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
   <!-- Directories -->
 	<PropertyGroup>
 		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
-		<NugetPackagesDir>$(SourceDir)\packages</NugetPackagesDir>
+		<PackageDir>$(BuildDir)\package</PackageDir>
   </PropertyGroup>
   
   <!-- Tools -->
 	<PropertyGroup>
-		<NUnitConsole>$(NugetPackagesDir)\NUnit.ConsoleRunner.$(NugetPackageVersion_NUnit_ConsoleRunner)\tools\nunit3-console.exe</NUnitConsole>
+		<NUnitConsole>$(Nuget_NUnit_ConsoleRunner_ToolsDirectory)\nunit3-console.exe</NUnitConsole>
 		<Nuget>NuGet.exe</Nuget>
 		<Git>git</Git>
     <GithubRelease>github-release.exe</GithubRelease>
     <GithubReleaseEnvironmentVariables>GITHUB_TOKEN=$(GITHUB_TOKEN);GITHUB_USER=$(GITHUB_USER);GITHUB_REPO=$(GITHUB_REPO)</GithubReleaseEnvironmentVariables>
   </PropertyGroup>
 
-  <Import Project="$(NugetPackagesDir)\GitVersionTask.$(NugetPackageVersion_GitVersionTask)\Build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" />
+  <Import Project="$(Nuget_GitVersionTask_Directory)\Build\GitVersionTask.targets" />
   
   <Target Name="GetVersion">
 		<GetVersion SolutionDirectory="$(SolutionDir)">
@@ -66,7 +52,15 @@ along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
 		<Message Text="$(GfvInformationalVersion)" />
 	</Target>
 
-	<Target Name="Build" DependsOnTargets="GetVersion" >
+	<Target Name="WriteCommonAssemblyInfo" DependsOnTargets="GetVersion" >
+    <WriteCommonAssemblyInfo 
+      CompanyName="$(CompanyName)"
+      ProductName="$(ProductName)"
+      Output="$(BuildDir)\..\CommonAssemblyInfo.cs"
+    />
+  </Target>
+
+	<Target Name="Build" DependsOnTargets="GetVersion;WriteCommonAssemblyInfo" >
     <MSBuild Projects="$(SourceDir)\$(ProductName).sln" Properties="Configuration=$(Configuration);Platform=$(Platform);BuildDir=$(BuildDir);Version=$(GfvNuGetVersion)" >
       <Output ItemName="Targets" TaskParameter="TargetOutputs" />
     </MSBuild>
@@ -106,7 +100,7 @@ along with sidi-util. If not, see <http://www.gnu.org/licenses/>.-->
     <ItemGroup>
       <TestTargets Include="%(Targets.Identity)" Condition="$([System.Text.RegularExpressions.Regex]::IsMatch(%(Filename), 'Test'))"/>
     </ItemGroup>
-    <Exec Command="&quot;$(NUnitConsole)&quot; --labels=On --work=&quot;$(TestDir)&quot; --result=&quot;$(TestDir)\TestResult.xml&quot; --labels=All @(TestTargets -> '&quot;%(Identity)&quot;', ' ')" />
+    <Exec Command="&quot;$(NUnitConsole)&quot; --labels=On --result=&quot;$(BuildDir)\TestResult.xml&quot; --labels=All @(TestTargets -> '&quot;%(Identity)&quot;', ' ')" />
   </Target>
 
   <Target Name="Pack" DependsOnTargets="GetVersion">

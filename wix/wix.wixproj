@@ -17,7 +17,7 @@
     <PdbOutputPath>$(BuildDir)\obj\wix</PdbOutputPath>
     <StageDirectory>$(BuildDir)\stage</StageDirectory>
     <OutDir>$(BuildDir)</OutDir>
-    <BinDir>$(BuildDir)\bin</BinDir>
+    <BinDir>$(BuildDir)\ttaudio\bin</BinDir>
     <HarvestDirectorySuppressCom>true</HarvestDirectorySuppressCom>
     <HarvestVerboseOutput>true</HarvestVerboseOutput>
     <HarvestDirectorySuppressRootDirectory>true</HarvestDirectorySuppressRootDirectory>
@@ -61,12 +61,15 @@
         SourceDir=$(SourceDir);
         $(DefineConstants)
       </DefineConstants>
+      <FilesToInstallSourceDir>$(BuildDir)\ttaudio\bin</FilesToInstallSourceDir>
     </PropertyGroup>
     <!-- copy to stage -->
+    <Message Text="$(FilesToInstallSourceDir)" Importance="High" />
     <ItemGroup>
-      <FilesToInstall Include="$(BinDir)/**/*" Exclude="$(BinDir)/**/*.pdb;$(BinDir)/**/*.xml;$(BinDir)/**/*.Tests.*" />
+      <FilesToInstall Include="$(FilesToInstallSourceDir)/**/*" Exclude="$(FilesToInstallSourceDir)/**/*.pdb;$(FilesToInstallSourceDir)/**/*.xml;$(FilesToInstallSourceDir)/**/*.Tests.*" />
     </ItemGroup>
     <RemoveDir Directories="$(StageDirectory)" />
+    <MakeDir Directories="$(StageDirectory)" />
     <Copy
       DestinationFolder="$(StageDirectory)\%(RecursiveDir)"
       SourceFiles="@(FilesToInstall)"

@@ -40,6 +40,7 @@ namespace ttaudio
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         readonly Document document;
+        About about = About.Get();
 
         public Editor(Document document)
         {
@@ -105,7 +106,7 @@ namespace ttaudio
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(ttaenc.About.GithubUri.ToString());
+            Process.Start(about.GithubUri.ToString());
         }
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -177,7 +178,7 @@ namespace ttaudio
         void SaveAs()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = ttaenc.About.DocumentsDirectory;
+            saveFileDialog.InitialDirectory = about.DocumentsDirectory;
             saveFileDialog.Filter = Document.fileDialogFilter;
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -215,7 +216,7 @@ namespace ttaudio
 
             this.comboBoxPlaybackMode.SelectedIndex = (int) p.PlaybackMode;
 
-            this.Text = String.Join(" - ", new string[] { About.Product, this.document.ttaFile }
+            this.Text = String.Join(" - ", new string[] { about.Product, this.document.ttaFile }
                 .Where(_ => !String.IsNullOrEmpty(_)));
         }
 
@@ -275,7 +276,7 @@ namespace ttaudio
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show(String.Format("Upload is not possible because the Tiptoi pen is not connected."), About.Product);
+                    System.Windows.Forms.MessageBox.Show(String.Format("Upload is not possible because the Tiptoi pen is not connected."), about.Product);
                     ShowOutput(builder);
                 }
 
@@ -297,7 +298,7 @@ namespace ttaudio
                 UpdateView();
             }
 
-            var s = new PackageDirectoryStructure(Path.Combine(About.DocumentsDirectory, "output"), this.document.package);
+            var s = new PackageDirectoryStructure(Path.Combine(about.DocumentsDirectory, "output"), this.document.package);
             return new PackageBuilder(s, Context.GetDefaultMediaFileConverter(), Settings.Read().CreateOidSvgWriter());
         }
 
@@ -318,7 +319,7 @@ namespace ttaudio
 
         public void ShowAboutInformation()
         {
-            Process.Start(ttaenc.About.GithubUri.ToString());
+            Process.Start(about.GithubUri.ToString());
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -326,11 +327,11 @@ namespace ttaudio
             InstanceOpen();
         }
 
-        public static void Open()
+        public void Open()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                InitialDirectory = About.DocumentsDirectory,
+                InitialDirectory = about.DocumentsDirectory,
             };
             PathUtil.EnsureDirectoryExists(openFileDialog.InitialDirectory);
 
@@ -382,7 +383,7 @@ namespace ttaudio
         {
             Task.Factory.StartNew(() =>
             {
-                var testPage = Path.Combine(About.LocalApplicationDataDirectory, "tiptoi-printer-test.html");
+                var testPage = Path.Combine(about.LocalApplicationDataDirectory, "tiptoi-printer-test.html");
                 PathUtil.EnsureParentDirectoryExists(testPage);
                 OidSvgWriter.CreatePrinterTestPage(testPage);
                 Process.Start(testPage);

@@ -40,7 +40,7 @@ namespace ttaenc
         {
             get
             {
-                return new TipToiPen(Path.Combine(About.DocumentsDirectory, "pen"));
+                return new TipToiPen(Path.Combine(About.Get().DocumentsDirectory, "pen"));
             }
         }
 

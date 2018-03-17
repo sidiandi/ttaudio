@@ -4,13 +4,13 @@
   <Import Project="Build.props" />
   <PropertyGroup>
 	<SourceDir>$([System.IO.Path]::GetDirectoryName($([System.IO.Path]::GetDirectoryName($(MSBuildThisFileFullPath)))))</SourceDir>
+	<SolutionFile>$(SourceDir)\$(Productname).sln</SolutionFile>
 	<BuildDir>$(OutDir)</BuildDir>
-	<BuildDir Condition="$(OutDir) == ''" >$(SourceDir)\out\$(Configuration)-$(Platform)</BuildDir>
+	<BuildDir Condition="$(OutDir) == ''" >$(SourceDir)\out\$(Configuration)</BuildDir>
 	<OutDir>$(BuildDir)\bin</OutDir>
 	<OutputPath>$(OutDir)</OutputPath>
 	<BaseIntermediateOutputPath>$(BuildDir)\obj</BaseIntermediateOutputPath>
-    <LibDir>$(SolutionDir)lib\</LibDir>
-	<TestDir>$(BuildDir)\test-data</TestDir>
+  <LibDir>$(SolutionDir)lib\</LibDir>
 	<SetupWixproj>$(SourceDir)\setup\setup.wixproj</SetupWixproj>
   </PropertyGroup>
 </Project>

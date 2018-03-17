@@ -11,7 +11,7 @@ namespace ttaenc
     {
         public static MediaFileConverter GetDefaultMediaFileConverter()
         {
-            var cacheDirectory = Path.Combine(About.LocalApplicationDataDirectory, "cache");
+            var cacheDirectory = Path.Combine(About.Get().LocalApplicationDataDirectory, "cache");
             var converter = new MediaFileConverter(cacheDirectory);
             return converter;
         }
