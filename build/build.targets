@@ -2,9 +2,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="$(BuildDir)\nuget.props" />
-  <Import Project="AssemblyInfo.task" />
-  <Import Project="Nuget.task" />
-  <Import Project="Zip.task" />
+  <Import Project="task\AssemblyInfo.task" />
+  <Import Project="task\Nuget.task" />
+  <Import Project="task\Zip.task" />
   
   <PropertyGroup>
     <Configuration>Release</Configuration>
@@ -156,8 +156,10 @@
     <RemoveDir Directories="$(BuildDir)" />
   </Target>
 
-  <Target Name="Release" DependsOnTargets="Test;Setup;ZipProductFiles;Tag;PublishAsGithubRelease" />
+  <Target Name="Publish" DependsOnTargets="Test;Setup;ZipProductFiles;Tag;PublishAsGithubRelease" />
+
+  <Target Name="PublishBeta" DependsOnTargets="Test;Setup;ZipProductFiles;Tag;PublishOnDropbox" />
   
-  <Target Name="PreRelease" DependsOnTargets="Test;Setup;ZipProductFiles;Tag;PublishOnDropbox" />
+  <Target Name="Release" DependsOnTargets="Test;Setup;ZipProductFiles" />
   
 </Project>

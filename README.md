@@ -19,7 +19,7 @@ Save the .msi file to your computer and open it to start the installation.
 
 ![Screenshot of HTML output](/doc/screenshot_html_output.png)
 
-## Workflow
+## Instructions
 * Attach the TipToi pen to the USB port of your computer
 * Start ttaudio
 * Drop audio files into the file list
@@ -33,6 +33,8 @@ Save the .msi file to your computer and open it to start the installation.
 * Wait until ttaudio has copied the *.gme file to the pen
 
 ## More possibilities
+
+ttaenc.exe is a command line version of ttaudio. It is contained in the ttaudio installation.
 
 ttaudio is based on [tttool](http://tttool.entropia.de/), a universal, command line based tool to create and analyze GME files. 
 Check out http://tttool.entropia.de/ if you want to do more than just upload some MP3 files, e.g. print your own interactive books or toys.
@@ -58,7 +60,7 @@ Install prerequisites:
 
 With [chocolatey](https://chocolatey.org/):
 ~~~~
-choco install visualstudio2017community nuget wixtoolset 
+choco install visualstudio2017community wixtoolset 
 ~~~~
 
 Build, test, create msi:

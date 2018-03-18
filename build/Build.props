@@ -1,22 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <CompanyName>sidiandi</CompanyName>
     <ProductName>ttaudio</ProductName>
     <UpgradeCode>729eb7d7-fbfc-4261-bf6f-bb4fa59c4d6f</UpgradeCode>
-  </PropertyGroup>
-  
-  <PropertyGroup>
     <GITHUB_REPO>ttaudio</GITHUB_REPO>
   </PropertyGroup>
-
-  <!-- define secret project properties in a private .props file. See build/api_key_example.props for an example -->
-  <PropertyGroup Condition="$(SECRET_PROPS) == ''">
-    <SECRET_PROPS>$(HOMEPATH)\Documents\$(ProductName)-secrets.props</SECRET_PROPS>
-  </PropertyGroup>
-
-  <!-- Only import the secret props file if the secrets are not available as environment variables. -->
-  <Import Project="$(SECRET_PROPS)" Condition="Exists('$(SECRET_PROPS)') and $(GITHUB_TOKEN) == ''" />
-  
 </Project>

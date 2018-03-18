@@ -1,21 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
 <Project DefaultTargets="Bootstrap" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask  
-    TaskName="WriteCommonAssemblyInfo"  
+    TaskName="ZipProductFiles"  
     TaskFactory="CodeTaskFactory"  
     AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v12.0.dll" >  
     <ParameterGroup>  
-      <CompanyName Required="true" />
-      <ProductName Required="true" />
-      <Output Required="true" />
+      <Targets Required="true" ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
+      <Output ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+      <Version Required="true" />
+      <OutputDirectory />
     </ParameterGroup>  
     <Task>  
       <Reference Include="System.Xml" />
       <Reference Include="System.Xml.Linq" />  
+      <Reference Include="System.IO.Compression" />
+      <Reference Include="System.IO.Compression.FileSystem" />
       <Using Namespace="System.Xml.Linq" />  
       <Using Namespace="System.Text.RegularExpressions" />  
-      <Code Source="AssemblyInfo.cs" />
+      <Code Source="$(MSBuildThisFileDirectory)Zip.cs" />
     </Task>  
   </UsingTask>  
 </Project>

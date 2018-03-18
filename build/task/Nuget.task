@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
 <Project DefaultTargets="Bootstrap" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask  
     TaskName="NugetRead"  
@@ -14,7 +13,7 @@
       <Reference Include="System.Xml.Linq" />  
       <Using Namespace="System.Xml.Linq" />  
       <Using Namespace="System.Text.RegularExpressions" />  
-      <Code Source="NugetRead.cs" />
+      <Code Source="$(MSBuildThisFileDirectory)Nuget.cs" />
     </Task>  
   </UsingTask>  
 
@@ -30,7 +29,7 @@
       <Reference Include="System.Xml.Linq" />  
       <Using Namespace="System.Xml.Linq" />  
       <Using Namespace="System.Text.RegularExpressions" />  
-      <Code Source="Nuget.cs" />
+      <Code Source="$(MSBuildThisFileDirectory)Nuget.cs" />
     </Task>  
   </UsingTask>  
 
@@ -46,7 +45,7 @@
       <Reference Include="System.Xml.Linq" />  
       <Using Namespace="System.Xml.Linq" />  
       <Using Namespace="System.Text.RegularExpressions" />  
-      <Code Source="Nuget.cs" />
+      <Code Source="$(MSBuildThisFileDirectory)Nuget.cs" />
     </Task>  
   </UsingTask>  
 
@@ -65,7 +64,7 @@
       <Reference Include="System.Xml.Linq" />  
       <Using Namespace="System.Xml.Linq" />  
       <Using Namespace="System.Text.RegularExpressions" />  
-      <Code Source="Nuget.cs" />
+      <Code Source="$(MSBuildThisFileDirectory)Nuget.cs" />
     </Task>  
   </UsingTask>  
 
@@ -83,7 +82,7 @@
       <Reference Include="System.Xml.Linq" />  
       <Using Namespace="System.Xml.Linq" />  
       <Using Namespace="System.Text.RegularExpressions" />  
-      <Code Source="Nuget.cs" />
+      <Code Source="$(MSBuildThisFileDirectory)Nuget.cs" />
     </Task>
   </UsingTask>  
 </Project>

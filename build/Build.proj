@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (c) 2014, Andreas Grimme (http://andreas-grimme.gmxhome.de/) -->
 <Project DefaultTargets="PreRelease" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<Import Project="Paths.props" />
 	<Import Project="Build.targets" />
