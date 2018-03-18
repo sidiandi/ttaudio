@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Firefox.cs" />
     <Compile Include="IProductIdProvider.cs" />
     <Compile Include="ProductIdProvider.cs" />
     <Compile Include="Settings.cs" />

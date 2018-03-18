@@ -247,6 +247,14 @@ namespace ttaudio
 
         public void Print()
         {
+            if (!Firefox.IsInstalled)
+            {
+                System.Windows.Forms.MessageBox.Show(String.Format(
+@"It is recommended to install the Firefox browser to print the TipToi optical codes.
+
+Your default browser may not be able to print the TipToi optical codes correctly."), about.Product);
+            }
+
             UpdateModel();
             var builder = GetPackageBuilder();
             var cts = new CancellationTokenSource();

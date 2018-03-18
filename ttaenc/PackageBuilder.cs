@@ -340,8 +340,17 @@ Style: ");
 
         public Task OpenHtmlPage(CancellationToken cancellationToken)
         {
-            // open html
-            Process.Start(packageDirectoryStructure.HtmlFile);
+            // try to open with firefox first.
+            var firefoxExe = Path.Combine(System.Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"Mozilla Firefox\firefox.exe");
+            if (Firefox.IsInstalled)
+            {
+                Firefox.OpenHtmlPage(packageDirectoryStructure.HtmlFile);
+            }
+            else
+            {
+                // open html with default browser
+                Process.Start(packageDirectoryStructure.HtmlFile);
+            }
             return Task.CompletedTask;
         }
 
