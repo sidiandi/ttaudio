@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+using Sidi.GetOpt;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,9 +32,19 @@ namespace ttaenc
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             log4net.Config.BasicConfigurator.Configure();
+            return Sidi.GetOpt.GetOpt.Run(new Program(), args);
+        }
+
+        [Usage("Upload audio files to TipToi pen.\r\nSee https://github.com/sidiandi/ttaudio for details.")]
+        public async Task Build(string[] mp3FilesOrDirectories)
+        {
+            if (!mp3FilesOrDirectories.Any())
+            {
+                throw new ArgumentOutOfRangeException(nameof(mp3FilesOrDirectories), String.Empty, "You must specify at least one audio file.");
+            }
 
             var pen = TipToiPen.GetAll().FirstOrDefault();
             if (pen == null)
@@ -42,14 +53,14 @@ namespace ttaenc
                 log.InfoFormat("Pen is not attached. Output will be written to {0}", pen.RootDirectory);
             }
 
-            var package = Package.CreateFromInputPaths(args);
+            var package = Package.CreateFromInputPaths(mp3FilesOrDirectories);
     
             var cacheDirectory = Path.Combine(About.Get().LocalApplicationDataDirectory, "cache");
             var converter = new MediaFileConverter(cacheDirectory);
 
             var structure = new PackageDirectoryStructure(pen.RootDirectory, package);
             var packageBuilder = new PackageBuilder(structure, converter, Settings.Read().CreateOidSvgWriter());
-            packageBuilder.Build(CancellationToken.None).Wait();
+            await packageBuilder.Build(CancellationToken.None);
         }
     }
 }
