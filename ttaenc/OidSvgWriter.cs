@@ -232,14 +232,22 @@ namespace ttaenc
 
                 w.Write("<p/>");
                 w.Write("<table border=\"solid\">");
-                w.Write("<tr><th>Row</th><th>Dot Size</th></tr>");
+                var dpi = 1200.0;
+                var oneInch = 0.0254;
+                w.Write("<tr><th>Row</th><th>Dot Size</th><th>tttool --pixel-size at {0:F0} DPI</th></tr>", dpi);
                 rowLetter = rowLetterStart;
                 for (int dotSize = -4; dotSize <= 4; ++dotSize)
                 {
                     w.Write("<tr>");
                     var fDotSize = (float)Math.Pow(powBase, dotSize);
                     w.Write("<td>"); w.Write(T(String.Format("{0}", rowLetter++)));w.Write("</td>");
-                    w.Write("<td>"); w.Write(T(String.Format("{0:F0} µm", defaultOidWriter.DotSize * fDotSize * 1e4))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F0} µm", defaultOidWriter.DotSize * fDotSize * 1e4)));
+                    if (dotSize == 0)
+                    {
+                        w.Write(" (default)");
+                    }
+                    w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F0}", defaultOidWriter.DotSize * fDotSize * 1e-2 / (oneInch / dpi) ))); w.Write("</td>");
                     w.Write("</tr>");
                 }
                 w.Write("</table>");
@@ -253,7 +261,12 @@ namespace ttaenc
                     var fGridSpacing = (float)Math.Pow(powBase, gridSpacing);
                     w.Write("<tr>");
                     w.Write("<td>"); w.Write(T(String.Format("{0}", columnLetter++))); w.Write("</td>");
-                    w.Write("<td>"); w.Write(T(String.Format("{0:F0} µm", defaultOidWriter.GridSpacing * fGridSpacing * 1e4))); w.Write("</td>");
+                    w.Write("<td>"); w.Write(T(String.Format("{0:F0} µm", defaultOidWriter.GridSpacing * fGridSpacing * 1e4)));;
+                    if (gridSpacing == 0)
+                    {
+                        w.Write(" (default)");
+                    }
+                    w.Write("</td>");
                     w.Write("</tr>");
                 }
                 w.Write("</table>");
