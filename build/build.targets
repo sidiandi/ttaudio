@@ -4,6 +4,7 @@
   <Import Project="$(BuildDir)\nuget.props" />
   <Import Project="AssemblyInfo.task" />
   <Import Project="Nuget.task" />
+  <Import Project="Zip.task" />
   
   <PropertyGroup>
     <Configuration>Release</Configuration>
@@ -43,6 +44,7 @@
 		  <Output TaskParameter="FullSemVer" PropertyName="GfvFullSemVer" />
 		  <Output TaskParameter="AssemblySemVer" PropertyName="GfvAssemblySemVer" />
 		  <Output TaskParameter="NuGetVersion" PropertyName="GfvNuGetVersion" />
+		  <Output TaskParameter="NuGetVersion" PropertyName="Version" />
 		  <Output TaskParameter="PreReleaseTag" PropertyName="GfvPreReleaseTag" />
 		  <Output TaskParameter="PreReleaseTagWithDash" PropertyName="GfvPreReleaseTagWithDash" />
 		  <Output TaskParameter="InformationalVersion" PropertyName="GfvInformationalVersion" />
@@ -64,6 +66,9 @@
     <MSBuild Projects="$(SourceDir)\$(ProductName).sln" Properties="Configuration=$(Configuration);Platform=$(Platform);BuildDir=$(BuildDir);Version=$(GfvNuGetVersion)" >
       <Output ItemName="Targets" TaskParameter="TargetOutputs" />
     </MSBuild>
+    <ItemGroup>
+      <ProductTargets Include="@(Targets)" Condition="'%(Extension)' == '.exe'" />
+    </ItemGroup>
   </Target>
 
   <Target Name="Setup" DependsOnTargets="Build;BuildSetup">
@@ -84,9 +89,20 @@
           UpgradeCode=$(UpgradeCode);
           IntermediateOutputPath=$(BaseIntermediateOutputPath)\setup\
           ">
-      <Output ItemName="SetupFiles" TaskParameter="TargetOutputs"/>
+      <Output ItemName="MsiFiles" TaskParameter="TargetOutputs"/>
     </MSBuild>
-    <Message Text="@(SetupFiles, ' ')" />
+    <ItemGroup>
+      <Publish Include="@(MsiFiles)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ZipProductFiles" DependsOnTargets="Build">
+    <ZipProductFiles Targets="@(ProductTargets)" Version="$(Version)" OutputDirectory="$(BuildDir)" >
+      <Output ItemName="ZipFiles" TaskParameter="Output" />
+    </ZipProductFiles>
+    <ItemGroup>
+      <Publish Include="@(ZipFiles)" />
+    </ItemGroup>
   </Target>
 
   <Target Name="Tag" DependsOnTargets="GetVersion">
@@ -109,44 +125,39 @@
 	</PropertyGroup>
 	<RemoveDir Directories="$(PackageDir)"/>
 	<MakeDir Directories="$(PackageDir)" />
-	<Exec WorkingDirectory="$(ReleaseDir)" Command="&quot;$(Nuget)&quot; pack &quot;$(SourceDir)\%(Package.Identity)\%(Package.Identity).csproj&quot; -OutputDirectory &quot;$(PackageDir)&quot; -Version $(GfvNuGetVersion)" />
+	<Exec WorkingDirectory="$(ReleaseDir)" Command="&quot;$(Nuget)&quot; pack &quot;$(SourceDir)\%(Package.Identity)\%(Package.Identity).csproj&quot; -OutputDirectory &quot;$(PackageDir)&quot; -Version $(Version)" />
 	<ItemGroup>
-		<PackageFiles Include="$(PackageDir)\%(Package.Identity).$(GfvNuGetVersion).nupkg" />
+		<PackageFiles Include="$(PackageDir)\%(Package.Identity).$(Version).nupkg" />
 	</ItemGroup>
   </Target>
 
-  <!-- Push nuget packages to feed -->
   <Target Name="Push" DependsOnTargets="Test;Pack">
     <Exec WorkingDirectory="$(ReleaseDir)" Command="&quot;$(Nuget)&quot; push &quot;%(PackageFiles.Identity)&quot; -ApiKey $(NugetApiKey) -Source $(NugetFeed)" />
   </Target>
 
-  <Target Name="Run" DependsOnTargets="Build">
-	<Exec Command="$(OutDir)\hagen.exe Popup" />
-  </Target>
-  
   <Target Name="Install" DependsOnTargets="Setup">
-    <Exec Command="&quot;@(SetupFiles, ' ')&quot;" />
+    <Exec Command="&quot;@(MsiFiles, ' ')&quot;" />
   </Target>
   
-  <Target Name="PublishOnDropbox" DependsOnTargets="Setup" >
-    <Copy SourceFiles="@(SetupFiles)"  DestinationFolder="$(USERPROFILE)\Dropbox\hagen\setup" />
+  <Target Name="PublishOnDropbox" >
+    <Copy SourceFiles="@(Publish)"  DestinationFolder="$(USERPROFILE)\Dropbox\$(ProductName)" />
   </Target>
   
   <Target Name="PublishAsGithubRelease" DependsOnTargets="Setup" >
     <Exec IgnoreExitCode="true" IgnoreStandardErrorWarningFormat="true" Command="&quot;$(GithubRelease)&quot; release --tag $(ReleaseTag)" 
       EnvironmentVariables="$(GithubReleaseEnvironmentVariables)"
     />
-    <Exec Command="&quot;$(GithubRelease)&quot; upload --tag $(ReleaseTag) --name &quot;$(ProductName)-$(GfvFullSemVer).msi&quot; --replace --file @(SetupFiles -> '&quot;%(Identity)&quot;', ' ')" 
+    <Exec Command="&quot;$(GithubRelease)&quot; upload --tag $(ReleaseTag) --name &quot;%(Publish.Filename).%(Extension)&quot; --replace --file &quot;%(Identity)&quot;" 
       EnvironmentVariables="$(GithubReleaseEnvironmentVariables)"
     />
   </Target>
-  
-  <Target Name="Release" DependsOnTargets="Test;Setup;Tag;PublishAsGithubRelease" />
-  
-  <Target Name="PreRelease" DependsOnTargets="Test;Setup;Tag;PublishOnDropbox" />
   
   <Target Name="Clean" >
     <RemoveDir Directories="$(BuildDir)" />
   </Target>
 
+  <Target Name="Release" DependsOnTargets="Test;Setup;ZipProductFiles;Tag;PublishAsGithubRelease" />
+  
+  <Target Name="PreRelease" DependsOnTargets="Test;Setup;ZipProductFiles;Tag;PublishOnDropbox" />
+  
 </Project>
