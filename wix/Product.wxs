@@ -50,6 +50,9 @@
       </Directory>
     </Directory>
 
+  <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+	<Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+	<UIRef Id="WixUI_InstallDir" />
 
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component Id="ApplicationShortcut" Guid="edb02483-facc-4a17-b10b-580ec5580599">
