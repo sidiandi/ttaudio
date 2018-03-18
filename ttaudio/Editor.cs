@@ -81,7 +81,7 @@ namespace ttaudio
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                Add(files);
+                Add(files).Forget();
             }
         }
 
