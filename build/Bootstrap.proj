@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Bootstrap" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="Paths.props" />
+	<Import Project="Base.props" />
 	<Import Project="task\Nuget.task" />
 
   <Target Name="CreateBuildDir" >
@@ -18,7 +18,7 @@
   <!-- This target puts the build.log file into the build directory -->
   <Target Name="Bootstrap" DependsOnTargets="RestorePackages" >
     <MakeDir Directories="$(BuildDir)\log" />
-    <Exec Command="&quot;$(MSBuildBinPath)\msbuild.exe&quot; &quot;$(MSBuildProjectDir)Build.proj&quot; /verbosity:minimal /t:$(BuildTarget) &quot;/fileLoggerParameters:LogFile=$(BuildDir)\log\build.log;Verbosity=diagnostic;Encoding=UTF-8&quot;" />
+    <Exec Command="&quot;$(MSBuildBinPath)\msbuild.exe&quot; /nologo &quot;$(MSBuildProjectDir)..\Build.proj&quot; /verbosity:minimal /t:$(BuildTarget) &quot;/fileLoggerParameters:LogFile=$(BuildDir)\log\build.log;Verbosity=diagnostic;Encoding=UTF-8&quot;" />
   </Target>
 
 </Project>

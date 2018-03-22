@@ -8,45 +8,12 @@ using System.Text.RegularExpressions;
 using System.IO.Compression;
 using Microsoft.Build.Utilities;
 
-public class ZipProductFiles: ITask  
+public class ZipProductFiles: Task  
 {  
     static string Quote(string x)
     {
         return "\"" + x + "\"";
     }
-    //When implementing the ITask interface, it is necessary to  
-    //implement a BuildEngine property of type  
-    //Microsoft.Build.Framework.IBuildEngine. This is done for  
-    //you if you derive from the Task class.  
-    private IBuildEngine buildEngine;  
-    public IBuildEngine BuildEngine  
-    {  
-        get  
-        {  
-            return buildEngine;  
-        }  
-        set  
-        {  
-            buildEngine = value;  
-        }  
-        }  
-
-    // When implementing the ITask interface, it is necessary to  
-    // implement a HostObject property of type Object.  
-    // This is done for you if you derive from the Task class.  
-    private ITaskHost hostObject;  
-    public ITaskHost HostObject  
-    {  
-        get  
-        {  
-            return hostObject;  
-        }  
-
-        set  
-        {  
-            hostObject = value;  
-        }  
-    } 
 
     public string Version { get; set; }
     public string OutputDirectory { get; set; }
@@ -105,7 +72,7 @@ public class ZipProductFiles: ITask
         return new TaskItem(zipFile);
     }
 
-    public bool Execute()  
+    override public bool Execute()  
     {  
         Output = Targets.Select(_ => Zip(_, OutputDirectory, Version)).ToArray();
         return true;  

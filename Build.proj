@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="PreRelease" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="Paths.props" />
-	<Import Project="Build.targets" />
+	<Import Project="build\Base.props" />
+	<Import Project="build\Build.targets" />
 </Project>

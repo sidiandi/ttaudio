@@ -12,8 +12,7 @@
   </PropertyGroup>
 
   <!-- Directories -->
-	<PropertyGroup>
-		<SourceDir>$([System.IO.Directory]::GetParent($(MSBuildProjectDirectory)))</SourceDir>
+  <PropertyGroup>
 		<PackageDir>$(BuildDir)\package</PackageDir>
   </PropertyGroup>
   
@@ -29,7 +28,7 @@
   <Import Project="$(Nuget_GitVersionTask_Directory)\Build\GitVersionTask.targets" />
   
   <Target Name="GetVersion">
-		<GetVersion SolutionDirectory="$(SolutionDir)">
+		<GetVersion SolutionDirectory="$(SourceDir)">
 		  <Output TaskParameter="Major" PropertyName="GfvMajor" />
 		  <Output TaskParameter="Minor" PropertyName="GfvMinor" />
 		  <Output TaskParameter="Patch" PropertyName="GfvPatch" />
