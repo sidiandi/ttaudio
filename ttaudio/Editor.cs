@@ -106,7 +106,9 @@ namespace ttaudio
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(about.GithubUri.ToString());
+            var aboutDialog = new Sidi.About(this.about);
+            aboutDialog.ShowDialog();
+            // Process.Start(about.GithubUri.ToString());
         }
 
         private void exploreDataDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -318,11 +320,6 @@ Your default browser may not be able to print the TipToi optical codes correctly
         private void uploadToPenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Upload();
-        }
-
-        private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ShowAboutInformation();
         }
 
         public void ShowAboutInformation()

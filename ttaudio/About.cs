@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,17 @@ namespace Sidi
             this.about = about;
             InitializeComponent();
 
+            this.textBoxAboutInfo.Text =
+@"" + about.Product + @" " + about.Version;
+
             this.Text = about.Product;
-            labelProduct.Text = about.Info;
             linkLabelHomepage.Text = about.GithubUri.ToString();
+            linkLabelHomepage.Click += LinkLabelHomepage_Click;
         }
 
+        private void LinkLabelHomepage_Click(object sender, EventArgs e)
+        {
+            Process.Start(about.GithubUri.ToString());
+        }
     }
 }
